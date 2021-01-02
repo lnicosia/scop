@@ -84,34 +84,25 @@ RESET :="\e[0m"
 # Rules
 #
 
-all:
+all: $(NAME)
 	@printf $(CYAN)"[INFO] Buidling libft..\n"$(RESET) 
 	@make --no-print-directory -C $(LIBFT_DIR)
 	@printf $(RESET)
 	@printf $(CYAN)"[INFO] Buidling scop..\n"$(RESET) 
-	@make --no-print-directory $(EDITOR_DIR)/$(EDITOR_NAME)
-
-$(NAME): all
 
 $(OPEN_GL) = sudo apt-get install freeglut3-dev
 
 $(LIBFT):
 	@make -C $(LIBFT_DIR) -j8
 
-$(OBJ_GAME_DIR):
-	@mkdir -p $(OBJ_GAME_DIR)
-
-$(OBJ_EDITOR_DIR):
-	@mkdir -p $(OBJ_EDITOR_DIR)
-
-$(OBJ_ALL_DIR):
-	@mkdir -p $(OBJ_ALL_DIR)
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES)
 	@printf $(YELLOW)"Compiling $<\n"$(RESET)
 	@gcc -c $< -o $@ $(CFLAGS) 
 
-$(GAME_NAME): $(LIBFT) $(OBJ_DIR) 
+$(NAME): $(LIBFT) $(OBJ) 
 	@printf $(CYAN)"[INFO] Linking ${GAME_DIR}/${GAME_NAME}\n"$(RESET)
 	@gcc $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) 
 	@printf ${GREEN}"[INFO] Compiled $(BIN_DIR)/$(NAME) with success!\n"
