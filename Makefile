@@ -29,9 +29,9 @@ LIBFT = $(LIBFT_DIR)/libft.a
 
 LIB_RAW = 
 
-SRC_RAW = main.c
+SRC_RAW = main.c scop.c
 
-HEADERS = 
+HEADERS = scop.h
 
 #
 # Creation of files path
@@ -90,7 +90,7 @@ all: $(NAME)
 	@printf $(RESET)
 	@printf $(CYAN)"[INFO] Buidling scop..\n"$(RESET) 
 
-$(OPEN_GL) = sudo apt-get install freeglut3-dev
+$(OPEN_GL) = sudo apt-get install libglfw3-dev
 
 $(LIBFT):
 	@make -C $(LIBFT_DIR) -j8
