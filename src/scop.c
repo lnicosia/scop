@@ -10,9 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "scop.h"
+
 int	scop(int ac, char **av)
 {
 	(void)ac;
 	(void)av;
+	if (init_opengl())
+		return (-1);
 	return (0);
 }

@@ -21,15 +21,17 @@ BIN_DIR = .
 INCLUDES_DIR = includes
 LIBFT_DIR = libft
 INSTALL_DIR = install
+GLAD_DIR = glad
 SED = sed
 ROOT = sudo
-OPEN_GL = temp
+OPENGL = /usr/include/GLFW/glfw3.h
 
 LIBFT = $(LIBFT_DIR)/libft.a
+GLAD = $(GLAD_DIR)/glad.a
 
 LIB_RAW = 
 
-SRC_RAW = main.c scop.c
+SRC_RAW = main.c scop.c init_opengl.c ../glad/src/glad.c
 
 HEADERS = scop.h
 
@@ -45,10 +47,11 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 RESOURCES =
 
 OPTI_FLAGS = -O3
+GLFW_FLAGS = $(pkg-config --cflags glfw3 gl) $(pkg-config --libs glfw3 gl)
 
 CFLAGS =	-Wall -Wextra -Werror -I $(INCLUDES_DIR) \
-	  	-I $(LIBFT_DIR) \
-		$(OPTI_FLAGS) \
+	  	-I $(LIBFT_DIR) -I $(GLAD_DIR)/include \
+		#$(OPTI_FLAGS) \
 		#-fsanitize=address -g3 \
 	
 #
@@ -84,13 +87,13 @@ RESET :="\e[0m"
 # Rules
 #
 
-all: $(NAME)
+all: $(OPENGL) $(NAME)
 	@printf $(CYAN)"[INFO] Buidling libft..\n"$(RESET) 
 	@make --no-print-directory -C $(LIBFT_DIR)
 	@printf $(RESET)
 	@printf $(CYAN)"[INFO] Buidling scop..\n"$(RESET) 
 
-$(OPEN_GL) = sudo apt-get install libglfw3-dev
+$(OPENGL) = sudo apt-get install libglfw3-dev
 
 $(LIBFT):
 	@make -C $(LIBFT_DIR) -j8
@@ -102,9 +105,9 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES)
 	@printf $(YELLOW)"Compiling $<\n"$(RESET)
 	@gcc -c $< -o $@ $(CFLAGS) 
 
-$(NAME): $(LIBFT) $(OBJ) 
-	@printf $(CYAN)"[INFO] Linking ${GAME_DIR}/${GAME_NAME}\n"$(RESET)
-	@gcc $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) 
+$(NAME): $(LIBFT) $(OBJ_DIR) $(OBJ) 
+	@printf $(CYAN)"[INFO] Linking ${BIN_DIR}/${NAME}\n"$(RESET)
+	gcc $(CFLAGS) $(GLFW_FLAGS) $(OBJ) $(LIBFT) -o $(NAME) 
 	@printf ${GREEN}"[INFO] Compiled $(BIN_DIR)/$(NAME) with success!\n"
 	@printf ${RESET}
 

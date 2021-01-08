@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scop.h                                             :+:      :+:    :+:   */
+/*   init_opengl.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,10 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCOP_H
-# define SCOP_H
+#include "glad/glad.h"
+#include <GLFW/glfw3.h>
+#include "libft.h"
 
-int	scop(int ac, char **av);
-int	init_opengl(void);
-
-#endif
+int	init_opengl()
+{
+	//ft_printf("OpenGL vendor: %s\n", glGetString(GL_VENDOR));
+	if (glfwInit() == GLFW_TRUE)
+	{
+	}
+	else
+	{
+	}
+	return (0);
+}
