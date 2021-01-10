@@ -47,7 +47,7 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 RESOURCES =
 
 OPTI_FLAGS = -O3
-GLFW_FLAGS = $(pkg-config --cflags glfw3 gl) $(pkg-config --libs glfw3 gl)
+GLFW_FLAGS = -lglfw -ldl
 
 CFLAGS =	-Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 	  	-I $(LIBFT_DIR) -I $(GLAD_DIR)/include \
@@ -88,15 +88,12 @@ RESET :="\e[0m"
 #
 
 all: $(OPENGL) $(NAME)
-	@printf $(CYAN)"[INFO] Buidling libft..\n"$(RESET) 
-	@make --no-print-directory -C $(LIBFT_DIR)
-	@printf $(RESET)
-	@printf $(CYAN)"[INFO] Buidling scop..\n"$(RESET) 
 
-$(OPENGL) = sudo apt-get install libglfw3-dev
+$(OPENGL):
+	sudo apt-get install libglfw3-dev
 
 $(LIBFT):
-	@make -C $(LIBFT_DIR) -j8
+	@make --no-print-directory -C $(LIBFT_DIR) -j8
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
@@ -107,20 +104,21 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES)
 
 $(NAME): $(LIBFT) $(OBJ_DIR) $(OBJ) 
 	@printf $(CYAN)"[INFO] Linking ${BIN_DIR}/${NAME}\n"$(RESET)
-	gcc $(CFLAGS) $(GLFW_FLAGS) $(OBJ) $(LIBFT) -o $(NAME) 
+	@gcc $(OBJ) $(CFLAGS) $(GLFW_FLAGS) $(LIBFT) -o $(NAME) 
 	@printf ${GREEN}"[INFO] Compiled $(BIN_DIR)/$(NAME) with success!\n"
 	@printf ${RESET}
 
 clean:
+	@make --no-print-directory clean -C libft
 	@printf ${CYAN}"[INFO] Removing objs\n"${RESET}
-	@make clean -C libft
 	rm -rf $(OBJ_DIR)
 
 fclean:
-	@make fclean -C libft
+	@make --no-print-directory fclean -C libft
 	@printf ${CYAN}"[INFO] Removing objs\n"${RESET}
 	rm -rf $(OBJ_DIR)
-	@printf ${CYAN}"[INFO] Removing $(BIN_DIR)/$(NAME)"
+	@printf ${CYAN}"[INFO] Removing $(BIN_DIR)/$(NAME)\n"$(RESET)
+	rm -rf $(BIN_DIR)/$(NAME)
 
 re: fclean all
 
