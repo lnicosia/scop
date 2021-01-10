@@ -5,18 +5,28 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/24 17:56:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/24 18:25:22 by lnicosia         ###   ########.fr       */
+/*   Created: 2021/01/10 16:39:21 by lnicosia          #+#    #+#             */
+/*   Updated: 2021/01/10 16:45:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
+#include "env.h"
+#include "libft.h"
 
 int	scop(int ac, char **av)
 {
+	t_env	env;
+
 	(void)ac;
 	(void)av;
-	if (init_opengl())
+	ft_bzero(&env, sizeof(env));
+	if (init_opengl(&env))
 		return (-1);
+	while (!glfwWindowShouldClose(env.window))
+	{
+		glfwSwapBuffers(env.window);
+		glfwPollEvents();
+	}
 	return (0);
 }

@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/10 16:39:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/10 16:39:16 by lnicosia         ###   ########.fr       */
+/*   Created: 2021/01/10 16:38:54 by lnicosia          #+#    #+#             */
+/*   Updated: 2021/01/10 16:38:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "scop.h"
+#include "env.h"
 
-int	main(int ac, char **av)
+void	free_all(t_env *env)
 {
-	return (scop(ac, av));
+	(void)env;
+	glfwTerminate();
 }

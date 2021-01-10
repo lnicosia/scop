@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/10 16:39:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/10 16:39:16 by lnicosia         ###   ########.fr       */
+/*   Created: 2021/01/10 14:57:26 by lnicosia          #+#    #+#             */
+/*   Updated: 2021/01/10 15:06:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "scop.h"
+#ifndef ENV_H
+# define ENV_H
+# include "glad/glad.h"
+# include <GLFW/glfw3.h>
 
-int	main(int ac, char **av)
+/*
+** Defines all the env structure that will contains everything globally needed
+** by the program
+*/
+
+typedef struct	s_env
 {
-	return (scop(ac, av));
-}
+	GLFWwindow*	window;
+}				t_env;
+
+#endif

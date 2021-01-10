@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_fatal_error.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/10 16:39:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/10 16:39:16 by lnicosia         ###   ########.fr       */
+/*   Created: 2021/01/10 16:39:01 by lnicosia          #+#    #+#             */
+/*   Updated: 2021/01/10 16:39:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "scop.h"
 
-int	main(int ac, char **av)
+void	ft_fatal_error(const char *str, t_env *env)
 {
-	return (scop(ac, av));
+	ft_dprintf(STDERR_FILENO, "{red}[CRITICAL ERROR]\n", str);
+	ft_dprintf(STDERR_FILENO, "%s\n{reset}", str);
+	free_all(env);
+	exit(EXIT_FAILURE);
 }
