@@ -25,6 +25,7 @@ int	scop(int ac, char **av)
 		return (-1);
 	while (!glfwWindowShouldClose(env.window))
 	{
+		draw_triangle(&env);
 		glfwSwapBuffers(env.window);
 		glfwPollEvents();
 	}
