@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/23 20:33:03 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/11 19:01:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,17 @@ typedef struct			s_work
 
 typedef struct			s_tpool
 {
-	pthread_t			*threads;
-	pthread_mutex_t		mutex;
 	pthread_cond_t		worker_cond;
 	pthread_cond_t		main_cond;
+	pthread_mutex_t		mutex;
 	t_work				*works;
+	pthread_t			*threads;
 	int					stop;
 	int					nb_threads;
 	int					nb_alive_threads;
 	int					nb_working_threads;
 	int					err;
+	char				padding[4];
 }						t_tpool;
 
 int						init_tpool(t_tpool *tpool, int nb_threads);

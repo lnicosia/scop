@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:01:05 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/01 18:49:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/11 19:09:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct		s_data
 	char *restrict	str;
 	size_t			str_size;
 	t_padding		padding;
+	char			padding_var[4];
 }					t_data;
 
 int					ft_printf(const char *restrict format, ...);

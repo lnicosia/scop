@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/01 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2021/01/11 18:15:10 by lnicosia         ###   ########.fr        #
+#    Updated: 2021/01/11 18:50:04 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ RESOURCES =
 OPTI_FLAGS = -O3
 GLFW_FLAGS = -lglfw -ldl
 
-CFLAGS =	-Wall -Wextra -Werror -I $(INCLUDES_DIR) \
+CFLAGS =	-Wall -Wextra -Werror -Wpadded -I $(INCLUDES_DIR) \
 	  	-I $(LIBFT_DIR) -I $(GLAD_DIR)/include \
 		$(OPTI_FLAGS) \
 		#-fsanitize=address -g3 \

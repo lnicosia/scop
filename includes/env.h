@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:57:26 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/10 17:06:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/11 18:54:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 typedef struct	s_env
 {
 	GLFWwindow*	window;
+	int			success;
+	char		log[512];
+	char		padding[4];
 }				t_env;
 
 #endif

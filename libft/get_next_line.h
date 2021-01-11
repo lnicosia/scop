@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 18:23:24 by lnicosia          #+#    #+#             */
-/*   Updated: 2018/12/20 14:10:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/11 19:05:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@
 
 typedef struct	s_read
 {
-	int		fd;
 	char	*str;
+	int		fd;
+	char	padding[4];
 }				t_read;
 
 int				get_next_line(const int fd, char **line);

@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/03/03 17:44:24 by lnicosia         ###   ########.fr        #
+#    Updated: 2021/01/11 18:54:55 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,7 +67,7 @@ else
     OPTI_FLAGS = -O3 -flto
 endif
 
-CFLAGS = -Wall -Wextra -Werror -I $(INCLUDES_DIR) -I $(PRINTF_DIR) \
+CFLAGS = -Wall -Wextra -Werror -Wpadded -I $(INCLUDES_DIR) -I $(PRINTF_DIR) \
 			-Wno-unused-result \
 			$(OPTI_FLAGS) \
 			#-fsanitize=address -g3 \
