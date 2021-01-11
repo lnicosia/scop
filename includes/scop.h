@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 17:56:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/11 18:14:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/11 20:25:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,7 @@ void	viewport_update_callback(GLFWwindow *window, int width, int height);
 void	key_callback(GLFWwindow *window, int key, int scancode, int action,
 int mods);
 int		draw_triangle(t_env *env);
+int		init_triangle_shaders_program(t_env *env);
+int		init_pipeline_shader(GLenum type, const char *source, t_env *env);
 
 #endif

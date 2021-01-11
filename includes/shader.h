@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_all.c                                         :+:      :+:    :+:   */
+/*   shader.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/10 16:38:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/11 21:42:36 by lnicosia         ###   ########.fr       */
+/*   Created: 2021/01/11 19:20:44 by lnicosia          #+#    #+#             */
+/*   Updated: 2021/01/11 21:20:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#ifndef SHADER_H
+# define SHADER_H
 
-void	free_all(t_env *env)
+typedef struct			s_pipeline_shader
 {
-	(void)env;
-	glDeleteVertexArrays(1, &env->tuto_vao);
-	glDeleteBuffers(1, &env->tuto_vbo);
-	glDeleteProgram(env->tuto_shader);
-	glfwTerminate();
-}
+	unsigned int		id;
+}						t_pipeline_shader;
+
+typedef struct			s_shader
+{
+	char				*source_file;
+	t_pipeline_shader	vertex_shader;
+	t_pipeline_shader	fragment_shader;
+	unsigned int		id;
+	int					state;
+}						t_shader;
+
+#endif

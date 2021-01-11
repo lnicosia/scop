@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/10 20:37:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/11 20:34:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,6 @@ int		init_opengl(t_env *env)
 	glfwSetFramebufferSizeCallback(env->window, viewport_update_callback);
 	glfwSetInputMode(env->window, GLFW_STICKY_KEYS, GLFW_TRUE);
 	glfwSetKeyCallback(env->window, key_callback);
+	init_triangle_shaders_program(env);
 	return (0);
 }

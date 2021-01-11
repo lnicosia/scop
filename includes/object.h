@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_all.c                                         :+:      :+:    :+:   */
+/*   object.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/10 16:38:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/11 21:42:36 by lnicosia         ###   ########.fr       */
+/*   Created: 2021/01/11 21:15:17 by lnicosia          #+#    #+#             */
+/*   Updated: 2021/01/11 21:16:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#ifndef OBJECT_H
+# define OBJECT_H
 
-void	free_all(t_env *env)
+typedef struct		s_object
 {
-	(void)env;
-	glDeleteVertexArrays(1, &env->tuto_vao);
-	glDeleteBuffers(1, &env->tuto_vbo);
-	glDeleteProgram(env->tuto_shader);
-	glfwTerminate();
-}
+	float			*vertices[4];
+}					t_object;
+
+#endif
