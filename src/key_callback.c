@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.h                                              :+:      :+:    :+:   */
+/*   key_callback.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/10 14:57:26 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/10 17:06:09 by lnicosia         ###   ########.fr       */
+/*   Created: 2021/01/10 20:29:04 by lnicosia          #+#    #+#             */
+/*   Updated: 2021/01/10 20:35:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
-# include "glad/glad.h"
-# include <GLFW/glfw3.h>
+#include <GLFW/glfw3.h>
 
-/*
-** Defines all the env structure that will contains everything globally needed
-** by the program
-*/
-
-typedef struct	s_env
+void	key_callback(GLFWwindow *window, int key, int scancode, int action,
+int mods)
 {
-	GLFWwindow*	window;
-}				t_env;
-
-#endif
+	(void)scancode;
+	(void)mods;
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE)
+		glfwSetWindowShouldClose(window, GLFW_TRUE);
+}

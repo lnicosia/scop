@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/01 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2021/01/10 16:41:11 by lnicosia         ###   ########.fr        #
+#    Updated: 2021/01/10 20:28:59 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,9 +32,9 @@ GLAD = $(GLAD_DIR)/glad.a
 LIB_RAW = 
 
 SRC_RAW =	main.c scop.c init_opengl.c ../glad/src/glad.c ft_fatal_error.c \
-			free_all.c viewport_update_callback.c
+			free_all.c viewport_update_callback.c key_callback.c
 
-HEADERS = scop.h env.h
+HEADERS = scop.h env.h inputs.h
 
 #
 # Creation of files path

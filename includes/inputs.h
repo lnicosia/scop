@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.h                                              :+:      :+:    :+:   */
+/*   inputs.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/10 14:57:26 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/10 17:06:09 by lnicosia         ###   ########.fr       */
+/*   Created: 2021/01/10 17:58:37 by lnicosia          #+#    #+#             */
+/*   Updated: 2021/01/10 18:03:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
-# include "glad/glad.h"
-# include <GLFW/glfw3.h>
+#ifndef INPUTS_H
+# define INPUTS_H
 
-/*
-** Defines all the env structure that will contains everything globally needed
-** by the program
-*/
-
-typedef struct	s_env
+typedef struct		s_input
 {
-	GLFWwindow*	window;
-}				t_env;
+	int				key1;
+	int				key2;
+	int				state;
+}					t_input;
+
+typedef struct		s_inputs
+{
+	t_input			escape;
+	t_input			enter;
+}					t_inputs;
 
 #endif
