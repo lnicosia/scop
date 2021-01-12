@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 16:44:23 by sipatry           #+#    #+#             */
-/*   Updated: 2021/01/12 13:45:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/12 18:35:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	parse(int fd, uint32_t **data)
 	if (parse_image_header(fd, &parser))
 		return (custom_error("Error in image header\n"));
 	ft_printf("{red}");
-	if (!(*data = (uint32_t*)malloc(parser.bpp * parser.w * parser.h)))
+	if (!(*data = (uint32_t*)ft_memalloc(parser.bpp / 3 * parser.w * parser.h)))
 		return (ft_perror("Failed to malloc data\n"));
 	return (parse2(fd, &parser, data));
 }

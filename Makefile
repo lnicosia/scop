@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/01 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2021/01/12 13:59:04 by lnicosia         ###   ########.fr        #
+#    Updated: 2021/01/12 18:37:41 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,8 +53,8 @@ GLFW_FLAGS = -lglfw -ldl -lm
 
 CFLAGS =	-Wall -Wextra -Werror -Wpadded -I $(INCLUDES_DIR) \
 	  	-I $(LIBFT_DIR) -I $(GLAD_DIR)/include \
-		$(OPTI_FLAGS) \
-		#-fsanitize=address -g3 \
+		-fsanitize=address -g3 \
+		#$(OPTI_FLAGS) \
 	
 #
 # Setting right flags and files dependencies to link external libs
@@ -89,7 +89,11 @@ RESET :="\e[0m"
 # Rules
 #
 
-all: $(OPENGL) $(NAME)
+all: $(OPENGL)
+	@printf $(CYAN)"[INFO] Building libft..\n"$(RESET)
+	@make --no-print-directory -C $(LIBFT_DIR) -j8
+	@printf $(CYAN)"[INFO] Building scop..\n"$(RESET)
+	@make --no-print-directory $(BIN_DIR)/$(NAME) -j8
 
 $(OPENGL):
 	sudo apt-get install libglfw3-dev

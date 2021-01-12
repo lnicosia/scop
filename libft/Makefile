@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2021/01/12 14:00:43 by lnicosia         ###   ########.fr        #
+#    Updated: 2021/01/12 18:17:42 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,8 +77,8 @@ endif
 
 CFLAGS = -Wall -Wextra -Werror -Wpadded -I $(INCLUDES_DIR) -I $(PRINTF_DIR) \
 			-Wno-unused-result -Wno-misleading-indentation \
-			$(OPTI_FLAGS) \
-			#-fsanitize=address -g3 \
+			-fsanitize=address -g3 \
+			#$(OPTI_FLAGS) \
 
 # Color declarations
 RED := "\e[0;31m"

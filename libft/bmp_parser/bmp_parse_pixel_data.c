@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/28 16:56:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/12 13:47:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/12 18:35:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ uint32_t **data)
 	y = parser->h - 1;
 	while (byte + 4 < parser->ret)
 	{
-		*data[x + y * parser->w] =
+		(*data)[x + y * parser->w] =
 		get_pixel(byte, str, parser);
 		byte += parser->bpp / 8.0;
 		x++;
