@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2021/01/11 18:54:55 by lnicosia         ###   ########.fr        #
+#    Updated: 2021/01/12 13:48:57 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ OBJ_DIR = obj
 INCLUDES_DIR = .
 BIN_DIR = .
 PRINTF_DIR = ft_printf
+BMP_PARSER_DIR = bmp_parser
 OPTI_FLAGS = -O3
 
 SRC_RAW = ft_memccpy.c ft_memcpy.c ft_memset.c ft_bzero.c ft_memmove.c \
@@ -52,6 +53,10 @@ PRINTF_SRC_RAW = ft_printf.c ft_dprintf.c base_utils.c parse_colors.c \
 				 put_padding.c putfloat_utils.c ft_snprintf.c fill_buffer.c \
 				 custom_error.c custom_invalid.c
 
+BMP_PARSER_SRC_RAW = bmp_parser.c bmp_parse_color_table.c \
+					 bmp_parse_pixel_data.c bmp_parse_header.c \
+					 bmp_parser_utils.c bmp_parser_utils2.c
+
 PRINTF_HEADERS = ft_printf.h base_utils.h color.h put_padding.h
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_RAW))
@@ -61,6 +66,9 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 PRINTF_SRC = $(addprefix $(PRINTF_DIR)/, $(PRINTF_SRC_RAW))
 PRINTF_OBJ = $(addprefix $(OBJ_DIR)/, $(PRINTF_SRC_RAW:.c=.o))
 
+BMP_PARSER_SRC = $(addprefix $(BMP_PARSER_DIR)/, $(BMP_PARSER_SRC_RAW))
+BMP_PARSER_OBJ = $(addprefix $(OBJ_DIR)/, $(BMP_PARSER_SRC_RAW:.c=.o))
+
 ifeq ($(OS), Windows_NT)
 	OPTI_FLAGS = -O3
 else
@@ -68,7 +76,7 @@ else
 endif
 
 CFLAGS = -Wall -Wextra -Werror -Wpadded -I $(INCLUDES_DIR) -I $(PRINTF_DIR) \
-			-Wno-unused-result \
+			-Wno-unused-result -Wno-misleading-indentation \
 			$(OPTI_FLAGS) \
 			#-fsanitize=address -g3 \
 
@@ -94,9 +102,13 @@ $(OBJ_DIR)/%.o: $(PRINTF_DIR)/%.c $(PRINTF_DIR)
 	@printf $(YELLOW)"\e[0;33mCompiling $<\n"$(RESET)
 	@gcc -c $< -o $@ $(CFLAGS) 
 
-$(BIN_DIR)/$(NAME): $(OBJ_DIR) $(OBJ) $(PRINTF_OBJ)
+$(OBJ_DIR)/%.o: $(BMP_PARSER_DIR)/%.c $(BMP_PARSER_DIR)
+	@printf $(YELLOW)"\e[0;33mCompiling $<\n"$(RESET)
+	@gcc -c $< -o $@ $(CFLAGS) 
+
+$(BIN_DIR)/$(NAME): $(OBJ_DIR) $(OBJ) $(PRINTF_OBJ) $(BMP_PARSER_OBJ)
 	@printf "\e[0;36m[INFO] Linking ${NAME}\e[0m\n"
-	@ar rc $(NAME) $(OBJ) $(PRINTF_OBJ)
+	@ar rc $(NAME) $(OBJ) $(PRINTF_OBJ) $(BMP_PARSER_OBJ)
 	@ranlib $(NAME)
 	@printf ${GREEN}"[INFO] Linked $(NAME) with success\n"${RESET}
 

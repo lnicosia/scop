@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:57:26 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/11 21:42:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/12 13:51:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 typedef struct		s_env
 {
+	uint32_t		**images;
 	GLFWwindow		*window;
 	t_object		*objects;
 	unsigned int	*shaders;
