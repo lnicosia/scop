@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/01 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2021/01/12 18:37:41 by lnicosia         ###   ########.fr        #
+#    Updated: 2021/01/12 21:10:51 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ LIB_RAW =
 
 SRC_RAW =	main.c scop.c init_opengl.c ../glad/src/glad.c ft_fatal_error.c \
 			free_all.c viewport_update_callback.c key_callback.c \
-			draw_triangle.c init_shader.c
+			draw_triangle.c shader.c
 
 HEADERS = scop.h env.h inputs.h shader.h object.h
 
@@ -110,7 +110,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES)
 
 $(NAME): $(LIBFT) $(OBJ_DIR) $(OBJ) 
 	@printf $(CYAN)"[INFO] Linking ${BIN_DIR}/${NAME}\n"$(RESET)
-	@gcc $(OBJ) $(CFLAGS) $(GLFW_FLAGS) $(LIBFT) -o $(NAME) 
+	@gcc $(OBJ) $(LIBFT) $(CFLAGS) $(GLFW_FLAGS) -o $(NAME) 
 	@printf ${GREEN}"[INFO] Compiled $(BIN_DIR)/$(NAME) with success!\n"
 	@printf ${RESET}
 

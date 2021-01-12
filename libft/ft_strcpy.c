@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/08 10:53:38 by lnicosia          #+#    #+#             */
-/*   Updated: 2018/11/14 10:14:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/12 20:54:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@ char	*ft_strcpy(char *dst, const char *src)
 {
 	int i;
 
+	if (!src)
+		return (0);
 	i = 0;
 	while (src[i])
 	{

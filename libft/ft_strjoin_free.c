@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strjoin_free.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 17:12:02 by lnicosia          #+#    #+#             */
-/*   Updated: 2018/11/21 15:41:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/12 20:55:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ char	*ft_strjoin_free(char *s1, const char *s2)
 {
 	char	*str;
 
-	if (!s1)
-		return (0);
 	if (!s2)
 	{
 		ft_strdel(&s1);
@@ -28,8 +26,7 @@ char	*ft_strjoin_free(char *s1, const char *s2)
 		ft_strdel(&s1);
 		return (0);
 	}
-	if (!(ft_strcpy(str, s1)))
-		return (0);
+	ft_strcpy(str, s1);
 	if (!(ft_strcat(str, s2)))
 		return (0);
 	ft_strdel(&s1);

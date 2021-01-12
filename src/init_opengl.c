@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/12 14:03:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/12 19:58:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,23 @@
 
 int		init_textures(t_env *env)
 {
-	unsigned int	texture;
 	uint32_t		*data;
 
-	glGenTextures(1, &texture);
+	glGenTextures(1, &env->tuto_texture);
 	parse_bmp("resources/textures/container.bmp", &data);
 	if (!data)
 		return (custom_error("Failed to parse bmp\n"));
 	(void)env;
+	glGenTextures(1, &env->tuto_texture);
+	glBindTexture(GL_TEXTURE_2D, env->tuto_texture);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 512, 512, 0, GL_RGB,
+	GL_UNSIGNED_BYTE, data);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	ft_memdel((void**)&data);
 	return (0);
 }
 
@@ -36,22 +45,16 @@ int		init_opengl(t_env *env)
 {
 	glfwSetErrorCallback(error_callback);
 	if (glfwInit() != GLFW_TRUE)
-	{
 		ft_fatal_error("Failed to init GLFW", env);
-	}
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	env->window = glfwCreateWindow(1600, 900, "scop", NULL, NULL);
 	if (!env->window)
-	{
 		ft_fatal_error("Window could not be created", env);
-	}
 	glfwMakeContextCurrent(env->window);
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-	{
 		ft_fatal_error("Failed to init glad", env);
-	}
 	glViewport(0, 0, 1600, 900);
 	glfwSetFramebufferSizeCallback(env->window, viewport_update_callback);
 	glfwSetInputMode(env->window, GLFW_STICKY_KEYS, GLFW_TRUE);
