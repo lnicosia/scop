@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2021/01/12 13:48:57 by lnicosia         ###   ########.fr        #
+#    Updated: 2021/01/12 14:00:43 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ PRINTF_SRC_RAW = ft_printf.c ft_dprintf.c base_utils.c parse_colors.c \
 				 put_padding.c putfloat_utils.c ft_snprintf.c fill_buffer.c \
 				 custom_error.c custom_invalid.c
 
-BMP_PARSER_SRC_RAW = bmp_parser.c bmp_parse_color_table.c \
+BMP_PARSER_SRC_RAW = bmp_parser.c bmp_parse_color_table.c get_pixel.c \
 					 bmp_parse_pixel_data.c bmp_parse_header.c \
 					 bmp_parser_utils.c bmp_parser_utils2.c
 

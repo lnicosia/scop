@@ -6,12 +6,25 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/11 20:34:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/12 14:03:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "scop.h"
+
+int		init_textures(t_env *env)
+{
+	unsigned int	texture;
+	uint32_t		*data;
+
+	glGenTextures(1, &texture);
+	parse_bmp("resources/textures/container.bmp", &data);
+	if (!data)
+		return (custom_error("Failed to parse bmp\n"));
+	(void)env;
+	return (0);
+}
 
 void	error_callback(int error, const char *description)
 {
@@ -44,5 +57,6 @@ int		init_opengl(t_env *env)
 	glfwSetInputMode(env->window, GLFW_STICKY_KEYS, GLFW_TRUE);
 	glfwSetKeyCallback(env->window, key_callback);
 	init_triangle_shaders_program(env);
+	init_textures(env);
 	return (0);
 }

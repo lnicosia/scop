@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/01 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2021/01/11 21:15:52 by lnicosia         ###   ########.fr        #
+#    Updated: 2021/01/12 13:59:04 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 RESOURCES =
 
 OPTI_FLAGS = -O3
-GLFW_FLAGS = -lglfw -ldl
+GLFW_FLAGS = -lglfw -ldl -lm
 
 CFLAGS =	-Wall -Wextra -Werror -Wpadded -I $(INCLUDES_DIR) \
 	  	-I $(LIBFT_DIR) -I $(GLAD_DIR)/include \
