@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 21:06:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/12 21:12:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/13 00:10:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int		init_pipeline_shader(GLenum type, const char *file, t_env *env)
 	shader = glCreateShader(type);
 	glShaderSource(shader, 1, &shader_source, NULL);
 	glCompileShader(shader);
-	env->success = GLFW_TRUE;
+	env->success = GLFW_FALSE;
 	glGetShaderiv(shader, GL_COMPILE_STATUS, &env->success);
 	ft_memdel((void**)&shader_source);
 	if (env->success != GLFW_TRUE)
@@ -61,4 +61,25 @@ int		init_pipeline_shader(GLenum type, const char *file, t_env *env)
 		return (custom_error(env->log));
 	}
 	return (shader);
+}
+
+int		init_program(unsigned int vertex_shader, unsigned int fragment_shader,
+t_env *env)
+{
+	if ((env->tuto_shader = glCreateProgram()) == 0)
+		return (custom_error("Failed to create shader program\n"));
+	glAttachShader(env->tuto_shader, vertex_shader);
+	glAttachShader(env->tuto_shader, fragment_shader);
+	glLinkProgram(env->tuto_shader);
+	env->success = GL_FALSE;
+	glGetProgramiv(env->tuto_shader, GL_LINK_STATUS, &env->success);
+	glDeleteShader(vertex_shader);
+	glDeleteShader(fragment_shader);
+	if (env->success != GL_TRUE)
+	{
+		glGetProgramInfoLog(env->tuto_shader, 512, NULL, env->log);
+		custom_error("Failed to compile shader program\n");
+		return (custom_error(env->log));
+	}
+	return (0);
 }

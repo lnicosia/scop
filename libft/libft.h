@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:01:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/12 13:50:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/13 00:36:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,6 @@ t_complex			ft_csin(t_complex c);
 t_complex			ft_cscos(t_complex c);
 t_complex			ft_cconj(t_complex c);
 t_complex			new_complex(double r, double i);
-int					parse_bmp(char *file, uint32_t **data);
+int					parse_bmp(char *file, unsigned char **data);
 
 #endif
