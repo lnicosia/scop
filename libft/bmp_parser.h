@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 13:48:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/13 00:39:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/13 12:38:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int					parse_image_header(int fd, t_bmp_parser *parser);
 int					set_color_table(int fd, t_bmp_parser *parser);
 int					get_image_header_size(int fd, t_bmp_parser *parser);
 int					parse_pixel_data(int fd, t_bmp_parser *parser,
-uint32_t **data);
+unsigned char **data);
 int					set_byte(int *x, int *y, double *byte,
 t_bmp_parser *parser);
 #endif

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/28 16:56:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/12 18:35:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/13 14:27:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,25 @@
 #include <math.h>
 
 int		parse_pixels(unsigned char *str, t_bmp_parser *parser,
-uint32_t **data)
+unsigned char **data)
 {
 	double	byte;
 	int		x;
-	int		y;
+	//int		y;
 
 	byte = 0;
 	x = 0;
-	y = parser->h - 1;
-	while (byte + 4 < parser->ret)
+	//y = parser->h - 1;
+	while (byte < parser->ret)
 	{
-		(*data)[x + y * parser->w] =
-		get_pixel(byte, str, parser);
-		byte += parser->bpp / 8.0;
+		//(*data)[(int)byte] =
+		//get_pixel(byte, str, parser);
+		(*data)[(int)byte + 0] = str[(int)byte + 2];
+		(*data)[(int)byte + 1] = str[(int)byte + 1];
+		(*data)[(int)byte + 2] = str[(int)byte + 0];
+		byte += parser->bpp / 8;
 		x++;
-		set_byte(&x, &y, &byte, parser);
+		//set_byte(&x, &y, &byte, parser);
 	}
 	return (0);
 }
@@ -42,7 +45,7 @@ int		set_byte(int *x, int *y, double *byte, t_bmp_parser *parser)
 	{
 		while (modf(*byte, &trash) != 0)
 			(*byte) += parser->bpp / 8.0;
-		while ((int)*byte % 4 != 0)
+		while ((int)*byte % (parser->bpp / 8) != 0)
 			(*byte)++;
 		*x = 0;
 		(*y)--;
@@ -50,7 +53,7 @@ int		set_byte(int *x, int *y, double *byte, t_bmp_parser *parser)
 	return (0);
 }
 
-int		parse_pixel_data(int fd, t_bmp_parser *parser, uint32_t **data)
+int		parse_pixel_data(int fd, t_bmp_parser *parser, unsigned char **data)
 {
 	int				size;
 	unsigned char	*str;
@@ -63,7 +66,9 @@ int		parse_pixel_data(int fd, t_bmp_parser *parser, uint32_t **data)
 	if (!(str = (unsigned char*)ft_memalloc(sizeof(unsigned char) * size)))
 		return (ft_perror("Could not malloc buffer for pixel data\n"));
 	if ((parser->ret = read(fd, str, size)) > 0)
+	{
 		parse_pixels(str, parser, data);
+	}
 	ft_memdel((void**)&str);
 	return (0);
 }

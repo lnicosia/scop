@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 16:44:23 by sipatry           #+#    #+#             */
-/*   Updated: 2021/01/13 00:39:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/13 12:39:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	parse2(int fd, t_bmp_parser *parser, unsigned char **data)
 		if (set_color_table(fd, parser))
 			return (custom_error("Error in color table\n"));
 	}
-	if (parse_pixel_data(fd, parser, (uint32_t**)data))
+	if (parse_pixel_data(fd, parser, (unsigned char**)data))
 		return (custom_error("Error in pixel data\n"));
 	return (0);
 }
