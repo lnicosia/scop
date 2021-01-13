@@ -6,33 +6,35 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/28 16:56:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/13 14:27:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/13 14:49:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bmp_parser.h"
 #include <math.h>
 
+/*
+** Fills the current pixel array pixel by pixel
+** Advances of file's byte ber pixel every iteration
+** and fills the last bytes with the pixel data reversed
+*/
+
 int		parse_pixels(unsigned char *str, t_bmp_parser *parser,
 unsigned char **data)
 {
-	double	byte;
-	int		x;
-	//int		y;
+	int	byte;
+	int	filler;
 
 	byte = 0;
-	x = 0;
-	//y = parser->h - 1;
 	while (byte < parser->ret)
 	{
-		//(*data)[(int)byte] =
-		//get_pixel(byte, str, parser);
-		(*data)[(int)byte + 0] = str[(int)byte + 2];
-		(*data)[(int)byte + 1] = str[(int)byte + 1];
-		(*data)[(int)byte + 2] = str[(int)byte + 0];
-		byte += parser->bpp / 8;
-		x++;
-		//set_byte(&x, &y, &byte, parser);
+		filler = 0;
+		while (filler < parser->opp)
+		{
+			(*data)[byte + filler] = str[byte + parser->opp - 1 - filler];
+			filler++;
+		}
+		byte += parser->opp;
 	}
 	return (0);
 }
@@ -44,8 +46,8 @@ int		set_byte(int *x, int *y, double *byte, t_bmp_parser *parser)
 	if (*x >= parser->w)
 	{
 		while (modf(*byte, &trash) != 0)
-			(*byte) += parser->bpp / 8.0;
-		while ((int)*byte % (parser->bpp / 8) != 0)
+			(*byte) += parser->opp;
+		while ((int)*byte % parser->opp != 0)
 			(*byte)++;
 		*x = 0;
 		(*y)--;

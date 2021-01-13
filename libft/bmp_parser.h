@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 13:48:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/13 12:38:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/13 14:37:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ typedef struct		s_bmp_parser
 	int32_t			image_header_size;
 	int32_t			w;
 	int32_t			h;
-	int16_t			planes;
-	int16_t			bpp;
 	int32_t			compression;
 	int32_t			image_size;
 	int32_t			xpixels_per_meter;
@@ -36,7 +34,10 @@ typedef struct		s_bmp_parser
 	int				ret;
 	int				index;
 	int				skybox_index;
-	char			padding[4];
+	int16_t			planes;
+	int16_t			bpp;
+	int16_t			opp;
+	char			padding[2];
 }					t_bmp_parser;
 
 int32_t				read_int32(unsigned char *str, int index);

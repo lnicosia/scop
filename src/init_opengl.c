@@ -6,14 +6,12 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/13 13:43:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/13 14:49:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "scop.h"
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
 
 int		init_textures(t_env *env)
 {
@@ -21,14 +19,6 @@ int		init_textures(t_env *env)
 
 	if (parse_bmp("resources/textures/container.bmp", &data))
 		return (custom_error("Failed to parse bmp\n"));
-	/*int width, height, nrChannels;
-	unsigned char *data = stbi_load("resources/textures/container.bmp",
-	&width, &height, &nrChannels, 0);*/
-	uint32_t	*str = (uint32_t*)data;
-	for (int i = 0; i < 20; i++)
-	{
-		ft_printf("0x%x\n", str[i]);
-	}
 	(void)env;
 	glGenTextures(1, &env->tuto_texture);
 	glBindTexture(GL_TEXTURE_2D, env->tuto_texture);

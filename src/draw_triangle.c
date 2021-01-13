@@ -6,13 +6,13 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:28:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/12 23:46:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/13 14:53:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "libft.h"
-#include "shader.h"
+#include "scop.h"
 
 int		init_triangle_shaders_program(t_env *env)
 {
