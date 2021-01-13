@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/01 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2021/01/13 00:32:27 by lnicosia         ###   ########.fr        #
+#    Updated: 2021/01/13 19:43:36 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,6 +96,7 @@ all: $(OPENGL)
 	@make --no-print-directory $(BIN_DIR)/$(NAME) -j8
 
 $(OPENGL):
+	sudo apt-get update
 	sudo apt-get install libglfw3-dev
 
 $(LIBFT):
