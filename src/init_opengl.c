@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/13 14:49:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/13 22:23:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		init_textures(t_env *env)
 {
 	unsigned char	*data;
 
-	if (parse_bmp("resources/textures/container.bmp", &data))
+	if (parse_bmp("resources/textures/awesomeface2.bmp", &data))
 		return (custom_error("Failed to parse bmp\n"));
 	(void)env;
 	glGenTextures(1, &env->tuto_texture);
@@ -44,8 +44,8 @@ int		init_opengl(t_env *env)
 	glfwSetErrorCallback(error_callback);
 	if (glfwInit() != GLFW_TRUE)
 		ft_fatal_error("Failed to init GLFW", env);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	env->window = glfwCreateWindow(1600, 900, "scop", NULL, NULL);
 	if (!env->window)

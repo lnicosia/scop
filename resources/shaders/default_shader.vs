@@ -4,11 +4,11 @@ layout (location = 1) in vec3 aColor;
 layout (location = 2) in vec2 aTextCoord;
 
 out vec3	ourColor;
-out vec2	ourTextCoord;
+out vec2	TextCoord;
 
 void	main()
 {
 	gl_Position = vec4(aPos, 1.0);
 	ourColor = aColor;
-	ourTextCoord = aTextCoord;
+	TextCoord = aTextCoord;
 }
