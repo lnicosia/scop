@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/13 22:23:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/13 23:46:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		init_textures(t_env *env)
 {
 	unsigned char	*data;
 
-	if (parse_bmp("resources/textures/awesomeface2.bmp", &data))
+	if (parse_bmp("resources/textures/awesomeface_alpha.bmp", &data))
 		return (custom_error("Failed to parse bmp\n"));
 	(void)env;
 	glGenTextures(1, &env->tuto_texture);

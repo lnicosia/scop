@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
+#    By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2021/01/12 19:11:17 by lnicosia         ###   ########.fr        #
+#    Updated: 2021/01/14 00:05:32 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ SRC_RAW = ft_memccpy.c ft_memcpy.c ft_memset.c ft_bzero.c ft_memmove.c \
 		  init_tpool.c free_tpool.c complex.c complex_base_op.c \
 		  complex_real_op.c \
 
-HEADERS = libft.h thread_pool.h 
+HEADERS = libft.h thread_pool.h bmp_parser.h
 
 PRINTF_SRC_RAW = ft_printf.c ft_dprintf.c base_utils.c parse_colors.c \
 				 parse_flags.c parse_functions.c pf_atoi.c pf_float_padding.c \
@@ -55,9 +55,10 @@ PRINTF_SRC_RAW = ft_printf.c ft_dprintf.c base_utils.c parse_colors.c \
 
 BMP_PARSER_SRC_RAW = bmp_parser.c bmp_parse_color_table.c get_pixel.c \
 					 bmp_parse_pixel_data.c bmp_parse_header.c \
-					 bmp_parser_utils.c bmp_parser_utils2.c
+					 bmp_parser_utils.c bmp_parser_utils2.c \
+					 bmp_parse_bitmasks.c
 
-PRINTF_HEADERS = ft_printf.h base_utils.h color.h put_padding.h
+PRINTF_HEADERS = ft_printf.h base_utils.h color.h put_padding.h 
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_RAW))
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_RAW:.c=.o))

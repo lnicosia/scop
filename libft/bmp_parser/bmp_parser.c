@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bmp_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 16:44:23 by sipatry           #+#    #+#             */
-/*   Updated: 2021/01/13 12:39:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/14 00:12:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ static int	parse(int fd, unsigned char **data)
 		return (custom_error("Error in image header\n"));
 	if (parse_image_header(fd, &parser))
 		return (custom_error("Error in image header\n"));
+	if ((parser.compression == 3) && parse_image_bitmasks(fd, &parser))
+		return (custom_error("Error in bitmasks\n"));
 	ft_printf("{red}");
 	if (!(*data = (unsigned char*)ft_memalloc(parser.bpp / 8.0
 		* parser.w * parser.h)))

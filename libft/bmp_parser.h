@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bmp_parser.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 13:48:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/13 14:37:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/13 23:58:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ typedef struct		s_bmp_parser
 	int32_t			ypixels_per_meter;
 	int32_t			color_used;
 	int32_t			color_important;
+	int32_t			alpha_mask;
+	int32_t			green_mask;
+	int32_t			red_mask;
+	int32_t			blue_mask;
 	int				ret;
 	int				index;
 	int				skybox_index;
@@ -59,6 +63,7 @@ int					parse_file_header(int fd, t_bmp_parser *parser);
 int					get_image_header_data(unsigned char *str,
 		t_bmp_parser *parser);
 int					parse_image_header(int fd, t_bmp_parser *parser);
+int					parse_image_bitmasks(int fd, t_bmp_parser *parser);
 int					set_color_table(int fd, t_bmp_parser *parser);
 int					get_image_header_size(int fd, t_bmp_parser *parser);
 int					parse_pixel_data(int fd, t_bmp_parser *parser,
