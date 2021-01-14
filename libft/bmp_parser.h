@@ -70,4 +70,5 @@ int					parse_pixel_data(int fd, t_bmp_parser *parser,
 unsigned char **data);
 int					set_byte(int *x, int *y, double *byte,
 t_bmp_parser *parser);
+void				print_bits(int32_t);
 #endif

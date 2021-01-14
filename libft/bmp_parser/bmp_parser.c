@@ -42,8 +42,6 @@ static int	parse(int fd, unsigned char **data)
 		return (custom_error("Error in image header\n"));
 	if (parse_image_header(fd, &parser))
 		return (custom_error("Error in image header\n"));
-	if ((parser.compression == 3) && parse_image_bitmasks(fd, &parser))
-		return (custom_error("Error in bitmasks\n"));
 	ft_printf("{red}");
 	if (!(*data = (unsigned char*)ft_memalloc(parser.bpp / 8.0
 		* parser.w * parser.h)))

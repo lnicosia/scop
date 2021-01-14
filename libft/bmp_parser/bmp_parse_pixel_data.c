@@ -13,6 +13,26 @@
 #include "bmp_parser.h"
 #include <math.h>
 
+int		fill_pixel(unsigned char *str, t_bmp_parser *parser,
+unsigned char **data, int byte)
+{
+	int	filler;
+
+	filler = 0;
+	while (filler < parser->opp)
+	{
+		(*data)[byte + filler] = str[byte + parser->opp - 1 - filler];
+		//(*data)[byte + filler] = str[byte + filler];
+		filler++;
+	}
+	/*(*data)[byte] = (str[byte + 0] & parser->blue_mask) << 24
+					| (str[byte + 1] & parser->green_mask) << 16
+					| (str[byte + 2] & parser->red_mask) << 8
+					| (str[byte + 3] & parser->alpha_mask) << 0;*/
+	
+	return (0);
+}
+
 /*
 ** Fills the current pixel array pixel by pixel
 ** Advances of file's byte ber pixel every iteration
@@ -23,17 +43,12 @@ int		parse_pixels(unsigned char *str, t_bmp_parser *parser,
 unsigned char **data)
 {
 	int	byte;
-	int	filler;
 
 	byte = 0;
+	ft_printf("Byte per pixel = %d", parser->opp);
 	while (byte < parser->ret)
 	{
-		filler = 0;
-		while (filler < parser->opp)
-		{
-			(*data)[byte + filler] = str[byte + parser->opp - 1 - filler];
-			filler++;
-		}
+		fill_pixel(str, parser, data, byte);
 		byte += parser->opp;
 	}
 	return (0);

@@ -63,6 +63,14 @@ int				get_image_header_data(unsigned char *str, t_bmp_parser *parser)
 	parser->ypixels_per_meter = read_int32(str, 24);
 	parser->color_used = read_int32(str, 28);
 	parser->color_important = read_int32(str, 32);
+	parser->alpha_mask = read_int32(str, 36);
+	print_bits(parser->alpha_mask);
+	parser->green_mask = read_int32(str, 40);
+	print_bits(parser->green_mask);
+	parser->red_mask = read_int32(str, 44);
+	print_bits(parser->red_mask);
+	parser->blue_mask = read_int32(str, 48);
+	print_bits(parser->blue_mask);
 	return (0);
 }
 
