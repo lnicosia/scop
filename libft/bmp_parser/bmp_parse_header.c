@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:43:35 by gaerhard          #+#    #+#             */
-/*   Updated: 2021/01/14 00:07:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/14 21:16:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,24 +53,18 @@ int				get_image_header_data(unsigned char *str, t_bmp_parser *parser)
 		return (custom_error("Bits per pixels must be equal to 24 or 32 (%d)\n",
 			parser->bpp));
 		parser->opp = parser->bpp / 8;
-	/*if ((parser->compression = read_int32(str, 12)))
-		return (custom_error("Image must not be compressed (%d)\n",
-			parser->compression));*/
 	parser->compression = read_int32(str, 12);
-	//ft_printf("Compression = %d", parser->compression);
 	parser->image_size = read_int32(str, 16);
 	parser->xpixels_per_meter = read_int32(str, 20);
 	parser->ypixels_per_meter = read_int32(str, 24);
 	parser->color_used = read_int32(str, 28);
 	parser->color_important = read_int32(str, 32);
+	if (parser->bpp != 32)
+		return (0);
 	parser->alpha_mask = read_int32(str, 36);
-	print_bits(parser->alpha_mask);
 	parser->green_mask = read_int32(str, 40);
-	print_bits(parser->green_mask);
 	parser->red_mask = read_int32(str, 44);
-	print_bits(parser->red_mask);
 	parser->blue_mask = read_int32(str, 48);
-	print_bits(parser->blue_mask);
 	return (0);
 }
 

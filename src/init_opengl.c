@@ -6,30 +6,30 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/13 23:46:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/14 22:00:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "scop.h"
 
-int		init_textures(t_env *env)
+int		init_textures(char *file, GLenum format, t_env *env)
 {
 	unsigned char	*data;
 
-	if (parse_bmp("resources/textures/awesomeface_alpha.bmp", &data))
+	if (parse_bmp(file, &data))
 		return (custom_error("Failed to parse bmp\n"));
-	(void)env;
-	glGenTextures(1, &env->tuto_texture);
-	glBindTexture(GL_TEXTURE_2D, env->tuto_texture);
+	glGenTextures(1, &env->textures[env->textures_count]);
+	glBindTexture(GL_TEXTURE_2D, env->textures[env->textures_count]);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 512, 512, 0, GL_RGB,
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 512, 512, 0, format,
 	GL_UNSIGNED_BYTE, data);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	ft_memdel((void**)&data);
+	env->textures_count++;
 	return (0);
 }
 
@@ -57,7 +57,8 @@ int		init_opengl(t_env *env)
 	glfwSetFramebufferSizeCallback(env->window, viewport_update_callback);
 	glfwSetInputMode(env->window, GLFW_STICKY_KEYS, GLFW_TRUE);
 	glfwSetKeyCallback(env->window, key_callback);
+	init_textures("resources/textures/container.bmp", GL_RGB, env);
+	init_textures("resources/textures/awesomeface_alpha.bmp", GL_RGBA, env);
 	init_triangle_shaders_program(env);
-	init_textures(env);
 	return (0);
 }

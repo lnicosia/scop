@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 13:48:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/13 23:58:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/14 20:55:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,5 @@ int					parse_pixel_data(int fd, t_bmp_parser *parser,
 unsigned char **data);
 int					set_byte(int *x, int *y, double *byte,
 t_bmp_parser *parser);
-void				print_bits(int32_t);
+void				print_bits(int32_t nb);
 #endif

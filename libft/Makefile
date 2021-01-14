@@ -6,7 +6,7 @@
 #    By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2021/01/14 00:05:32 by lnicosia         ###   ########.fr        #
+#    Updated: 2021/01/14 21:16:16 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,6 @@ PRINTF_SRC_RAW = ft_printf.c ft_dprintf.c base_utils.c parse_colors.c \
 BMP_PARSER_SRC_RAW = bmp_parser.c bmp_parse_color_table.c get_pixel.c \
 					 bmp_parse_pixel_data.c bmp_parse_header.c \
 					 bmp_parser_utils.c bmp_parser_utils2.c \
-					 bmp_parse_bitmasks.c
 
 PRINTF_HEADERS = ft_printf.h base_utils.h color.h put_padding.h 
 

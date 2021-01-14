@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bmp_parse_pixel_data.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/28 16:56:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/13 14:49:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/14 21:17:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ unsigned char **data, int byte)
 	filler = 0;
 	while (filler < parser->opp)
 	{
-		(*data)[byte + filler] = str[byte + parser->opp - 1 - filler];
-		//(*data)[byte + filler] = str[byte + filler];
+		(*data)[byte + filler] = str[byte + filler];
 		filler++;
 	}
-	/*(*data)[byte] = (str[byte + 0] & parser->blue_mask) << 24
-					| (str[byte + 1] & parser->green_mask) << 16
-					| (str[byte + 2] & parser->red_mask) << 8
-					| (str[byte + 3] & parser->alpha_mask) << 0;*/
-	
+	(*data)[byte] = str[byte + 2];
+	(*data)[byte + 1] = str[byte + 1];
+	(*data)[byte + 2] = str[byte + 0];
+	if (filler == 4)
+		(*data)[byte + 3] = str[byte + 3];
+	(void)parser;
 	return (0);
 }
 
@@ -45,7 +45,6 @@ unsigned char **data)
 	int	byte;
 
 	byte = 0;
-	ft_printf("Byte per pixel = %d", parser->opp);
 	while (byte < parser->ret)
 	{
 		fill_pixel(str, parser, data, byte);

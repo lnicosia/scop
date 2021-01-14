@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:28:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/13 14:53:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/14 22:02:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ int		init_triangle_shaders_program(t_env *env)
 	fragment_shader = init_pipeline_shader(GL_FRAGMENT_SHADER,
 	"resources/shaders/default_shader.fs", env);
 	init_program(vertex_shader, fragment_shader, env);
-	glGenVertexArrays(1, &env->tuto_vao);
-	glGenBuffers(1, &env->tuto_vbo);
-	glGenBuffers(1, &env->tuto_ebo);
-	glBindVertexArray(env->tuto_vao);
-	glBindBuffer(GL_ARRAY_BUFFER, env->tuto_vbo);
+	glGenVertexArrays(1, &env->vaos[0]);
+	glGenBuffers(1, &env->vbos[0]);
+	glGenBuffers(1, &env->ebos[0]);
+	glBindVertexArray(env->vaos[0]);
+	glBindBuffer(GL_ARRAY_BUFFER, env->vbos[0]);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, env->tuto_ebo);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, env->ebos[0]);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices,
 	GL_STATIC_DRAW);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float),
@@ -47,14 +47,20 @@ int		init_triangle_shaders_program(t_env *env)
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float),
 	(void*)(6 * sizeof(float)));
 	glEnableVertexAttribArray(2);
+	glUseProgram(env->shaders[0]);
+	glUniform1i(glGetUniformLocation(env->shaders[0], "texture1"), 0);
+	glUniform1i(glGetUniformLocation(env->shaders[0], "texture2"), 1);
 	return (0);
 }
 
 int		draw_triangle(t_env *env)
 {
-	glBindTexture(GL_TEXTURE_2D, env->tuto_texture);
-	glUseProgram(env->tuto_shader);
-	glBindVertexArray(env->tuto_vao);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, env->textures[0]);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, env->textures[1]);
+	glBindVertexArray(env->vaos[0]);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 	return (0);
 }
