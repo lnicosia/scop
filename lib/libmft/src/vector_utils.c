@@ -39,3 +39,14 @@ t_v3	new_v3(double x, double y, double z)
 	new.z = z;
 	return (new);
 }
+
+t_v4	new_v4(double x, double y, double z, double w)
+{
+	t_v4	new;
+
+	new.x = x;
+	new.y = y;
+	new.z = z;
+	new.w = w;
+	return (new);
+}
