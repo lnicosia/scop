@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_intersection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 10:41:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/13 15:38:18 by gaerhard         ###   ########.fr       */
+/*   Updated: 2021/01/14 22:21:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libmft.h"
 
 double	cross_product(double x0, double y0, double x1, double y1)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   vector_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 12:14:56 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/22 15:56:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/14 22:21:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libmft.h"
 
 t_point	new_point(int x, int y)
 {

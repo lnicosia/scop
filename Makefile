@@ -6,7 +6,7 @@
 #    By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/01 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2021/01/13 22:14:17 by lnicosia         ###   ########.fr        #
+#    Updated: 2021/01/15 01:25:29 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,15 +19,21 @@ SRC_DIR = src
 OBJ_DIR = obj
 BIN_DIR = .
 INCLUDES_DIR = includes
-LIBFT_DIR = libft
+LIBFT_DIR = $(LIB_DIR)/libft
+LIBMFT_DIR = $(LIB_DIR)/libmft
+BMP_PARSER_DIR = $(LIB_DIR)/bmp_parser
 INSTALL_DIR = install
 GLAD_DIR = glad
 SED = sed
 ROOT = sudo
 OPENGL = /usr/include/GLFW/glfw3.h
 
+#LIBS
 LIBFT = $(LIBFT_DIR)/libft.a
+LIBMFT = $(LIBMFT_DIR)/libmft.a
+BMP_PARSER = $(BMP_PARSER_DIR)/bmp_parser.a
 GLAD = $(GLAD_DIR)/glad.a
+GLFW_FLAGS = -lglfw -ldl -lm
 
 LIB_RAW = 
 
@@ -49,10 +55,10 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 RESOURCES =
 
 OPTI_FLAGS = -O3
-GLFW_FLAGS = -lglfw -ldl -lm
 
 CFLAGS =	-Wall -Wextra -Werror -Wpadded -I $(INCLUDES_DIR) \
-	  	-I $(LIBFT_DIR) -I $(GLAD_DIR)/include \
+	  	-I $(LIBFT_DIR) -I $(BMP_PARSER_DIR) -I $(LIBMFT_DIR) \
+		-I $(GLAD_DIR)/include \
 		-fsanitize=address -g3 \
 		#$(OPTI_FLAGS) \
 	
@@ -91,16 +97,26 @@ RESET :="\e[0m"
 
 all: $(OPENGL)
 	@printf $(CYAN)"[INFO] Building libft..\n"$(RESET)
-	@make --no-print-directory -C $(LIBFT_DIR) -j8
+	@make --no-print-directory -C $(LIBFT_DIR)
+	@printf $(CYAN)"[INFO] Building libmft..\n"$(RESET)
+	@make --no-print-directory -C $(LIBMFT_DIR)
+	@printf $(CYAN)"[INFO] Building bmp_parser..\n"$(RESET)
+	@make --no-print-directory -C $(BMP_PARSER_DIR)
 	@printf $(CYAN)"[INFO] Building scop..\n"$(RESET)
-	@make --no-print-directory $(BIN_DIR)/$(NAME) -j8
+	@make --no-print-directory $(BIN_DIR)/$(NAME)
 
 $(OPENGL):
 	sudo apt-get update
 	sudo apt-get install libglfw3-dev
 
 $(LIBFT):
-	@make --no-print-directory -C $(LIBFT_DIR) -j8
+	@make --no-print-directory -C $(LIBFT_DIR)
+
+$(LIBMFT):
+	@make --no-print-directory -C $(LIBMFT_DIR)
+
+$(BMP_PARSER):
+	@make --no-print-directory -C $(BMP_PARSER_DIR)
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
@@ -109,19 +125,20 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES)
 	@printf $(YELLOW)"Compiling $<\n"$(RESET)
 	@gcc -c $< -o $@ $(CFLAGS) 
 
-$(NAME): $(LIBFT) $(OBJ_DIR) $(OBJ) 
+$(NAME): $(LIBFT) $(LIBMFT) $(BMP_PARSER) $(OBJ_DIR) $(OBJ) 
 	@printf $(CYAN)"[INFO] Linking ${BIN_DIR}/${NAME}\n"$(RESET)
-	@gcc $(OBJ) $(LIBFT) $(CFLAGS) $(GLFW_FLAGS) -o $(NAME) 
+	gcc $(OBJ) $(LIBFT) $(LIBMFT) $(BMP_PARSER) $(GLFW_FLAGS) $(CFLAGS)\
+	 -o $(NAME) 
 	@printf ${GREEN}"[INFO] Compiled $(BIN_DIR)/$(NAME) with success!\n"
 	@printf ${RESET}
 
 clean:
-	@make --no-print-directory clean -C libft
+	@make --no-print-directory clean -C $(LIBFT_DIR)
 	@printf ${CYAN}"[INFO] Removing objs\n"${RESET}
 	rm -rf $(OBJ_DIR)
 
 fclean:
-	@make --no-print-directory fclean -C libft
+	@make --no-print-directory fclean -C $(LIBFT_DIR)
 	@printf ${CYAN}"[INFO] Removing objs\n"${RESET}
 	rm -rf $(OBJ_DIR)
 	@printf ${CYAN}"[INFO] Removing $(BIN_DIR)/$(NAME)\n"$(RESET)

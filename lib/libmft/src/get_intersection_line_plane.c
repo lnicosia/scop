@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_intersection_line_plane.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 16:31:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/05 15:56:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/14 22:21:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libmft.h"
 
 double	dot_product(t_v3 a, t_v3 b)
 {

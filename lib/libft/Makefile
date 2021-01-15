@@ -6,7 +6,7 @@
 #    By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2021/01/14 21:16:16 by lnicosia         ###   ########.fr        #
+#    Updated: 2021/01/15 01:11:11 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,6 @@ OBJ_DIR = obj
 INCLUDES_DIR = .
 BIN_DIR = .
 PRINTF_DIR = ft_printf
-BMP_PARSER_DIR = bmp_parser
 OPTI_FLAGS = -O3
 
 SRC_RAW = ft_memccpy.c ft_memcpy.c ft_memset.c ft_bzero.c ft_memmove.c \
@@ -36,14 +35,11 @@ SRC_RAW = ft_memccpy.c ft_memcpy.c ft_memset.c ft_bzero.c ft_memmove.c \
 		  ft_fmin.c ft_fmax.c ft_count.c ft_fabs.c ft_atoi_base.c \
 		  ft_clamp.c ft_fclamp.c ft_fclamp.c ft_atof.c ft_getlen.c \
 		  ft_sitoa.c ft_realloc.c ft_getsize.c ft_delindex.c ft_perror.c \
-		  ft_lstcontains.c vector_utils.c segments_intersect.c \
-		  get_intersection.c ft_lstpopfront.c ft_lstdelfront.c \
-		  ft_lstdelnode.c new_plane.c get_intersection_line_plane.c \
-		  ft_convert_base.c ft_ishexa.c thread_pool.c thread_pool_work.c \
-		  init_tpool.c free_tpool.c complex.c complex_base_op.c \
-		  complex_real_op.c \
+		  ft_lstcontains.c ft_lstpopfront.c ft_lstdelfront.c \
+		  ft_lstdelnode.c ft_convert_base.c ft_ishexa.c thread_pool.c \
+		  thread_pool_work.c init_tpool.c free_tpool.c \
 
-HEADERS = libft.h thread_pool.h bmp_parser.h
+HEADERS = libft.h thread_pool.h
 
 PRINTF_SRC_RAW = ft_printf.c ft_dprintf.c base_utils.c parse_colors.c \
 				 parse_flags.c parse_functions.c pf_atoi.c pf_float_padding.c \
@@ -53,9 +49,6 @@ PRINTF_SRC_RAW = ft_printf.c ft_dprintf.c base_utils.c parse_colors.c \
 				 put_padding.c putfloat_utils.c ft_snprintf.c fill_buffer.c \
 				 custom_error.c custom_invalid.c
 
-BMP_PARSER_SRC_RAW = bmp_parser.c bmp_parse_color_table.c get_pixel.c \
-					 bmp_parse_pixel_data.c bmp_parse_header.c \
-					 bmp_parser_utils.c bmp_parser_utils2.c \
 
 PRINTF_HEADERS = ft_printf.h base_utils.h color.h put_padding.h 
 
@@ -65,9 +58,6 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
 PRINTF_SRC = $(addprefix $(PRINTF_DIR)/, $(PRINTF_SRC_RAW))
 PRINTF_OBJ = $(addprefix $(OBJ_DIR)/, $(PRINTF_SRC_RAW:.c=.o))
-
-BMP_PARSER_SRC = $(addprefix $(BMP_PARSER_DIR)/, $(BMP_PARSER_SRC_RAW))
-BMP_PARSER_OBJ = $(addprefix $(OBJ_DIR)/, $(BMP_PARSER_SRC_RAW:.c=.o))
 
 ifeq ($(OS), Windows_NT)
 	OPTI_FLAGS = -O3
@@ -102,11 +92,7 @@ $(OBJ_DIR)/%.o: $(PRINTF_DIR)/%.c $(PRINTF_DIR)
 	@printf $(YELLOW)"\e[0;33mCompiling $<\n"$(RESET)
 	@gcc -c $< -o $@ $(CFLAGS) 
 
-$(OBJ_DIR)/%.o: $(BMP_PARSER_DIR)/%.c $(BMP_PARSER_DIR)
-	@printf $(YELLOW)"\e[0;33mCompiling $<\n"$(RESET)
-	@gcc -c $< -o $@ $(CFLAGS) 
-
-$(BIN_DIR)/$(NAME): $(OBJ_DIR) $(OBJ) $(PRINTF_OBJ) $(BMP_PARSER_OBJ)
+$(BIN_DIR)/$(NAME): $(OBJ_DIR) $(OBJ) $(PRINTF_OBJ) 
 	@printf "\e[0;36m[INFO] Linking ${NAME}\e[0m\n"
 	@ar rc $(NAME) $(OBJ) $(PRINTF_OBJ) $(BMP_PARSER_OBJ)
 	@ranlib $(NAME)

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   complex.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 17:05:34 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/10/02 18:52:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/14 22:20:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libmft.h"
 #include <math.h>
 
 t_complex	ft_cconj(t_complex c)
