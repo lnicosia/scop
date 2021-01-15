@@ -33,7 +33,11 @@ LIBFT = $(LIBFT_DIR)/libft.a
 LIBMFT = $(LIBMFT_DIR)/libmft.a
 BMP_PARSER = $(BMP_PARSER_DIR)/bmp_parser.a
 GLAD = $(GLAD_DIR)/glad.a
-GLFW_FLAGS = -lglfw -ldl -lm
+GLFW = -lglfw -ldl -lm
+
+LDLIBS = $(LIBMFT) $(BMP_PARSER) $(GLFW) $(LIBFT)
+
+LDFLAGS = -L $(LIBFT_DIR) -L $(LIBMFT_DIR) -L $(BMP_PARSER_DIR)
 
 LIB_RAW = 
 
@@ -57,7 +61,7 @@ RESOURCES =
 OPTI_FLAGS = -O3
 
 CFLAGS =	-Wall -Wextra -Werror -Wpadded -I $(INCLUDES_DIR) \
-	  	-I $(LIBFT_DIR) -I $(BMP_PARSER_DIR) -I $(LIBMFT_DIR) \
+	  	-I $(LIBFT_DIR) -I $(BMP_PARSER_DIR)/includes -I $(LIBMFT_DIR)/includes \
 		-I $(GLAD_DIR)/include \
 		-fsanitize=address -g3 \
 		#$(OPTI_FLAGS) \
@@ -127,18 +131,21 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES)
 
 $(NAME): $(LIBFT) $(LIBMFT) $(BMP_PARSER) $(OBJ_DIR) $(OBJ) 
 	@printf $(CYAN)"[INFO] Linking ${BIN_DIR}/${NAME}\n"$(RESET)
-	gcc $(OBJ) $(LIBFT) $(LIBMFT) $(BMP_PARSER) $(GLFW_FLAGS) $(CFLAGS)\
-	 -o $(NAME) 
+	gcc $(CFLAGS) -o $(NAME) $(OBJ) $(LDFLAGS) $(LDLIBS)
 	@printf ${GREEN}"[INFO] Compiled $(BIN_DIR)/$(NAME) with success!\n"
 	@printf ${RESET}
 
 clean:
 	@make --no-print-directory clean -C $(LIBFT_DIR)
+	@make --no-print-directory clean -C $(LIBMFT_DIR)
+	@make --no-print-directory clean -C $(BMP_PARSER_DIR)
 	@printf ${CYAN}"[INFO] Removing objs\n"${RESET}
 	rm -rf $(OBJ_DIR)
 
 fclean:
 	@make --no-print-directory fclean -C $(LIBFT_DIR)
+	@make --no-print-directory fclean -C $(LIBMFT_DIR)
+	@make --no-print-directory fclean -C $(BMP_PARSER_DIR)
 	@printf ${CYAN}"[INFO] Removing objs\n"${RESET}
 	rm -rf $(OBJ_DIR)
 	@printf ${CYAN}"[INFO] Removing $(BIN_DIR)/$(NAME)\n"$(RESET)
