@@ -23,7 +23,7 @@ LIBFT_DIR = $(LIB_DIR)/libft
 LIBMFT_DIR = $(LIB_DIR)/libmft
 BMP_PARSER_DIR = $(LIB_DIR)/bmp_parser
 INSTALL_DIR = install
-GLAD_DIR = glad
+GLAD_DIR = $(LIB_DIR)/glad
 SED = sed
 ROOT = sudo
 OPENGL = /usr/include/GLFW/glfw3.h
@@ -35,13 +35,13 @@ BMP_PARSER = $(BMP_PARSER_DIR)/bmp_parser.a
 GLAD = $(GLAD_DIR)/glad.a
 GLFW = -lglfw -ldl -lm
 
-LDLIBS = $(LIBMFT) $(BMP_PARSER) $(GLFW) $(LIBFT)
+LDLIBS = $(LIBMFT) $(BMP_PARSER) $(GLAD) $(GLFW) $(LIBFT)
 
 LDFLAGS = -L $(LIBFT_DIR) -L $(LIBMFT_DIR) -L $(BMP_PARSER_DIR)
 
 LIB_RAW = 
 
-SRC_RAW =	main.c scop.c init_opengl.c ../glad/src/glad.c ft_fatal_error.c \
+SRC_RAW =	main.c scop.c init_opengl.c ft_fatal_error.c \
 			free_all.c viewport_update_callback.c key_callback.c \
 			draw_triangle.c shader.c
 
