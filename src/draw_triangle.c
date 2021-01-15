@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:28:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/15 13:27:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/15 19:18:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int		init_triangle_shaders_program(t_env *env)
 	glUseProgram(env->shaders[0]);
 	glUniform1i(glGetUniformLocation(env->shaders[0], "texture1"), 0);
 	glUniform1i(glGetUniformLocation(env->shaders[0], "texture2"), 1);
-	glUniformMatrix4fv(glGetUniformLocation(env->shaders[0], "transform"))
+	glUniformMatrix4fv(glGetUniformLocation(env->shaders[0], "transform"),
+	1, GL_FALSE, NULL);
 	return (0);
 }
 

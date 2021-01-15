@@ -6,7 +6,7 @@
 #    By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/01 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2021/01/15 01:25:29 by lnicosia         ###   ########.fr        #
+#    Updated: 2021/01/15 19:23:02 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ OPENGL = /usr/include/GLFW/glfw3.h
 LIBFT = $(LIBFT_DIR)/libft.a
 LIBMFT = $(LIBMFT_DIR)/libmft.a
 BMP_PARSER = $(BMP_PARSER_DIR)/bmp_parser.a
-GLAD = $(GLAD_DIR)/glad.a
+GLAD = $(GLAD_DIR)/libglad.a
 GLFW = -lglfw -ldl -lm
 
 LDLIBS = $(LIBMFT) $(BMP_PARSER) $(GLAD) $(GLFW) $(LIBFT)
