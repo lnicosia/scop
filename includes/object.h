@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 21:15:17 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/16 00:15:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/16 12:00:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct		s_object
 	size_t			id;
 	size_t			count;
 	size_t			size;
+	size_t			shader;
 }					t_object;
 
 #endif

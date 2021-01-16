@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 13:09:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/15 13:23:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/16 12:42:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,55 +17,56 @@
 ** Translates vec of the given translation vector
 */
 
-t_v4    translate(t_v4 vec, t_v3 translation)
+void    translate(float mat[16], t_v3 translation)
 {
-    vec.x += translation.x;
-    vec.y += translation.y;
-    vec.z += translation.z;
-    return (vec);
+    mat[3] += translation.x;
+    mat[7] += translation.y;
+    mat[11] += translation.z;
 }
 
 /*
 ** Scales vec of the given translation vector
 */
 
-t_v4    scale(t_v4 vec, t_v3 scale)
+void    scale(float mat[16], t_v3 scale)
 {
-    vec.x *= scale.x;
-    vec.y *= scale.y;
-    vec.z *= scale.z;
-    return (vec);
+    mat[0] *= scale.x;
+    mat[5] *= scale.y;
+    mat[10] *= scale.z;
 }
 
 /*
 ** Rotates vec of the given angle on the X-axis
 */
 
-t_v4    rotate_x(t_v4 vec, double angle)
+void    rotate_x(float mat[16], double angle)
 {
-    vec.y = cos(angle) * vec.y - sin(angle) * vec.z;
-    vec.z = sin(angle) * vec.y + cos(angle) * vec.z;
-    return (vec);
+    mat[5] = cos(angle);
+    mat[6] = -sin(angle);
+    mat[9] = sin(angle);
+    mat[10] = cos(angle);
 }
 
 /*
 ** Rotates vec of the given angle on the Y-axis
 */
 
-t_v4    rotate_y(t_v4 vec, double angle)
+void    rotate_y(float mat[16], double angle)
 {
-    vec.x = cos(angle) * vec.x + sin(angle) * vec.z;
-    vec.z = -sin(angle) * vec.x + cos(angle) * vec.z;
-    return (vec);
+    mat[0] = cos(angle);
+    mat[2] = sin(angle);
+    mat[8] = -sin(angle);
+    mat[10] = cos(angle);
 }
 
 /*
 ** Rotates vec of the given angle on the Z-axis
 */
 
-t_v4    rotate_z(t_v4 vec, double angle)
+void    rotate_z(float mat[16], double angle)
 {
-    vec.x = cos(angle) * vec.x - sin(angle) * vec.y;
-    vec.y = sin(angle) * vec.x + cos(angle) * vec.y;
-    return (vec);
+    mat[0] = cos(angle);
+    mat[1] = -sin(angle);
+    mat[8] = sin(angle);
+    mat[9] = cos(angle);
 }

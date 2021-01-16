@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:28:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/16 00:05:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/16 12:16:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,24 +57,26 @@ int		draw_triangle(t_env *env)
 	glBindTexture(GL_TEXTURE_2D, env->textures[0]);
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, env->textures[1]);
-	if (env->mat[3] < -0.5)
+	/*if (env->mat[3] < -0.5)
 		env->direction = 1;
 	if (env->mat[3] > 0.5)
 		env->direction = 0;
 	if (env->direction == 1)
 	{
 		env->mat[3] += 0.005;
-		//env->mat[13] += 0.005;
+		//env->m./at[13] += 0.005;
 	}
 	else
 	{
 		env->mat[3] -= 0.005;
 		//env->mat[13] -= 0.005;
-	}
-	glUseProgram(env->shaders[0]);
+	}*/
+	/*glUseProgram(env->shaders[0]);
 	glUniformMatrix4fv(glGetUniformLocation(env->shaders[0], "model"),
 	1, GL_TRUE, env->mat);
 	glBindVertexArray(env->vaos[0]);
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);*/
+	move_object(&env->objects[0].instances[0], new_v3(0.005, 0, 0));
+	draw_object(&env->objects[0], env);
 	return (0);
 }

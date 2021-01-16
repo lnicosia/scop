@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/16 00:16:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/16 12:43:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,27 +39,6 @@ void	error_callback(int error, const char *description)
 	ft_dprintf(STDERR_FILENO, "GLFW Error: %s\n", description);
 }
 
-int		init_mat(t_env *env)
-{
-	env->mat[0] = 1.0f;
-	env->mat[1] = 0.0f;
-	env->mat[2] = 0.0f;
-	env->mat[3] = 0.0f;
-	env->mat[4] = 0.0f;
-	env->mat[5] = 1.5f;
-	env->mat[6] = 0.0f;
-	env->mat[7] = 0.0f;
-	env->mat[8] = 0.0f;
-	env->mat[9] = 0.0f;
-	env->mat[10] = 1.0f;
-	env->mat[11] = 0.0f;
-	env->mat[12] = 0.0f;
-	env->mat[13] = 0.0f;//(float)glfwGetTime();
-	env->mat[14] = 0.0f;
-	env->mat[15] = 1.0f;
-	return (0);
-}
-
 int		init_opengl(t_env *env)
 {
 	glfwSetErrorCallback(error_callback);
@@ -80,7 +59,9 @@ int		init_opengl(t_env *env)
 	glfwSetKeyCallback(env->window, key_callback);
 	init_textures("resources/textures/container.bmp", GL_RGB, env);
 	init_textures("resources/textures/awesomeface_alpha.bmp", GL_RGBA, env);
-	init_mat(env);
+	reset_mat(env->mat);
 	init_triangle_shaders_program(env);
+	add_object(0, env);
+	add_object(0, env);
 	return (0);
 }

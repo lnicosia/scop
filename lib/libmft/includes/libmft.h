@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 22:16:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/15 13:22:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/16 12:42:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,12 @@ typedef struct		s_complex
 t_point				new_point(int x, int y);
 t_v2				new_v2(double x, double y);
 t_v3				new_v3(double x, double y, double z);
-t_v4				translate(t_v4 vec, t_v3 translation);
-t_v4				scale(t_v4 vec, t_v3 scale);
-t_v4				rotate_x(t_v4 vec, double angle);
-t_v4				rotate_y(t_v4 vec, double angle);
-t_v4				rotate_z(t_v4 vec, double angle);
+void				translate(float mat[16], t_v3 translation);
+void				scale(float mat[16], t_v3 scale);
+void    			rotate_x(float mat[16], double angle);
+void    			rotate_x(float mat[16], double angle);
+void    			rotate_x(float mat[16], double angle);
+void				reset_mat(float mat[16]);
 
 /*
 ** Geometry

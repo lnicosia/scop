@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/16 00:14:00 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/16 12:44:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int		init_object(const char *source_file, const char *name, t_env *env)
 	new.vertices[18] = 0.0f;
 	new.vertices[19] = 1.0f;
 	new.name = name;
+	new.shader = 0;
 	new.id = env->object_count;
 	env->objects[env->object_count] = new;
 	env->object_count++;
@@ -57,9 +58,11 @@ int		add_object(size_t id, t_env *env)
 	count = &env->objects[id].count;
 	if (!(env->objects[id].instances =
 		(t_instance*)realloc(env->objects[id].instances,
-		sizeof(t_instance) * ++env->objects[*count].id)))
+		sizeof(t_instance) * ++(*count))))
 		ft_fatal_error("Failed to add object", env);
-	(*count)++;
+	ft_bzero(&env->objects[id].instances[*count - 1],
+	sizeof(env->objects[id].instances[*count - 1]));
+	ft_printf("Object %d has %d instances\n", id, *count);
 	return (0);
 }
 
@@ -68,9 +71,15 @@ int		draw_object(t_object *object, t_env *env)
 	size_t	count;
 
 	count = 0;
-	(void)env;
+	glUseProgram(env->shaders[object->shader]);
+	ft_printf("Drawing %d instances of objects %d\n", object->count, object->id);
 	while (count < object->count)
 	{
+		reset_mat(env->mat);
+		translate(env->mat, object->instances[count].transform.pos);
+		glUniformMatrix4fv(glGetUniformLocation(env->shaders[object->shader],
+		"model"), 1, GL_TRUE, env->mat);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		count++;
 	}
 	return (0);
