@@ -10,6 +10,6 @@ uniform mat4	projection;
 
 void	main()
 {
-	gl_Position = model * vec4(aPos, 1.0);
-	TextCoord = aTextCoord;
+	gl_Position = projection * view * model * vec4(aPos, 1.0f);
+	TextCoord = vec2(aTextCoord.x, aTextCoord.y);
 }

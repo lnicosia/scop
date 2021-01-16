@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/16 12:43:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/16 15:18:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,17 @@ void	error_callback(int error, const char *description)
 	ft_dprintf(STDERR_FILENO, "GLFW Error: %s\n", description);
 }
 
+void	init_camera(t_env *env)
+{
+	env->camera.l = 1.0f;
+	env->camera.r = 1.0f;
+	env->camera.b = 1.0f;
+	env->camera.t = 1.0f;
+	env->camera.n = 0.1;
+	env->camera.f = 100.0f;
+	env->camera.pos = new_v3(0, 0, -3);
+}
+
 int		init_opengl(t_env *env)
 {
 	glfwSetErrorCallback(error_callback);
@@ -57,11 +68,14 @@ int		init_opengl(t_env *env)
 	glfwSetFramebufferSizeCallback(env->window, viewport_update_callback);
 	glfwSetInputMode(env->window, GLFW_STICKY_KEYS, GLFW_TRUE);
 	glfwSetKeyCallback(env->window, key_callback);
+	init_camera(env);
 	init_textures("resources/textures/container.bmp", GL_RGB, env);
 	init_textures("resources/textures/awesomeface_alpha.bmp", GL_RGBA, env);
-	reset_mat(env->mat);
+	reset_matrix(env->matrix);
 	init_triangle_shaders_program(env);
 	add_object(0, env);
-	add_object(0, env);
+	scale_object(&env->objects[0].instances[0], new_v3(-0.75, -0.5, 0));
+	//rotate_object(&env->objects[0].instances[0], new_v3(0, 0, 0.5));
+	//add_object(0, env);
 	return (0);
 }

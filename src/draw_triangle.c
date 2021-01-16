@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:28:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/16 12:16:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/16 14:27:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,9 @@ int		draw_triangle(t_env *env)
 	1, GL_TRUE, env->mat);
 	glBindVertexArray(env->vaos[0]);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);*/
-	move_object(&env->objects[0].instances[0], new_v3(0.005, 0, 0));
+	//move_object(&env->objects[0].instances[0], new_v3(0.005, 0, 0));
+	//rotate_object(&env->objects[0].instances[0], new_v3(0, 0, 0.005));
+	//scale_object(&env->objects[0].instances[0], new_v3(0, 1, 0));
 	draw_object(&env->objects[0], env);
 	return (0);
 }

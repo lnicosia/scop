@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 17:56:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/16 12:16:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/16 14:52:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ int		move_object(t_instance *object, t_v3 move);
 int		rotate_object(t_instance *object, t_v3 rotate);
 int		scale_object(t_instance *object, t_v3 scale);
 int     draw_object(t_object *object, t_env *env);
+void	projection_matrix(t_camera *camera, float matrix[16]);
 
 #endif

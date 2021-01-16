@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:57:26 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/15 22:06:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/16 15:11:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define ENV_H
 # include "glad/glad.h"
 # include "object.h"
+# include "camera.h"
 # include <GLFW/glfw3.h>
 # define MAX_VAO 1
 # define MAX_VBO 1
@@ -29,6 +30,7 @@
 
 typedef struct		s_env
 {
+	t_camera		camera;
 	uint32_t		**images;
 	GLFWwindow		*window;
 	t_object		objects[MAX_OBJECTS];
@@ -43,7 +45,7 @@ typedef struct		s_env
 	unsigned int	vbos[MAX_VBO];
 	unsigned int	ebos[MAX_EBO];
 	unsigned int	textures[MAX_TEXTURES];
-	float			mat[16];
+	float			matrix[16];
 	int				direction;
 	char			log[512];
 	int				success;

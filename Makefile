@@ -6,7 +6,7 @@
 #    By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/01 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2021/01/16 00:09:33 by lnicosia         ###   ########.fr        #
+#    Updated: 2021/01/16 14:49:44 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,8 +44,9 @@ LIB_RAW =
 SRC_RAW =	main.c scop.c init_opengl.c ft_fatal_error.c \
 			free_all.c viewport_update_callback.c key_callback.c \
 			draw_triangle.c shader.c object.c object_transformation.c \
+			projection_matrix.c
 
-HEADERS = scop.h env.h inputs.h shader.h object.h
+HEADERS = scop.h env.h inputs.h shader.h object.h camera.h
 
 #
 # Creation of files path
@@ -131,7 +132,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES)
 
 $(NAME): $(LIBFT) $(LIBMFT) $(BMP_PARSER) $(OBJ_DIR) $(OBJ) 
 	@printf $(CYAN)"[INFO] Linking ${BIN_DIR}/${NAME}\n"$(RESET)
-	gcc $(CFLAGS) -o $(NAME) $(OBJ) $(LDFLAGS) $(LDLIBS)
+	@gcc $(CFLAGS) -o $(NAME) $(OBJ) $(LDFLAGS) $(LDLIBS)
 	@printf ${GREEN}"[INFO] Compiled $(BIN_DIR)/$(NAME) with success!\n"
 	@printf ${RESET}
 

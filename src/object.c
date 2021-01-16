@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/16 12:44:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/16 15:19:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,27 @@ int		add_object(size_t id, t_env *env)
 		ft_fatal_error("Failed to add object", env);
 	ft_bzero(&env->objects[id].instances[*count - 1],
 	sizeof(env->objects[id].instances[*count - 1]));
-	ft_printf("Object %d has %d instances\n", id, *count);
+	env->objects[id].instances[*count - 1].transform.scale = new_v3(1, 1, 1);
+	return (0);
+}
+
+int		matrix_pipeline(t_transform *transform, unsigned int shader, t_env *env)
+{
+	reset_matrix(env->matrix);
+	translate(env->matrix, transform->pos);
+	rotate_x(env->matrix, transform->rotation.x);
+	rotate_y(env->matrix, transform->rotation.y);
+	rotate_z(env->matrix, transform->rotation.z);
+	scale(env->matrix, transform->scale);
+	glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, GL_TRUE,
+	env->matrix);
+	reset_matrix(env->matrix);
+	translate(env->matrix, env->camera.pos);
+	glUniformMatrix4fv(glGetUniformLocation(shader, "view"), 1, GL_TRUE,
+	env->matrix);
+	projection_matrix(&env->camera, env->matrix);
+	glUniformMatrix4fv(glGetUniformLocation(shader, "projection"), 1, GL_TRUE,
+	env->matrix);
 	return (0);
 }
 
@@ -72,13 +92,10 @@ int		draw_object(t_object *object, t_env *env)
 
 	count = 0;
 	glUseProgram(env->shaders[object->shader]);
-	ft_printf("Drawing %d instances of objects %d\n", object->count, object->id);
 	while (count < object->count)
 	{
-		reset_mat(env->mat);
-		translate(env->mat, object->instances[count].transform.pos);
-		glUniformMatrix4fv(glGetUniformLocation(env->shaders[object->shader],
-		"model"), 1, GL_TRUE, env->mat);
+		matrix_pipeline(&object->instances[count].transform,
+		env->shaders[object->shader], env);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		count++;
 	}

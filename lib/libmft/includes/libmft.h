@@ -6,11 +6,11 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 22:16:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/16 12:42:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/16 14:51:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBMFT_h
+#ifndef LIBMFT_H
 # define LIBMFT_H
 
 typedef struct		s_point
@@ -75,9 +75,9 @@ t_v3				new_v3(double x, double y, double z);
 void				translate(float mat[16], t_v3 translation);
 void				scale(float mat[16], t_v3 scale);
 void    			rotate_x(float mat[16], double angle);
-void    			rotate_x(float mat[16], double angle);
-void    			rotate_x(float mat[16], double angle);
-void				reset_mat(float mat[16]);
+void    			rotate_y(float mat[16], double angle);
+void    			rotate_z(float mat[16], double angle);
+void				reset_matrix(float mat[16]);
 
 /*
 ** Geometry
