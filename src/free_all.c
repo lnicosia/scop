@@ -6,11 +6,25 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:38:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/14 21:28:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/16 15:52:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+#include "libft.h"
+
+void	free_objects(t_env *env)
+{
+	int	i;
+
+	i = 0;
+	while (i < MAX_OBJECTS)
+	{
+		ft_memdel((void**)&env->objects[i].vertices);
+		ft_memdel((void**)&env->objects[i].instances);
+		i++;
+	}
+}
 
 void	free_all(t_env *env)
 {
@@ -41,5 +55,6 @@ void	free_all(t_env *env)
 		glDeleteProgram(env->shaders[i]);
 		i++;
 	}
+	free_objects(env);
 	glfwTerminate();
 }

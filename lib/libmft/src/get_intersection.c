@@ -6,13 +6,13 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 10:41:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/14 22:21:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/16 17:02:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmft.h"
 
-double	cross_product(double x0, double y0, double x1, double y1)
+float	cross_product(float x0, float y0, float x1, float y1)
 {
 	return (x0 * y1 - x1 * y0);
 }

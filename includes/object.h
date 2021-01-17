@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 21:15:17 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/16 12:00:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/17 13:06:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct		s_instance
 {
 	size_t			id;
 	t_transform		transform;
+	char			padding[4];
 }					t_instance;
 
 typedef struct		s_object
@@ -37,8 +38,9 @@ typedef struct		s_object
 	unsigned int	textures[MAX_OBJ_TEXT];
 	size_t			id;
 	size_t			count;
-	size_t			size;
 	size_t			shader;
+	t_v3			center;
+	unsigned int	size;
 }					t_object;
 
 #endif

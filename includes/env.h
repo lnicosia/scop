@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:57:26 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/16 15:11:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/16 16:43:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 
 typedef struct		s_env
 {
-	t_camera		camera;
 	uint32_t		**images;
 	GLFWwindow		*window;
 	t_object		objects[MAX_OBJECTS];
@@ -45,11 +44,11 @@ typedef struct		s_env
 	unsigned int	vbos[MAX_VBO];
 	unsigned int	ebos[MAX_EBO];
 	unsigned int	textures[MAX_TEXTURES];
+	t_camera		camera;
 	float			matrix[16];
 	int				direction;
 	char			log[512];
 	int				success;
-	char			padding[4];
 }					t_env;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 21:06:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/14 21:34:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/16 17:08:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*read_shader(const char *file)
 {
 	int			fd;
 	ssize_t		ret;
-	size_t		size;
+	ssize_t		size;
 	char		buffer[4096];
 	char		*res;
 
@@ -42,7 +42,7 @@ char	*read_shader(const char *file)
 	return (res);
 }
 
-int		init_pipeline_shader(GLenum type, const char *file, t_env *env)
+unsigned int	init_pipeline_shader(GLenum type, const char *file, t_env *env)
 {
 	unsigned int	shader;
 	const char		*shader_source;
@@ -58,7 +58,7 @@ int		init_pipeline_shader(GLenum type, const char *file, t_env *env)
 	{
 		glGetShaderInfoLog(shader, 512, NULL, env->log);
 		custom_error("{yellow}Failed to compile shader\n");
-		return (custom_error(env->log));
+		return ((unsigned int)custom_error(env->log));
 	}
 	return (shader);
 }

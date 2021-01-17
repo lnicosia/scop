@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   camera.h                                           :+:      :+:    :+:   */
+/*   angle_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/16 14:35:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/16 16:38:54 by lnicosia         ###   ########.fr       */
+/*   Created: 2021/01/16 15:38:54 by lnicosia          #+#    #+#             */
+/*   Updated: 2021/01/16 17:03:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CAMERA_H
-# define CAMERA_H
-# include "libmft.h"
+#include <math.h>
 
-typedef struct	s_camera
+float	to_radians(float degrees)
 {
-	float		vfov;
-	float		hfov;
-	float		ratio;
-	float		l;
-	float		r;
-	float		b;
-	float		t;
-	float		n;
-	float		f;
-	t_v3		pos;
-	t_v3		direction;
-}               t_camera;
+	return (degrees * ((float)M_PI / 180.0f));
+}
 
-#endif
+float	to_degrees(float radians)
+{
+	return (radians * (180.0f / (float)M_PI));
+}

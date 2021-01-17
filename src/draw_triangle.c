@@ -6,13 +6,14 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:28:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/16 14:27:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/17 15:15:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "libft.h"
 #include "scop.h"
+#include <math.h>
 
 int		init_triangle_shaders_program(t_env *env)
 {
@@ -50,35 +51,59 @@ int		init_triangle_shaders_program(t_env *env)
 	return (0);
 }
 
+void	rotate_z_cpu(float *vertices, float rotation)
+{
+	float	tmp;
+	/*t_v3	center;
+
+	center.x = (vertices[0] + vertices[5] + vertices[10] + vertices[15]) / 4.0f;
+	center.y = (vertices[1] + vertices[6] + vertices[11] + vertices[16]) / 4.0f;
+
+	vertices[0] = (vertices[0] - center.x) / 2.0f;
+	vertices[1] = (vertices[1] - center.y) / 2.0f;*/
+	tmp = vertices[0];
+	vertices[0] = cosf(rotation) * vertices[0] - sinf(rotation) * vertices[1];
+	vertices[1] = sinf(rotation) * tmp + cosf(rotation) * vertices[1];
+	/*vertices[0] = (vertices[0] + center.x) / 2.0f;
+	vertices[1] = (vertices[1] + center.y) / 2.0f;
+
+	vertices[5] = (vertices[5] - center.x) / 2.0f;
+	vertices[6] = (vertices[6] - center.y) / 2.0f;*/
+	tmp = vertices[5];
+	vertices[5] = cosf(rotation) * vertices[5] - sinf(rotation) * vertices[6];
+	vertices[6] = sinf(rotation) * tmp + cosf(rotation) * vertices[6];
+	/*vertices[5] = (vertices[5] + center.x) / 2.0f;
+	vertices[6] = (vertices[6] + center.y) / 2.0f;
+
+	vertices[10] = (vertices[10] - center.x) / 2.0f;
+	vertices[11] = (vertices[11] - center.y) / 2.0f;*/
+	/*tmp = vertices[10];
+	vertices[10] = cosf(rotation) * vertices[10] - sinf(rotation) * vertices[11];
+	vertices[11] = sinf(rotation) * tmp + cosf(rotation) * vertices[11];*/
+	/*vertices[10] = (vertices[10] + center.x) / 2.0f;
+	vertices[11] = (vertices[11] + center.y) / 2.0f;
+
+	vertices[15] = (vertices[15] - center.x) / 2.0f;
+	vertices[16] = (vertices[16] - center.y) / 2.0f;*/
+	tmp = vertices[15];
+	vertices[15] = cosf(rotation) * vertices[15] - sinf(rotation) * vertices[16];
+	vertices[16] = sinf(rotation) * tmp + cosf(rotation) * vertices[16];
+	/*vertices[15] = (vertices[15] + center.x) / 2.0f;
+	vertices[16] = (vertices[16] + center.y) / 2.0f;*/
+}
+
 int		draw_triangle(t_env *env)
 {
+	//move_object(&env->objects[0].instances[0], new_v3(0, 0, 0.005));
+	rotate_object(&env->objects[0].instances[0], new_v3(0.0f, 0.0f, 0.005f));
+	//rotate_z(env->objects[0].vertices, 0.005f);
+	//scale_object(&env->objects[0].instances[0], new_v3(0, 1, 0));
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, env->textures[0]);
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, env->textures[1]);
-	/*if (env->mat[3] < -0.5)
-		env->direction = 1;
-	if (env->mat[3] > 0.5)
-		env->direction = 0;
-	if (env->direction == 1)
-	{
-		env->mat[3] += 0.005;
-		//env->m./at[13] += 0.005;
-	}
-	else
-	{
-		env->mat[3] -= 0.005;
-		//env->mat[13] -= 0.005;
-	}*/
-	/*glUseProgram(env->shaders[0]);
-	glUniformMatrix4fv(glGetUniformLocation(env->shaders[0], "model"),
-	1, GL_TRUE, env->mat);
 	glBindVertexArray(env->vaos[0]);
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);*/
-	//move_object(&env->objects[0].instances[0], new_v3(0.005, 0, 0));
-	//rotate_object(&env->objects[0].instances[0], new_v3(0, 0, 0.005));
-	//scale_object(&env->objects[0].instances[0], new_v3(0, 1, 0));
 	draw_object(&env->objects[0], env);
 	return (0);
 }

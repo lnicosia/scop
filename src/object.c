@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/16 15:19:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/17 15:15:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int		init_object(const char *source_file, const char *name, t_env *env)
 	new.vertices[17] = 0.0f;
 	new.vertices[18] = 0.0f;
 	new.vertices[19] = 1.0f;
+	new.center.x = (new.vertices[0] + new.vertices[5] + new.vertices[15]) / 3.0f;
+	new.center.y = (new.vertices[1] + new.vertices[6] + new.vertices[16]) / 3.0f;
 	new.name = name;
 	new.shader = 0;
 	new.id = env->object_count;
@@ -70,19 +72,29 @@ int		matrix_pipeline(t_transform *transform, unsigned int shader, t_env *env)
 {
 	reset_matrix(env->matrix);
 	translate(env->matrix, transform->pos);
+	ft_printf("Matrix before rotation:\n");
+	print_matrix(env->matrix);
 	rotate_x(env->matrix, transform->rotation.x);
 	rotate_y(env->matrix, transform->rotation.y);
 	rotate_z(env->matrix, transform->rotation.z);
-	scale(env->matrix, transform->scale);
-	glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, GL_TRUE,
+	/*glBindBuffer(GL_ARRAY_BUFFER, env->vbos[0]);
+	glBufferData(GL_ARRAY_BUFFER, env->objects[0].size,
+	env->objects[0].vertices, GL_STATIC_DRAW);*/
+	ft_printf("Matrix after rotation of z axis of %f:\n", transform->rotation.z);
+	print_matrix(env->matrix);
+	ft_printf("\n\n");
+	//scale(env->matrix, transform->scale);
+	glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, GL_FALSE,
 	env->matrix);
-	reset_matrix(env->matrix);
+	/*reset_matrix(env->matrix);
 	translate(env->matrix, env->camera.pos);
 	glUniformMatrix4fv(glGetUniformLocation(shader, "view"), 1, GL_TRUE,
 	env->matrix);
+	// Pas besoin de la reset a chaque frame
+	reset_matrix(env->matrix);
 	projection_matrix(&env->camera, env->matrix);
 	glUniformMatrix4fv(glGetUniformLocation(shader, "projection"), 1, GL_TRUE,
-	env->matrix);
+	env->matrix);*/
 	return (0);
 }
 
@@ -97,6 +109,7 @@ int		draw_object(t_object *object, t_env *env)
 		matrix_pipeline(&object->instances[count].transform,
 		env->shaders[object->shader], env);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		//glDrawArrays(GL_TRIANGLES, 0, 6);
 		count++;
 	}
 	return (0);

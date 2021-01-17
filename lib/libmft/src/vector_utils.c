@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 12:14:56 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/16 14:47:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/16 17:02:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_point	new_point(int x, int y)
 	return (new);
 }
 
-t_v2	new_v2(double x, double y)
+t_v2	new_v2(float x, float y)
 {
 	t_v2	new;
 
@@ -31,7 +31,7 @@ t_v2	new_v2(double x, double y)
 	return (new);
 }
 
-t_v3	new_v3(double x, double y, double z)
+t_v3	new_v3(float x, float y, float z)
 {
 	t_v3	new;
 
@@ -41,7 +41,7 @@ t_v3	new_v3(double x, double y, double z)
 	return (new);
 }
 
-t_v4	new_v4(double x, double y, double z, double w)
+t_v4	new_v4(float x, float y, float z, float w)
 {
 	t_v4	new;
 

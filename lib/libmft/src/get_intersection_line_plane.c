@@ -6,18 +6,18 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 16:31:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/14 22:21:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/16 17:02:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmft.h"
 
-double	dot_product(t_v3 a, t_v3 b)
+float	dot_product(t_v3 a, t_v3 b)
 {
 	return (a.x * b.x + a.y * b.y + a.z * b.z);
 }
 
-t_v3	scale_vector(double l, t_v3 b)
+t_v3	scale_vector(float l, t_v3 b)
 {
 	return (new_v3(l * b.x, l * b.y, l * b.z));
 }

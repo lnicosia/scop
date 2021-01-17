@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 22:16:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/16 14:51:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/17 11:21:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,23 @@ typedef struct		s_point
 
 typedef struct		s_v2
 {
-	double			x;
-	double			y;
+	float			x;
+	float			y;
 }					t_v2;
 
 typedef struct		s_v3
 {
-	double			x;
-	double			y;
-	double			z;
+	float			x;
+	float			y;
+	float			z;
 }					t_v3;
 
 typedef struct		s_v4
 {
-	double			x;
-	double			y;
-	double			z;
-	double			w;
+	float			x;
+	float			y;
+	float			z;
+	float			w;
 }					t_v4;
 
 typedef struct		s_circle_vars
@@ -55,8 +55,9 @@ typedef	struct		s_segment
 
 typedef	struct		s_plane
 {
-	t_v3			norm;
 	double			d;
+	t_v3			norm;
+	char			padding[4];
 }					t_plane;
 
 typedef struct		s_complex
@@ -70,14 +71,15 @@ typedef struct		s_complex
 */
 
 t_point				new_point(int x, int y);
-t_v2				new_v2(double x, double y);
-t_v3				new_v3(double x, double y, double z);
-void				translate(float mat[16], t_v3 translation);
-void				scale(float mat[16], t_v3 scale);
-void    			rotate_x(float mat[16], double angle);
-void    			rotate_y(float mat[16], double angle);
-void    			rotate_z(float mat[16], double angle);
-void				reset_matrix(float mat[16]);
+t_v2				new_v2(float x, float y);
+t_v3				new_v3(float x, float y, float z);
+void				translate(float matrix[16], t_v3 translation);
+void				scale(float matrix[16], t_v3 scale);
+void    			rotate_x(float matrix[16], float angle);
+void    			rotate_y(float matrix[16], float angle);
+void    			rotate_z(float matrix[16], float angle);
+void				reset_matrix(float matrix[16]);
+void				print_matrix(float matrix[16]);
 
 /*
 ** Geometry
@@ -108,5 +110,12 @@ t_complex			ft_csin(t_complex c);
 t_complex			ft_cscos(t_complex c);
 t_complex			ft_cconj(t_complex c);
 t_complex			new_complex(double r, double i);
+
+/*
+** Angle utils
+*/
+
+float				to_radians(float degrees);
+float				to_degrees(float radians);
 
 #endif

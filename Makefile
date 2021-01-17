@@ -6,7 +6,7 @@
 #    By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/01 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2021/01/16 14:49:44 by lnicosia         ###   ########.fr        #
+#    Updated: 2021/01/16 17:01:10 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,7 @@ RESOURCES =
 
 OPTI_FLAGS = -O3
 
-CFLAGS =	-Wall -Wextra -Werror -Wpadded -I $(INCLUDES_DIR) \
+CFLAGS =	-Wall -Wextra -Werror -Wpadded -Wconversion -I $(INCLUDES_DIR) \
 	  	-I $(LIBFT_DIR) -I $(BMP_PARSER_DIR)/includes -I $(LIBMFT_DIR)/includes \
 		-I $(GLAD_DIR)/include \
 		-fsanitize=address -g3 \
