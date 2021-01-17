@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:21 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/11 21:35:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/17 20:45:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	scop(int ac, char **av)
 	while (!glfwWindowShouldClose(env.window))
 	{
 		glClearColor(0.4f, 0.4f, 0.6f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		draw_triangle(&env);
 		glfwSwapBuffers(env.window);
 		glfwPollEvents();

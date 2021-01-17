@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 13:48:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/15 00:55:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/17 21:42:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,24 @@ typedef struct		s_bmp_parser
 	int32_t			green_mask;
 	int32_t			red_mask;
 	int32_t			blue_mask;
+	int32_t			pixel_bytes;
 	int				ret;
 	int				index;
 	int				skybox_index;
 	int16_t			planes;
 	int16_t			bpp;
 	int16_t			opp;
-	char			padding[2];
+	char			padding[6];
 }					t_bmp_parser;
 
+typedef struct		s_texture
+{
+	int				w;
+	int				h;
+	unsigned char	*pixels;
+}					t_texture;
+
+int					parse_bmp(char *file, t_texture *texture);
 int32_t				read_int32(unsigned char *str, int index);
 int32_t				read_int16(unsigned char *str, int index);
 int32_t				read_int32_swaped(unsigned char *str, int index);
@@ -67,8 +76,9 @@ int					parse_image_bitmasks(int fd, t_bmp_parser *parser);
 int					set_color_table(int fd, t_bmp_parser *parser);
 int					get_image_header_size(int fd, t_bmp_parser *parser);
 int					parse_pixel_data(int fd, t_bmp_parser *parser,
-unsigned char **data);
+t_texture *texture);
 int					set_byte(int *x, int *y, double *byte,
 t_bmp_parser *parser);
 void				print_bits(int32_t nb);
+
 #endif

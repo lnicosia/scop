@@ -6,21 +6,21 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 16:44:23 by sipatry           #+#    #+#             */
-/*   Updated: 2021/01/14 00:12:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/17 23:19:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bmp_parser.h"
 #include <fcntl.h>
 
-static int	parse2(int fd, t_bmp_parser *parser, unsigned char **data)
+static int	parse2(int fd, t_bmp_parser *parser, t_texture *texture)
 {
 	if (parser->color_used || parser->bpp <= 8)
 	{
 		if (set_color_table(fd, parser))
 			return (custom_error("Error in color table\n"));
 	}
-	if (parse_pixel_data(fd, parser, (unsigned char**)data))
+	if (parse_pixel_data(fd, parser, texture))
 		return (custom_error("Error in pixel data\n"));
 	return (0);
 }
@@ -32,7 +32,7 @@ static int	parse2(int fd, t_bmp_parser *parser, unsigned char **data)
 **	-Image data
 */
 
-static int	parse(int fd, unsigned char **data)
+static int	parse(int fd, t_texture *texture)
 {
 	t_bmp_parser	parser;
 
@@ -42,11 +42,11 @@ static int	parse(int fd, unsigned char **data)
 		return (custom_error("Error in image header\n"));
 	if (parse_image_header(fd, &parser))
 		return (custom_error("Error in image header\n"));
+	texture->w = parser.w;
+	texture->h = parser.h;
 	ft_printf("{red}");
-	if (!(*data = (unsigned char*)ft_memalloc(parser.bpp / 8.0
-		* parser.w * parser.h)))
-		return (ft_perror("Failed to malloc data\n"));
-	return (parse2(fd, &parser, data));
+	parser.pixel_bytes = parser.opp * parser.w * parser.h;
+	return (parse2(fd, &parser, texture));
 }
 
 /*
@@ -57,13 +57,14 @@ static int	parse(int fd, unsigned char **data)
 **	-Close the file
 */
 
-int			parse_bmp(char *file, unsigned char **data)
+int			parse_bmp(char *file, t_texture *texture)
 {
 	int	fd;
 
+	ft_bzero(texture, sizeof(*texture));
 	if ((fd = open(file, O_RDONLY)) == -1)
 		return (custom_error("Could not open \"%s\"\n", file));
-	if (parse(fd, data))
+	if (parse(fd, texture))
 	{
 		if (close(fd))
 			return (ft_perror("Bmp parsing failed and could not close the"

@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:57:26 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/16 16:43:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/17 23:25:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct		s_env
 	unsigned int	textures[MAX_TEXTURES];
 	t_camera		camera;
 	float			matrix[16];
+	float			projection_matrix[16];
 	int				direction;
 	char			log[512];
 	int				success;

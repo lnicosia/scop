@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/28 16:56:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/14 21:17:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/17 23:19:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,21 @@
 #include <math.h>
 
 int		fill_pixel(unsigned char *str, t_bmp_parser *parser,
-unsigned char **data, int byte)
+t_texture *texture, int byte)
 {
 	int	filler;
 
 	filler = 0;
 	while (filler < parser->opp)
 	{
-		(*data)[byte + filler] = str[byte + filler];
+		texture->pixels[byte + filler] = str[byte + filler];
 		filler++;
 	}
-	(*data)[byte] = str[byte + 2];
-	(*data)[byte + 1] = str[byte + 1];
-	(*data)[byte + 2] = str[byte + 0];
+	texture->pixels[byte] = str[byte + 2];
+	texture->pixels[byte + 1] = str[byte + 1];
+	texture->pixels[byte + 2] = str[byte + 0];
 	if (filler == 4)
-		(*data)[byte + 3] = str[byte + 3];
-	(void)parser;
+		texture->pixels[byte + 3] = str[byte + 3];
 	return (0);
 }
 
@@ -40,14 +39,14 @@ unsigned char **data, int byte)
 */
 
 int		parse_pixels(unsigned char *str, t_bmp_parser *parser,
-unsigned char **data)
+t_texture *texture)
 {
 	int	byte;
 
 	byte = 0;
 	while (byte < parser->ret)
 	{
-		fill_pixel(str, parser, data, byte);
+		fill_pixel(str, parser, texture, byte);
 		byte += parser->opp;
 	}
 	return (0);
@@ -69,7 +68,7 @@ int		set_byte(int *x, int *y, double *byte, t_bmp_parser *parser)
 	return (0);
 }
 
-int		parse_pixel_data(int fd, t_bmp_parser *parser, unsigned char **data)
+int		parse_pixel_data(int fd, t_bmp_parser *parser, t_texture *texture)
 {
 	int				size;
 	unsigned char	*str;
@@ -83,7 +82,9 @@ int		parse_pixel_data(int fd, t_bmp_parser *parser, unsigned char **data)
 		return (ft_perror("Could not malloc buffer for pixel data\n"));
 	if ((parser->ret = read(fd, str, size)) > 0)
 	{
-		parse_pixels(str, parser, data);
+		if (!(texture->pixels = (unsigned char*)ft_memalloc(parser->ret)))
+			return (ft_perror("Failed to malloc data\n"));
+		parse_pixels(str, parser, texture);
 	}
 	ft_memdel((void**)&str);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:01:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/14 22:28:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/17 21:07:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,5 @@ int					custom_error(const char *restrict message, ...);
 int					custom_invalid(const char *restrict message, ...);
 t_list				*ft_lstdelnode(t_list **list, t_list *node);
 char				*ft_convert_base(char *nbr, char *base_from, char *base_to);
-int					parse_bmp(char *file, unsigned char **data);
 
 #endif

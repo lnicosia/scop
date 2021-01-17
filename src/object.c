@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/17 19:42:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/17 23:27:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,8 @@ int		matrix_pipeline(t_transform *transform, unsigned int shader, t_env *env)
 	glUniformMatrix4fv(glGetUniformLocation(shader, "view"), 1, GL_TRUE,
 	env->matrix);
 	// Pas besoin de la reset a chaque frame
-	reset_matrix(env->matrix);
-	projection_matrix(&env->camera, env->matrix);
 	glUniformMatrix4fv(glGetUniformLocation(shader, "projection"), 1, GL_TRUE,
-	env->matrix);
+	env->projection_matrix);
 	return (0);
 }
 
@@ -100,8 +98,8 @@ int		draw_object(t_object *object, t_env *env)
 	{
 		matrix_pipeline(&object->instances[count].transform,
 		env->shaders[object->shader], env);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-		//glDrawArrays(GL_TRIANGLES, 0, 6);
+		//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		glDrawArrays(GL_TRIANGLES, 0, 36);
 		count++;
 	}
 	return (0);
