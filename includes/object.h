@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 21:15:17 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/17 13:06:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/17 23:57:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,7 @@ typedef struct		s_object
 	t_v3			center;
 	unsigned int	size;
 }					t_object;
+
+int					parse_object(const char *source_file, t_object *object);
 
 #endif

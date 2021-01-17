@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:38:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/16 15:52:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/18 00:01:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	free_all(t_env *env)
 		glDeleteProgram(env->shaders[i]);
 		i++;
 	}
+	glDeleteTextures((int)env->texture_count, env->textures);
 	free_objects(env);
 	glfwTerminate();
 }

@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:57:26 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/17 23:25:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/18 00:03:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 
 typedef struct		s_env
 {
-	uint32_t		**images;
 	GLFWwindow		*window;
 	t_object		objects[MAX_OBJECTS];
 	size_t			shader_count;

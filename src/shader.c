@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 21:06:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/16 17:08:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/17 23:54:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*read_shader(const char *file)
 
 	size = 0;
 	res = 0;
-	if ((fd = open(file, O_RDONLY)) == -1)
+	if ((fd = open(file, O_RDONLY)) < 0)
 	{
 		custom_error("{yellow}Could not open \"%s\"{reset}\n", file);
 		return (0);

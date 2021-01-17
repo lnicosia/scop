@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:28:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/17 23:31:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/17 23:45:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ int		init_triangle_shaders_program(t_env *env)
      0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
     -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
     -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
-};
+	};
 
-	init_object("", "plane", env);
+	init_object("resources/objects/42/42.obj", "plane", env);
 	vertex_shader = init_pipeline_shader(GL_VERTEX_SHADER,
 	"resources/shaders/default_shader.vs", env);
 	fragment_shader = init_pipeline_shader(GL_FRAGMENT_SHADER,

@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/17 23:27:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/17 23:58:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ int		init_object(const char *source_file, const char *name, t_env *env)
 	new.size = sizeof(float) * 20;
 	if (!(new.vertices = (float*)ft_memalloc(new.size)))
 		ft_fatal_error("Failed to init object vertices", env);
+	if (parse_object(source_file, &new))
+		return (custom_error("{yellow}Failed to load %s{reset}\n",
+		source_file));
 	new.vertices[0] = 0.5f;
 	new.vertices[1] = 0.5f;
 	new.vertices[2] = 0.0f;
