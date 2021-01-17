@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/17 15:15:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/17 19:42:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,21 +72,13 @@ int		matrix_pipeline(t_transform *transform, unsigned int shader, t_env *env)
 {
 	reset_matrix(env->matrix);
 	translate(env->matrix, transform->pos);
-	ft_printf("Matrix before rotation:\n");
-	print_matrix(env->matrix);
 	rotate_x(env->matrix, transform->rotation.x);
 	rotate_y(env->matrix, transform->rotation.y);
 	rotate_z(env->matrix, transform->rotation.z);
-	/*glBindBuffer(GL_ARRAY_BUFFER, env->vbos[0]);
-	glBufferData(GL_ARRAY_BUFFER, env->objects[0].size,
-	env->objects[0].vertices, GL_STATIC_DRAW);*/
-	ft_printf("Matrix after rotation of z axis of %f:\n", transform->rotation.z);
-	print_matrix(env->matrix);
-	ft_printf("\n\n");
-	//scale(env->matrix, transform->scale);
-	glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, GL_FALSE,
+	scale(env->matrix, transform->scale);
+	glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, GL_TRUE,
 	env->matrix);
-	/*reset_matrix(env->matrix);
+	reset_matrix(env->matrix);
 	translate(env->matrix, env->camera.pos);
 	glUniformMatrix4fv(glGetUniformLocation(shader, "view"), 1, GL_TRUE,
 	env->matrix);
@@ -94,7 +86,7 @@ int		matrix_pipeline(t_transform *transform, unsigned int shader, t_env *env)
 	reset_matrix(env->matrix);
 	projection_matrix(&env->camera, env->matrix);
 	glUniformMatrix4fv(glGetUniformLocation(shader, "projection"), 1, GL_TRUE,
-	env->matrix);*/
+	env->matrix);
 	return (0);
 }
 

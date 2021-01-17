@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/17 15:12:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/17 19:43:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	error_callback(int error, const char *description)
 void	init_camera(t_env *env)
 {
 	env->camera.vfov = 45.0f;
-	env->camera.ratio = 16.0f / 9.0f;
+	env->camera.ratio = 1.0f;//16.0f / 9.0f;
 	env->camera.t = 0.1f * tanf(to_radians(env->camera.vfov / 2.0f));
 	env->camera.b = -env->camera.b;
 	env->camera.r = env->camera.t * env->camera.ratio;
@@ -77,10 +77,7 @@ int		init_opengl(t_env *env)
 	reset_matrix(env->matrix);
 	init_triangle_shaders_program(env);
 	add_object(0, env);
-	//scale_object(&env->objects[0].instances[0], new_v3(-0.75, -0.5, 0));
-	//move_object(&env->objects[0].instances[0], new_v3(0.5f, 0.0f, 0.0f));
-	//rotate_object(&env->objects[0].instances[0], new_v3(0.0f, 0.0f, to_radians(90)));
-	//rotate_z_cpu(env->objects[0].vertices, to_radians(90.0f));
-	//add_object(0, env);
+	scale_object(&env->objects[0].instances[0], new_v3(-0.5, -0.5, 0));
+	move_object(&env->objects[0].instances[0], new_v3(0.25f, 0.0f, 0.0f));
 	return (0);
 }

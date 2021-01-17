@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 22:16:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/17 11:21:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/17 18:15:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void    			rotate_y(float matrix[16], float angle);
 void    			rotate_z(float matrix[16], float angle);
 void				reset_matrix(float matrix[16]);
 void				print_matrix(float matrix[16]);
+void				mult_matrix(float a[16], float b[16], float res[16]);
 
 /*
 ** Geometry

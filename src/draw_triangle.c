@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:28:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/17 15:15:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/17 19:43:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,10 @@ void	rotate_z_cpu(float *vertices, float rotation)
 
 int		draw_triangle(t_env *env)
 {
-	//move_object(&env->objects[0].instances[0], new_v3(0, 0, 0.005));
-	rotate_object(&env->objects[0].instances[0], new_v3(0.0f, 0.0f, 0.005f));
-	//rotate_z(env->objects[0].vertices, 0.005f);
-	//scale_object(&env->objects[0].instances[0], new_v3(0, 1, 0));
+	//move_object(&env->objects[0].instances[0], new_v3(0.0f, 0.0f, 0.01f));
+	//rotate_object(&env->objects[0].instances[0], new_v3(0.0f, 0.0f, 0.01f));
+	rotate_object(&env->objects[0].instances[0], new_v3(0.0f, 0.0f, 0.01f));
+	//scale_object(&env->objects[0].instances[0], new_v3(0.0f, 0.0f, 0.1f));
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, env->textures[0]);
