@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:38:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/18 00:01:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/18 19:21:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	free_objects(t_env *env)
 	{
 		ft_memdel((void**)&env->objects[i].vertices);
 		ft_memdel((void**)&env->objects[i].instances);
+		ft_memdel((void**)&env->objects[i].indices);
 		i++;
 	}
 }
