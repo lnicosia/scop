@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/17 23:58:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/18 14:40:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,42 +14,70 @@
 #include "libft.h"
 #include "scop.h"
 
-int		init_object(const char *source_file, const char *name, t_env *env)
+int		init_object_buffers(t_object *object)
+{
+	glGenVertexArrays(1, &object->vao);
+	glGenBuffers(1, &object->vbo);
+	glGenBuffers(1, &object->ebo);
+	glBindVertexArray(object->vao);
+	glBufferData(GL_ARRAY_BUFFER, object->size, object->vertices,
+	GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, object->ebo);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER,
+	(int)sizeof(*object->indices) * object->nb_indexes, object->indices,
+	GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float),
+	(void*)0);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float),
+	(void*)(3 * sizeof(float)));
+	glEnableVertexAttribArray(1);
+	glBindVertexArray(0);
+	return (0);
+}
+
+int		init_object(const char *source_file, unsigned int *textures,
+unsigned int nb_textures, t_env *env)
 {
 	t_object	new;
 
 	(void)source_file;
+	(void)textures;
 	ft_bzero(&new, sizeof(new));
-	new.size = sizeof(float) * 20;
-	if (!(new.vertices = (float*)ft_memalloc(new.size)))
+	new.nb_vertices = 4;
+	new.nb_indexes = 6;
+	new.size = (unsigned int)sizeof(t_vertex) * (unsigned int)new.nb_vertices;
+	if (!(new.vertices = (t_vertex*)ft_memalloc(new.size)))
 		ft_fatal_error("Failed to init object vertices", env);
 	if (parse_object(source_file, &new))
 		return (custom_error("{yellow}Failed to load %s{reset}\n",
 		source_file));
-	new.vertices[0] = 0.5f;
-	new.vertices[1] = 0.5f;
-	new.vertices[2] = 0.0f;
-	new.vertices[3] = 1.0f;
-	new.vertices[4] = 1.0f;
-	new.vertices[5] = 0.5f;
-	new.vertices[6] = -0.5f;
-	new.vertices[7] = 0.0f;
-	new.vertices[8] = 1.0f;
-	new.vertices[9] = 0.0f;
-	new.vertices[10] = -0.5f;
-	new.vertices[11] = -0.5f;
-	new.vertices[12] = 0.0f;
-	new.vertices[13] = 0.0f;
-	new.vertices[14] = 0.0f;
-	new.vertices[15] = -0.5f;
-	new.vertices[16] = 0.5f;
-	new.vertices[17] = 0.0f;
-	new.vertices[18] = 0.0f;
-	new.vertices[19] = 1.0f;
-	new.center.x = (new.vertices[0] + new.vertices[5] + new.vertices[15]) / 3.0f;
-	new.center.y = (new.vertices[1] + new.vertices[6] + new.vertices[16]) / 3.0f;
-	new.name = name;
-	new.shader = 0;
+	ft_bzero(new.vertices, sizeof(new.size));
+	new.vertices[0].pos.x = 0.5f;
+	new.vertices[0].pos.y = 0.5f;
+	new.vertices[0].pos.z = 0.0f;
+	new.vertices[0].text.x = 1.0f;
+	new.vertices[0].text.y = 1.0f;
+	new.vertices[1].pos.x = 0.5f;
+	new.vertices[1].pos.y = -0.5f;
+	new.vertices[1].pos.z = 0.0f;
+	new.vertices[1].text.x = 1.0f;
+	new.vertices[1].text.y = 0.0f;
+	new.vertices[2].pos.x = -0.5f;
+	new.vertices[2].pos.y = -0.5f;
+	new.vertices[2].pos.z = 0.0f;
+	new.vertices[2].text.x = 0.0f;
+	new.vertices[2].text.y = 0.0f;
+	new.vertices[3].pos.x = -0.5f;
+	new.vertices[3].pos.y = 0.5f;
+	new.vertices[3].pos.z = 0.0f;
+	new.vertices[3].text.x = 0.0f;
+	new.vertices[3].text.y = 1.0f;
+	new.center.x = (new.vertices[0].pos.x + new.vertices[1].pos.x + new.vertices[2].pos.x) / 3.0f;
+	new.center.y = (new.vertices[0].pos.y + new.vertices[0].pos.y + new.vertices[0].pos.y) / 3.0f;
+	new.name = "";
+	new.nb_textures = nb_textures;
+	init_object_buffers(&new);
 	new.id = env->object_count;
 	env->objects[env->object_count] = new;
 	env->object_count++;
@@ -91,19 +119,31 @@ int		matrix_pipeline(t_transform *transform, unsigned int shader, t_env *env)
 	return (0);
 }
 
-int		draw_object(t_object *object, t_env *env)
+int		draw_object(t_object *object, unsigned int shader, t_env *env)
 {
-	size_t	count;
+	unsigned int	i;
+	size_t			count;
 
+	i = 0;
 	count = 0;
-	glUseProgram(env->shaders[object->shader]);
+	glUseProgram(shader);
+	while (i < object->nb_textures)
+	{
+		glActiveTexture(GL_TEXTURE0 + i);
+		glBindTexture(GL_TEXTURE_2D, object->textures[i]);
+		i++;
+	}
+	glUniform1i(glGetUniformLocation(shader, "texture1"), 0);
+	glUniform1i(glGetUniformLocation(shader, "texture2"), 1);
+	glBindVertexArray(env->vaos[0]);
+	//glBindVertexArray(object->vao);
 	while (count < object->count)
 	{
-		matrix_pipeline(&object->instances[count].transform,
-		env->shaders[object->shader], env);
-		//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-		glDrawArrays(GL_TRIANGLES, 0, 36);
+		matrix_pipeline(&object->instances[count].transform, shader, env);
+		glDrawElements(GL_TRIANGLES, object->nb_indexes, GL_UNSIGNED_INT, 0);
+		//glDrawArrays(GL_TRIANGLES, 0, 6);
 		count++;
 	}
+	glBindVertexArray(0);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 21:06:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/17 23:54:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/18 13:59:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,16 @@ unsigned int	init_pipeline_shader(GLenum type, const char *file, t_env *env)
 	return (shader);
 }
 
-int		init_program(unsigned int vertex_shader, unsigned int fragment_shader,
-t_env *env)
+int		init_shader(const char *vertex_shader_src,
+const char *fragment_shader_src , t_env *env)
 {
+	unsigned int	vertex_shader;
+	unsigned int	fragment_shader;
+
+	vertex_shader = init_pipeline_shader(GL_VERTEX_SHADER,
+	vertex_shader_src, env);
+	fragment_shader = init_pipeline_shader(GL_FRAGMENT_SHADER,
+	fragment_shader_src, env);
 	if ((env->shaders[env->shader_count] = glCreateProgram()) == 0)
 		return (custom_error("Failed to create shader program\n"));
 	glAttachShader(env->shaders[env->shader_count], vertex_shader);
