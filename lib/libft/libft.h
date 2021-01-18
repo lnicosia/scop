@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:01:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/17 21:07:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/18 19:40:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,5 +124,11 @@ int					custom_error(const char *restrict message, ...);
 int					custom_invalid(const char *restrict message, ...);
 t_list				*ft_lstdelnode(t_list **list, t_list *node);
 char				*ft_convert_base(char *nbr, char *base_from, char *base_to);
+char				*skip_number(char *line);
+char				*skip_hexa(char *line);
+char				*skip_spaces(char *line);
+int					valid_int(char *line);
+int					valid_double(char *line);
+int					valid_hexa(char *line);
 
 #endif

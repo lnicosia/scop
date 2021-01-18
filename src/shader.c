@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 21:06:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/18 13:59:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/18 20:31:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*read_shader(const char *file)
 		res = ft_strjoin_free(res, buffer);
 		size += ret;
 	}
-	ft_printf("{blue}Shader \"%s\":{reset}\n%s\n", file, res);
+	//ft_printf("{blue}Shader \"%s\":{reset}\n%s\n", file, res);
 	if (close(fd))
 		custom_error("{yellow}Could not close \"%s\"{reset}\n", file);
 	return (res);

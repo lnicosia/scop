@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/18 00:07:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/18 22:01:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ int		init_opengl(t_env *env)
 	projection_matrix(&env->camera, env->projection_matrix);
 	init_triangle_shaders_program(env);
 	add_object(0, env);
-	scale_object(&env->objects[0].instances[0], new_v3(-0.5, -0.5, 0));
-	move_object(&env->objects[0].instances[0], new_v3(0.25f, 0.0f, 0.0f));
-	rotate_object(&env->objects[0].instances[0], new_v3(0.0f, to_radians(20.0f), 0.0f));
+	scale_object(&env->objects[0].instances[0], new_v3(-0.5, -0.5, -0.5));
+	//move_object(&env->objects[0].instances[0], new_v3(0.25f, 0.0f, 0.0f));
+	//rotate_object(&env->objects[0].instances[0], new_v3(0.0f, to_radians(20.0f), 0.0f));
 	return (0);
 }

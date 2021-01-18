@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:28:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/18 19:23:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/18 22:04:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 
 int		init_triangle_shaders_program(t_env *env)
 {
-	//unsigned int	indices[] = {0, 1, 3, 1, 2, 3};
 	/*float vertices[] = {
     -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
      0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
@@ -65,7 +64,7 @@ int		init_triangle_shaders_program(t_env *env)
     unsigned int *textures = (unsigned int*)ft_memalloc(sizeof(unsigned int) * 2);
     textures[0] = env->textures[0];
     textures[1] = env->textures[1];
-	init_object("resources/objects/42/42.obj", textures, 2, env);
+	init_object("resources/objects/Cube/Cube.obj", textures, 2, env);
 	init_shader("resources/shaders/default_shader.vs",
 	"resources/shaders/default_shader.fs", env);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/18 19:22:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/18 22:03:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,17 @@ int nb_textures, t_env *env)
 {
 	t_object	new;
 
-	(void)source_file;
 	ft_bzero(&new, sizeof(new));
-	new.nb_vertices = 4;
-	new.nb_indices = 6;
+	//new.nb_vertices = 4;
+	//new.nb_indices = 6;
 	new.textures = textures;
-	new.size = (unsigned int)sizeof(t_vertex) * (unsigned int)new.nb_vertices;
-	if (!(new.vertices = (t_vertex*)ft_memalloc(new.size)))
-		ft_fatal_error("Failed to init object vertices", env);
-	if (!(new.indices = (unsigned int*)ft_memalloc(
-		sizeof(unsigned int) * new.nb_indices)))
-		ft_fatal_error("Failed to init object vertices", env);
-	if (parse_object(source_file, &new))
+	if (parse_object(source_file, &new, env))
 		return (custom_error("{yellow}Failed to load %s{reset}\n",
 		source_file));
-	ft_bzero(new.vertices, sizeof(new.size));
-	new.vertices[0].pos.x = 0.5f;
+	new.size = (unsigned int)sizeof(t_vertex) * (unsigned int)new.nb_vertices;
+	ft_printf("Object parsed\n");
+	//exit(0);
+	/*new.vertices[0].pos.x = 0.5f;
 	new.vertices[0].pos.y = 0.5f;
 	new.vertices[0].pos.z = 0.0f;
 	new.vertices[0].text.x = 1.0f;
@@ -82,7 +77,7 @@ int nb_textures, t_env *env)
 	new.indices[2] = 3;
 	new.indices[3] = 1;
 	new.indices[4] = 2;
-	new.indices[5] = 3;
+	new.indices[5] = 3;*/
 	new.center.x = (new.vertices[0].pos.x + new.vertices[1].pos.x + new.vertices[2].pos.x) / 3.0f;
 	new.center.y = (new.vertices[0].pos.y + new.vertices[0].pos.y + new.vertices[0].pos.y) / 3.0f;
 	new.name = "";
