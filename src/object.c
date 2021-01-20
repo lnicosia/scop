@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/20 22:40:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/21 00:29:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int nb_textures, t_env *env)
 	new.name = "";
 	new.nb_textures = nb_textures;
 	init_object_buffers(&new);
+	ft_memdel((void**)&new.vertices);
 	new.id = env->object_count;
 	env->objects[env->object_count] = new;
 	env->object_count++;

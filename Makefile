@@ -6,7 +6,7 @@
 #    By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/01 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2021/01/20 22:28:58 by lnicosia         ###   ########.fr        #
+#    Updated: 2021/01/21 00:26:37 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,8 +64,9 @@ OPTI_FLAGS = -O3
 CFLAGS =	-Wall -Wextra -Werror -Wpadded -Wconversion -I $(INCLUDES_DIR) \
 	  	-I $(LIBFT_DIR) -I $(BMP_PARSER_DIR)/includes -I $(LIBMFT_DIR)/includes \
 		-I $(GLAD_DIR)/include \
-		-fsanitize=address -g3 \
-		#$(OPTI_FLAGS) \
+		$(OPTI_FLAGS) \
+		#-fsanitize=address -g3 \
+		
 	
 #
 # Setting right flags and files dependencies to link external libs
