@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:38:34 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/18 21:33:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/19 19:07:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		valid_int(char *line)
 
 	nb_digits = 0;
 	neg = 0;
-	while ((*line >= '0' && *line <= '9') || *line == '-')
+	while (*line && ((*line >= '0' && *line <= '9') || *line == '-'))
 	{
 		if (*line == '-' && !nb_digits)
 			neg = 1;
@@ -60,7 +60,8 @@ int		valid_double(char *line)
 	pre_point = 0;
 	after_point = 0;
 	neg = 0;
-	while ((*line >= '0' && *line <= '9') || (*line == '.' || *line == '-'))
+	while (*line && ((*line >= '0' && *line <= '9')
+		|| (*line == '.' || *line == '-')))
 	{
 		if (*line == '-' && !pre_point && !after_point)
 			neg = 1;

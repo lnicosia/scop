@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 11:05:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/01 18:58:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/19 21:14:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		set_line(t_read *curr, char **line)
 	char	*tmp;
 
 	i = 0;
-	while ((curr->str[i] != '\n') && (curr->str[i]))
+	while ((curr->str[i] != NEWLINE) && (curr->str[i]))
 		i++;
 	if (!(*line = ft_strnew(i)))
 		return (-1);
@@ -111,7 +111,7 @@ int		get_next_line(const int fd, char **line)
 			return (-1);
 		curr->fd = fd;
 	}
-	while (!ft_strchr(curr->str, '\n') && (ret = read(fd, buff, BUFF_SIZE))
+	while (!ft_strchr(curr->str, NEWLINE) && (ret = read(fd, buff, BUFF_SIZE))
 		&& !contains_zero(buff, ret))
 	{
 		buff[ret] = '\0';

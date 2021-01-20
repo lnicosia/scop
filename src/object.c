@@ -6,13 +6,38 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/18 22:03:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/19 22:41:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "libft.h"
 #include "scop.h"
+
+void	print_object(t_object *object)
+{
+	unsigned int	i;
+
+	ft_printf("Vertices:\n");
+	i = 0;
+	while (i < object->nb_vertices)
+	{
+		ft_printf("%f, %f, %f	%f, %f\n", 
+		object->vertices[i].pos.x, object->vertices[i].pos.y,
+		object->vertices[i].pos.z, object->vertices[i].text.x,
+		object->vertices[i].text.y);
+		i++;
+	}
+	ft_printf("Indices:\n");
+	i = 0;
+	while (i < object->nb_indices)
+	{
+		ft_printf("%d, %d, %d\n", 
+		object->indices[i] + 1, object->indices[i + 1] + 1,
+		object->indices[i + 2] + 1);
+		i += 3;
+	}
+}
 
 int		init_object_buffers(t_object *object)
 {
@@ -43,43 +68,13 @@ int nb_textures, t_env *env)
 	t_object	new;
 
 	ft_bzero(&new, sizeof(new));
-	//new.nb_vertices = 4;
-	//new.nb_indices = 6;
 	new.textures = textures;
 	if (parse_object(source_file, &new, env))
 		return (custom_error("{yellow}Failed to load %s{reset}\n",
 		source_file));
 	new.size = (unsigned int)sizeof(t_vertex) * (unsigned int)new.nb_vertices;
 	ft_printf("Object parsed\n");
-	//exit(0);
-	/*new.vertices[0].pos.x = 0.5f;
-	new.vertices[0].pos.y = 0.5f;
-	new.vertices[0].pos.z = 0.0f;
-	new.vertices[0].text.x = 1.0f;
-	new.vertices[0].text.y = 1.0f;
-	new.vertices[1].pos.x = 0.5f;
-	new.vertices[1].pos.y = -0.5f;
-	new.vertices[1].pos.z = 0.0f;
-	new.vertices[1].text.x = 1.0f;
-	new.vertices[1].text.y = 0.0f;
-	new.vertices[2].pos.x = -0.5f;
-	new.vertices[2].pos.y = -0.5f;
-	new.vertices[2].pos.z = 0.0f;
-	new.vertices[2].text.x = 0.0f;
-	new.vertices[2].text.y = 0.0f;
-	new.vertices[3].pos.x = -0.5f;
-	new.vertices[3].pos.y = 0.5f;
-	new.vertices[3].pos.z = 0.0f;
-	new.vertices[3].text.x = 0.0f;
-	new.vertices[3].text.y = 1.0f;
-	new.indices[0] = 0;
-	new.indices[1] = 1;
-	new.indices[2] = 3;
-	new.indices[3] = 1;
-	new.indices[4] = 2;
-	new.indices[5] = 3;*/
-	new.center.x = (new.vertices[0].pos.x + new.vertices[1].pos.x + new.vertices[2].pos.x) / 3.0f;
-	new.center.y = (new.vertices[0].pos.y + new.vertices[0].pos.y + new.vertices[0].pos.y) / 3.0f;
+	print_object(&new);
 	new.name = "";
 	new.nb_textures = nb_textures;
 	init_object_buffers(&new);

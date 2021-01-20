@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 18:23:24 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/11 19:05:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/19 21:24:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 # define GET_NEXT_LINE_H
 # include <stdlib.h>
 # define BUFF_SIZE 16384
+# if defined(_WIN64)
+#  define NEWLINE 13
+# else
+#  define NEWLINE 10
+# endif
 
 typedef struct	s_read
 {

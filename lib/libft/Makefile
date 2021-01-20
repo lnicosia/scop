@@ -6,7 +6,7 @@
 #    By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2021/01/18 19:40:21 by lnicosia         ###   ########.fr        #
+#    Updated: 2021/01/19 21:13:41 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ SRC_RAW = ft_memccpy.c ft_memcpy.c ft_memset.c ft_bzero.c ft_memmove.c \
 		  thread_pool_work.c init_tpool.c free_tpool.c skip_chars.c \
 		  check_chars.c 
 
-HEADERS = libft.h thread_pool.h
+HEADERS = libft.h thread_pool.h get_next_line.h
 
 PRINTF_SRC_RAW = ft_printf.c ft_dprintf.c base_utils.c parse_colors.c \
 				 parse_flags.c parse_functions.c pf_atoi.c pf_float_padding.c \
