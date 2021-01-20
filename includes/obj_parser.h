@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 20:45:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/20 09:23:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/20 19:47:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,19 @@ typedef struct		s_obj_parser
 	t_v3			*pos;
 	t_v3			*norm;
 	t_v2			*tex;
-	t_index			*indices;
+	t_index			*face_indices;
+	t_index			*unique_indices;
 	char			*line;
 	unsigned int	nb_vertices;
 	unsigned int	nb_tex;
 	unsigned int	nb_norm;
 	unsigned int	nb_indices;
 	unsigned int	count;
-	unsigned int	unique_indices;
+	unsigned int	nb_unique_indices;
+	unsigned int	face_size;
+	unsigned int	face_start;
+	unsigned int	max_face_size;
 	int				i;
-	char			padding[4];
 }					t_obj_parser;
 
 

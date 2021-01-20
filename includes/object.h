@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 21:15:17 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/18 19:46:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/20 13:24:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,9 @@ typedef struct		s_object
 	unsigned int	ebo;
 	unsigned int	nb_indices;
 	int				nb_textures;
+	int				no_uv;
 	unsigned int	nb_vertices;
+	char			padding[4];
 }					t_object;
 
 #endif

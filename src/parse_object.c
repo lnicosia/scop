@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 23:48:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/20 09:52:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/20 21:35:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,11 @@
 #include "scop.h"
 #include "obj_parser.h"
 
-int		set_new_index(unsigned int i, t_index index, t_obj_parser *parser,
-t_object *object)
+/*int		init_face2(t_index index, t_obj_parser *parser, t_object *object)
 {
 	unsigned int	j;
 
 	j = 0;
-	(void)i;
 	if (!(object->indices = (unsigned int*)realloc(object->indices,
 		(unsigned int)sizeof(unsigned int) * (++object->nb_indices))))
 		return(custom_error("Failed to realloc vertices"));
@@ -46,19 +44,32 @@ t_object *object)
 		object->vertices[object->nb_vertices++].text =
 		parser->tex[index.uv - 1];
 	else
-		object->vertices[object->nb_vertices++].text =
-		parser->tex[index.pos - 1];
+	{
+		if (index.pos - 1 < parser->nb_tex)
+			object->vertices[object->nb_vertices++].text =
+			parser->tex[index.pos - 1];
+		else
+			object->vertices[object->nb_vertices++].text = new_v2(0, 0);
+	}
 	object->indices[object->nb_indices - 1] = parser->unique_indices;
 	parser->unique_indices++;
-	if (!(parser->indices = (t_index*)realloc(parser->indices,
-		sizeof(t_index) * ++parser->nb_indices)))
-		return (ft_perror("Failed to realloc parser indices\n"));
-	parser->indices[parser->nb_indices - 1] = index;
+	return (0);
+}*/
+
+int		set_new_index(t_index index, t_obj_parser *parser)
+{
+	if (parser->face_size >= parser->max_face_size)
+	{
+		if (!(parser->face_indices = (t_index*)realloc(
+			parser->face_indices, sizeof(t_index) * ++parser->max_face_size)))
+			return (ft_perror("Failed to realloc parser indices\n"));
+	}
+	parser->face_indices[parser->face_size] = index;
+	parser->face_size++;
 	return (0);
 }
 
-int		parse_current_index(unsigned int i, t_obj_parser *parser,
-t_object *object)
+int		parse_current_index(t_obj_parser *parser)
 {
 	t_index	index;
 
@@ -68,7 +79,7 @@ t_object *object)
 	index.pos = (unsigned int)ft_atoi(parser->line);
 	parser->line = skip_number(parser->line);
 	if (!*parser->line || *parser->line == ' ' || *parser->line == '\r')
-		return (set_new_index(i, index, parser, object));
+		return (set_new_index(index, parser));
 	if (*parser->line != '/')
 		return (custom_error("Expected / in indices declaration\n"));
 	parser->line++;
@@ -77,7 +88,7 @@ t_object *object)
 	index.uv = (unsigned int)ft_atoi(parser->line);
 	parser->line = skip_number(parser->line);
 	if (!*parser->line || *parser->line == ' ' || *parser->line == '\r')
-		return (set_new_index(i, index, parser, object));
+		return (set_new_index(index, parser));
 	if (*parser->line != '/')
 		return (custom_error("Expected / in indices declaration\n"));
 	parser->line++;
@@ -85,7 +96,79 @@ t_object *object)
 		return (custom_error("Invalid vertex pos\n"));
 	index.norm = (unsigned int)ft_atoi(parser->line);
 	parser->line = skip_number(parser->line);
-	return (set_new_index(i, index, parser, object));
+	return (set_new_index(index, parser));
+}
+
+int		init_vertex(unsigned int i, unsigned int vertex, t_obj_parser *parser,
+t_object *object)
+{
+	unsigned int	k;
+
+	k = 0;
+	ft_printf("Initializing vertex %d/%d/%d\n", parser->face_indices[i].pos,
+	parser->face_indices[i].uv, parser->face_indices[i].norm);
+	while (k < parser->nb_unique_indices)
+	{
+		if (parser->unique_indices[k].pos == parser->face_indices[i].pos
+			&& parser->unique_indices[k].uv == parser->face_indices[i].uv
+			&& parser->unique_indices[k].norm == parser->face_indices[i].norm)
+		{
+			ft_printf("Vertex already exsting at index %d\n",
+			parser->unique_indices[k].pos);
+			object->indices[object->nb_indices + vertex] =
+			parser->unique_indices[k].pos - 1;
+			return (0);
+		}
+		k++;
+	}
+	if (!(object->vertices = (t_vertex*)realloc(object->vertices,
+		(unsigned int)sizeof(t_vertex) * (++object->nb_vertices))))
+			return (custom_error("Failed to realloc vertices"));
+	if (!(parser->unique_indices = (t_index*)realloc(parser->unique_indices,
+		(unsigned int)sizeof(t_index) * (++parser->nb_unique_indices))))
+			return (custom_error("Failed to realloc vertices"));
+	parser->unique_indices[parser->nb_unique_indices - 1] =
+	parser->face_indices[i];
+	object->vertices[object->nb_vertices - 1].pos =
+	parser->pos[parser->face_indices[i].pos - 1];
+	if (parser->face_indices[i].uv == 0)
+		object->vertices[object->nb_vertices - 1].text = new_v2(1.0f, 1.0f);
+	else
+		object->vertices[object->nb_vertices - 1].text =
+		parser->tex[parser->face_indices[i].uv - 1];
+	object->indices[object->nb_indices + vertex] =
+	parser->face_indices[i].pos - 1;
+	return (0);
+}
+
+int		init_triangle_with_index(unsigned int i, t_obj_parser *parser,
+t_object *object)
+{
+	if (!(object->indices = (unsigned int*)realloc(object->indices,
+		(unsigned int)sizeof(unsigned int) * (object->nb_indices + 3))))
+		return(custom_error("Failed to realloc vertices"));
+	if (init_vertex(0, 0, parser, object))
+		return (-1);
+	if (init_vertex(i + 1, 1, parser, object))
+		return (-1);
+	if (init_vertex(i + 2, 2, parser, object))
+		return (-1);
+	object->nb_indices += 3;
+	return (0);
+}
+
+int		init_face(t_obj_parser *parser, t_object *object)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (i < parser->face_size - 2)
+	{
+		if (init_triangle_with_index(i, parser, object))
+			return (-1);
+		i++;
+	}
+	return (0);
 }
 
 int		parse_index(t_obj_parser *parser, t_object *object, t_env *env)
@@ -94,18 +177,29 @@ int		parse_index(t_obj_parser *parser, t_object *object, t_env *env)
 
 	i = 0;
 	(void)env;
+	(void)object;
 	parser->line++;
 	if (!*parser->line)
 		return (-1);
 	parser->line = skip_spaces(parser->line);
+	parser->face_size = 0;
 	while (*parser->line)
 	{
-		if (parse_current_index(i, parser, object))
+		if (parse_current_index(parser))
 			return (-1);
 		if (*parser->line)
 			parser->line++;
+	}
+	ft_printf("Current face: ");
+	while (i < parser->face_size)
+	{
+		ft_printf("%d/%d/%d ", parser->face_indices[i].pos,
+		parser->face_indices[i].uv, parser->face_indices[i].norm);
 		i++;
 	}
+	ft_printf("\n");
+	if (init_face(parser, object))
+		return (-1);
 	//ft_printf("Current face added\n");
 	return (0);
 }
@@ -230,7 +324,8 @@ void	free_obj_parser(t_obj_parser *parser)
 	ft_memdel((void**)&parser->pos);
 	ft_memdel((void**)&parser->tex);
 	ft_memdel((void**)&parser->norm);
-	ft_memdel((void**)&parser->indices);
+	ft_memdel((void**)&parser->face_indices);
+	ft_memdel((void**)&parser->unique_indices);
 }
 
 int		init_object_from_parser(t_obj_parser *parser, t_object *object,
