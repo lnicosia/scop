@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:21 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/20 22:11:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/20 22:41:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ int	scop(int ac, char **av)
 	ft_bzero(&env, sizeof(env));
 	if (init_opengl(&env))
 		return (-1);
-	unsigned int *textures = (unsigned int*)ft_memalloc(sizeof(unsigned int) * 2);
-    textures[0] = env.textures[0];
-    textures[1] = env.textures[1];
-	init_object(av[1], textures, 2, &env);
+	unsigned int *textures = (unsigned int*)ft_memalloc(sizeof(unsigned int) * 1);
+    textures[0] = env.textures[1];
+    //textures[1] = env.textures[1];
+	init_object(av[1], textures, 1, &env);
 	init_shader("resources/shaders/default_shader.vs",
 	"resources/shaders/default_shader.fs", &env);
 	add_object(0, &env);
@@ -36,7 +36,7 @@ int	scop(int ac, char **av)
 
 	while (!glfwWindowShouldClose(env.window))
 	{
-		glClearColor(0.4f, 0.4f, 0.6f, 1.0f);
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		draw_triangle(&env);
 		glfwSwapBuffers(env.window);

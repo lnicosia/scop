@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 20:45:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/20 19:47:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/20 22:45:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ typedef struct		s_obj_parser
 	unsigned int	face_start;
 	unsigned int	max_face_size;
 	int				i;
+	int				fd;
+	char			padding[4];
 }					t_obj_parser;
 
 

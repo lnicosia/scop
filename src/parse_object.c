@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 23:48:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/20 22:14:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/20 22:45:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -330,55 +330,20 @@ void	free_obj_parser(t_obj_parser *parser)
 	ft_memdel((void**)&parser->norm);
 	ft_memdel((void**)&parser->face_indices);
 	ft_memdel((void**)&parser->unique_indices);
-}
-
-int		init_object_from_parser(t_obj_parser *parser, t_object *object,
-t_env *env)
-{
-	/*unsigned int	i;
-
-	i = 0;
-	if (!(object->vertices = (t_vertex*)ft_memalloc(
-		sizeof(t_vertex) * parser->nb_indices)))
-		return (ft_perror("Failed to init new object vertices"));
-	ft_printf("Found %d indices\n", parser->nb_indices);
-	object->nb_vertices = parser->nb_indices;
-	while (i < parser->nb_indices)
-	{
-		ft_printf("i = %d\n", i);
-		object->vertices[i].pos = parser->pos[parser->indices[i].pos - 1];
-		object->vertices[i].text = parser->tex[parser->indices[i].pos - 1];
-		ft_printf("Adding vertex %d: {%f, %f, %f,  %f, %f}\n",
-		parser->indices[i].pos,
-		object->vertices[i].pos.x, object->vertices[i].pos.y,
-		object->vertices[i].pos.z, object->vertices[i].text.x,
-		object->vertices[i].text.y);
-		i++;
-	}*/
-	/*i = 0;
-	while (i < object->nb_indices)
-	{
-		object->indices[i] = i - 1;
-		i++;
-	}*/
-	(void)parser;
-	(void)object;
-	(void)env;
-	return (0);
+	close(parser->fd);
 }
 
 int		parse_object(const char *source_file, t_object *object, t_env *env)
 {
-	int				fd;
 	int				ret;
 	char			*tmp;
 	t_obj_parser	parser;
 
 	ret = 0;
 	ft_bzero(&parser, sizeof(parser));
-	if ((fd = open(source_file, O_RDONLY)) < 0)
+	if ((parser.fd = open(source_file, O_RDONLY)) < 0)
 		return (custom_error("Could not open \"%s\"\n", source_file));
-	while ((ret = get_next_line(fd, &parser.line)))
+	while ((ret = get_next_line(parser.fd, &parser.line)))
 	{
 		//ft_printf("Reading %s\n", parser.line);
 		tmp = parser.line;
@@ -389,11 +354,6 @@ int		parse_object(const char *source_file, t_object *object, t_env *env)
 			return (custom_error("Parsing error in \"%s\"\n", source_file));
 		}
 		ft_strdel(&tmp);
-	}
-	if (init_object_from_parser(&parser, object, env))
-	{
-		free_obj_parser(&parser);
-		return (-1);
 	}
 	free_obj_parser(&parser);
 	return (0);
