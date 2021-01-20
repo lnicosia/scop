@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:21 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/19 12:31:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/20 22:11:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	scop(int ac, char **av)
 	init_shader("resources/shaders/default_shader.vs",
 	"resources/shaders/default_shader.fs", &env);
 	add_object(0, &env);
-	scale_object(&env.objects[0].instances[0], new_v3(-0.5, -0.5, -0.5));
+	scale_object(&env.objects[0].instances[0], new_v3(-0.75f, -0.75f, -0.75f));
 	//move_object(&env->objects[0].instances[0], new_v3(0.25f, 0.0f, 0.0f));
 	//rotate_object(&env->objects[0].instances[0], new_v3(0.0f, to_radians(20.0f), 0.0f));
 

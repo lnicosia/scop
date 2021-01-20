@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 23:48:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/20 21:35:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/20 22:14:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,24 +99,21 @@ int		parse_current_index(t_obj_parser *parser)
 	return (set_new_index(index, parser));
 }
 
-int		init_vertex(unsigned int i, unsigned int vertex, t_obj_parser *parser,
+int		init_vertex(unsigned int i, t_obj_parser *parser,
 t_object *object)
 {
 	unsigned int	k;
 
 	k = 0;
-	ft_printf("Initializing vertex %d/%d/%d\n", parser->face_indices[i].pos,
-	parser->face_indices[i].uv, parser->face_indices[i].norm);
+	//ft_printf("Initializing vertex %d/%d/%d\n", parser->face_indices[i].pos,
+	//parser->face_indices[i].uv, parser->face_indices[i].norm);
 	while (k < parser->nb_unique_indices)
 	{
 		if (parser->unique_indices[k].pos == parser->face_indices[i].pos
 			&& parser->unique_indices[k].uv == parser->face_indices[i].uv
 			&& parser->unique_indices[k].norm == parser->face_indices[i].norm)
 		{
-			ft_printf("Vertex already exsting at index %d\n",
-			parser->unique_indices[k].pos);
-			object->indices[object->nb_indices + vertex] =
-			parser->unique_indices[k].pos - 1;
+			object->indices[object->nb_indices] = k;
 			return (0);
 		}
 		k++;
@@ -132,12 +129,22 @@ t_object *object)
 	object->vertices[object->nb_vertices - 1].pos =
 	parser->pos[parser->face_indices[i].pos - 1];
 	if (parser->face_indices[i].uv == 0)
-		object->vertices[object->nb_vertices - 1].text = new_v2(1.0f, 1.0f);
+	{
+		if (parser->face_indices[i].pos - 1 < parser->nb_tex)
+			object->vertices[object->nb_vertices - 1].text =
+			parser->tex[parser->face_indices[i].pos - 1];
+		else
+			object->vertices[object->nb_vertices - 1].text = new_v2(0.0f, 1.0f);
+	}
 	else
 		object->vertices[object->nb_vertices - 1].text =
 		parser->tex[parser->face_indices[i].uv - 1];
-	object->indices[object->nb_indices + vertex] =
-	parser->face_indices[i].pos - 1;
+	//ft_printf("Nb uniques = %d\n", parser->nb_unique_indices);
+	object->indices[object->nb_indices] = parser->nb_unique_indices - 1;
+	/*ft_printf("Adding vertex %f %f %f\n",
+	object->vertices[object->nb_vertices - 1].pos.x,
+	object->vertices[object->nb_vertices - 1].pos.y,
+	object->vertices[object->nb_vertices - 1].pos.z);*/
 	return (0);
 }
 
@@ -147,13 +154,15 @@ t_object *object)
 	if (!(object->indices = (unsigned int*)realloc(object->indices,
 		(unsigned int)sizeof(unsigned int) * (object->nb_indices + 3))))
 		return(custom_error("Failed to realloc vertices"));
-	if (init_vertex(0, 0, parser, object))
+	if (init_vertex(0, parser, object))
 		return (-1);
-	if (init_vertex(i + 1, 1, parser, object))
+		object->nb_indices++;
+	if (init_vertex(i + 1, parser, object))
 		return (-1);
-	if (init_vertex(i + 2, 2, parser, object))
+		object->nb_indices++;
+	if (init_vertex(i + 2, parser, object))
 		return (-1);
-	object->nb_indices += 3;
+	object->nb_indices++;
 	return (0);
 }
 
@@ -173,11 +182,7 @@ int		init_face(t_obj_parser *parser, t_object *object)
 
 int		parse_index(t_obj_parser *parser, t_object *object, t_env *env)
 {
-	unsigned int	i;
-
-	i = 0;
 	(void)env;
-	(void)object;
 	parser->line++;
 	if (!*parser->line)
 		return (-1);
@@ -190,17 +195,16 @@ int		parse_index(t_obj_parser *parser, t_object *object, t_env *env)
 		if (*parser->line)
 			parser->line++;
 	}
-	ft_printf("Current face: ");
+	/*ft_printf("Current face: ");
 	while (i < parser->face_size)
 	{
 		ft_printf("%d/%d/%d ", parser->face_indices[i].pos,
 		parser->face_indices[i].uv, parser->face_indices[i].norm);
 		i++;
 	}
-	ft_printf("\n");
+	ft_printf("\n");*/
 	if (init_face(parser, object))
 		return (-1);
-	//ft_printf("Current face added\n");
 	return (0);
 }
 
