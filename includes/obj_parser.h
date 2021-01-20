@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 20:45:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/19 19:49:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/20 09:23:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ typedef struct		s_obj_parser
 	unsigned int	nb_norm;
 	unsigned int	nb_indices;
 	unsigned int	count;
+	unsigned int	unique_indices;
 	int				i;
+	char			padding[4];
 }					t_obj_parser;
 
 

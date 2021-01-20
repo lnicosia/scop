@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 23:48:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/20 00:49:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/20 09:52:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,17 @@ t_object *object)
 	unsigned int	j;
 
 	j = 0;
+	(void)i;
+	if (!(object->indices = (unsigned int*)realloc(object->indices,
+		(unsigned int)sizeof(unsigned int) * (++object->nb_indices))))
+		return(custom_error("Failed to realloc vertices"));
 	while (j < parser->nb_indices)
 	{
 		if (parser->indices[j].pos == index.pos
 			&& parser->indices[j].uv == index.uv
 			&& parser->indices[j].norm == index.norm)
 		{
-			object->indices[object->nb_indices] = j;
+			object->indices[object->nb_indices - 1] = j;
 			return (0);
 		}
 		j++;
@@ -35,16 +39,17 @@ t_object *object)
 	if (!(object->vertices = (t_vertex*)realloc(object->vertices, 
 		sizeof(t_vertex) * (object->nb_vertices + 1))))
 		return (ft_perror("Failed to init new object vertices"));
+	ft_printf("Index %d/%d/%d added \n", index.pos, index.uv, index.norm);
 	object->vertices[object->nb_vertices].pos =
 	parser->pos[index.pos - 1];
-	object->vertices[object->nb_vertices++].text =
-	parser->tex[index.uv - 1];
-	if (!(object->indices = (unsigned int*)realloc(object->indices,
-		(unsigned int)sizeof(unsigned int) * (object->nb_indices + 3))))
-		return(custom_error("Failed to realloc vertices"));
-	object->indices[object->nb_indices + i] = object->nb_indices + i;
-	object->nb_indices++;
-	ft_printf("Index %d/%d/%d added \n", index.pos, index.uv, index.norm);
+	if (index.uv > 0)
+		object->vertices[object->nb_vertices++].text =
+		parser->tex[index.uv - 1];
+	else
+		object->vertices[object->nb_vertices++].text =
+		parser->tex[index.pos - 1];
+	object->indices[object->nb_indices - 1] = parser->unique_indices;
+	parser->unique_indices++;
 	if (!(parser->indices = (t_index*)realloc(parser->indices,
 		sizeof(t_index) * ++parser->nb_indices)))
 		return (ft_perror("Failed to realloc parser indices\n"));
@@ -101,7 +106,7 @@ int		parse_index(t_obj_parser *parser, t_object *object, t_env *env)
 			parser->line++;
 		i++;
 	}
-	ft_printf("Current face added\n");
+	//ft_printf("Current face added\n");
 	return (0);
 }
 
@@ -110,7 +115,7 @@ int		parse_normal(t_obj_parser *parser, t_object *object, t_env *env)
 	t_v3	normal;
 
 	(void)object;
-	ft_printf("NORMAL: ");
+	//ft_printf("NORMAL: ");
 	parser->line++;
 	if (!*parser->line)
 		return (-1);
@@ -118,19 +123,19 @@ int		parse_normal(t_obj_parser *parser, t_object *object, t_env *env)
 	if (!*parser->line || valid_double(parser->line))
 		return (-1);
 	normal.x = (float)ft_atof(parser->line);
-	ft_printf("x = %f", normal.x);
+	//ft_printf("x = %f", normal.x);
 	parser->line = skip_number(parser->line);
 	parser->line = skip_spaces(parser->line);
 	if (!*parser->line || valid_double(parser->line))
 		return (-1);
 	normal.y = (float)ft_atof(parser->line);
-	ft_printf(" y = %f", normal.y);
+	//ft_printf(" y = %f", normal.y);
 	parser->line = skip_number(parser->line);
 	parser->line = skip_spaces(parser->line);
 	if (!*parser->line || valid_double(parser->line))
 		return (-1);
 	normal.z = (float)ft_atof(parser->line);
-	ft_printf(" z = %f\n", normal.z);
+	//ft_printf(" z = %f\n", normal.z);
 	if (!(parser->norm = (t_v3*)realloc(parser->norm,
 		(unsigned int)sizeof(t_v3) * ++parser->nb_norm)))
 		ft_fatal_error("Failed to realloc vertices", env);
@@ -142,7 +147,7 @@ int		parse_uv(t_obj_parser *parser, t_object *object, t_env *env)
 {
 	t_v2	tex;
 
-	ft_printf("TEXTURE ");
+	//ft_printf("TEXTURE ");
 	(void)object;
 	parser->line++;
 	if (!*parser->line)
@@ -151,13 +156,13 @@ int		parse_uv(t_obj_parser *parser, t_object *object, t_env *env)
 	if (!*parser->line || valid_double(parser->line))
 		return (-1);
 	tex.x = (float)ft_atof(parser->line);
-	ft_printf("x = %f", tex.x);
+	//ft_printf("x = %f", tex.x);
 	parser->line = skip_number(parser->line);
 	parser->line = skip_spaces(parser->line);
 	if (!*parser->line || valid_double(parser->line))
 		return (-1);
 	tex.y = (float)ft_atof(parser->line);
-	ft_printf(" y = %f\n", tex.y);
+	//ft_printf(" y = %f\n", tex.y);
 	if (!(parser->tex = (t_v2*)realloc(parser->tex,
 		(unsigned int)sizeof(t_v2) * ++parser->nb_tex)))
 		ft_fatal_error("Failed to realloc vertices", env);
@@ -170,26 +175,26 @@ int		parse_vertex(t_obj_parser *parser, t_object *object, t_env *env)
 	t_v3	vertex;
 
 	(void)object;
-	ft_printf("VERTEX ");
+	//ft_printf("VERTEX ");
 	if (!*parser->line)
 		return (-1);
 	parser->line = skip_spaces(parser->line);
 	if (!*parser->line || valid_double(parser->line))
 		return (-1);
 	vertex.x = (float)ft_atof(parser->line);
-	ft_printf("x = %f", vertex.x);
+	//ft_printf("x = %f", vertex.x);
 	parser->line = skip_number(parser->line);
 	parser->line = skip_spaces(parser->line);
 	if (!*parser->line || valid_double(parser->line))
 		return (-1);
 	vertex.y = (float)ft_atof(parser->line);
-	ft_printf(" y = %f", vertex.y);
+	//ft_printf(" y = %f", vertex.y);
 	parser->line = skip_number(parser->line);
 	parser->line = skip_spaces(parser->line);
 	if (!*parser->line || valid_double(parser->line))
 		return (-1);
 	vertex.z = (float)ft_atof(parser->line);
-	ft_printf(" z = %f\n", vertex.z);
+	//ft_printf(" z = %f\n", vertex.z);
 	if (!(parser->pos = (t_v3*)realloc(parser->pos,
 		(unsigned int)sizeof(t_v3) * ++parser->nb_vertices)))
 		ft_fatal_error("Failed to realloc vertices", env);
@@ -276,7 +281,7 @@ int		parse_object(const char *source_file, t_object *object, t_env *env)
 		return (custom_error("Could not open \"%s\"\n", source_file));
 	while ((ret = get_next_line(fd, &parser.line)))
 	{
-		ft_printf("Reading %s\n", parser.line);
+		//ft_printf("Reading %s\n", parser.line);
 		tmp = parser.line;
 		if (parse_object_line(&parser, object, env))
 		{
