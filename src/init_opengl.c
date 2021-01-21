@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/21 18:43:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/21 21:14:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int		init_opengl(t_env *env)
 	glEnable(GL_CULL_FACE);
 	init_camera(env);
 	init_textures("resources/textures/back.bmp", GL_RGBA, env);
-	init_textures("resources/objects/backpack/diffuse.bmp", GL_RGB, env);
+	init_textures("resources/objects/viking/Char_Diffuse - Copy.bmp", GL_RGBA, env);
 	reset_matrix(env->matrix);
 	reset_matrix(env->projection_matrix);
 	projection_matrix(&env->camera, env->projection_matrix);

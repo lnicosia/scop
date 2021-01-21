@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 23:48:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/21 12:29:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/21 21:05:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int		set_new_index(t_index index, t_obj_parser *parser)
 			parser->face_indices, sizeof(t_index) * ++parser->max_face_size)))
 			return (ft_perror("Failed to realloc parser indices\n"));
 	}
+	//ft_printf("Reading index %d/%d/%d\n", index.pos, index.uv, index.norm);
 	parser->face_indices[parser->face_size] = index;
 	parser->face_size++;
 	return (0);
@@ -74,6 +75,7 @@ int		parse_current_index(t_obj_parser *parser)
 	t_index	index;
 
 	ft_bzero(&index, sizeof(index));
+	//ft_printf("Line = %d\n", *parser->line, *parser->line);
 	if (!*parser->line || valid_int(parser->line))
 		return (custom_error("Invalid vertex pos\n"));
 	index.pos = (unsigned int)ft_atoi(parser->line);
@@ -195,7 +197,8 @@ int		parse_index(t_obj_parser *parser, t_object *object, t_env *env)
 		if (*parser->line)
 			parser->line++;
 	}
-	/*ft_printf("Current face: ");
+	/*unsigned int i = 0;
+	ft_printf("Current face: ");
 	while (i < parser->face_size)
 	{
 		ft_printf("%d/%d/%d ", parser->face_indices[i].pos,
@@ -302,8 +305,6 @@ int		parse_vertex(t_obj_parser *parser, t_object *object, t_env *env)
 
 int		parse_object_line(t_obj_parser *parser, t_object *object, t_env *env)
 {
-	//if (!*parser->line)
-	//	return (custom_error("Empty line!\n"));
 	if (*parser->line == 'v')
 	{
 		if (!*(++parser->line))
