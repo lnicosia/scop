@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/20 22:27:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/21 12:57:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,13 @@ int		init_opengl(t_env *env)
 	glfwSetInputMode(env->window, GLFW_STICKY_KEYS, GLFW_TRUE);
 	glfwSetKeyCallback(env->window, key_callback);
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
 	init_camera(env);
 	init_textures("resources/textures/back.bmp", GL_RGBA, env);
 	init_textures("resources/objects/backpack/diffuse.bmp", GL_RGB, env);
 	reset_matrix(env->matrix);
 	reset_matrix(env->projection_matrix);
 	projection_matrix(&env->camera, env->projection_matrix);
+	env->polygon_mode = GL_FILL;
 	return (0);
 }

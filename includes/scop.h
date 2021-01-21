@@ -6,13 +6,14 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 17:56:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/18 19:44:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/21 13:49:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SCOP_H
 # define SCOP_H
 # include "env.h"
+# include "inputs.h"
 
 int				scop(int ac, char **av);
 int				init_opengl(t_env *env);
@@ -40,5 +41,7 @@ int				draw_object(t_object *object, unsigned int shader, t_env *env);
 void			projection_matrix(t_camera *camera, float matrix[16]);
 int				parse_object(const char *source_file, t_object *object,
 t_env *env);
+int             process_inputs(t_input *inputs, t_env *env);
+int             init_inputs(t_input *inputs);
 
 #endif

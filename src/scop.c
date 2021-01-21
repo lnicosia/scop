@@ -6,23 +6,26 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:21 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/20 22:41:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/21 13:50:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 #include "env.h"
 #include "libft.h"
+#include "inputs.h"
 
 int	scop(int ac, char **av)
 {
-	t_env	env;
+	t_env		env;
+	t_input		inputs[MAX_INPUTS];
 
 	(void)ac;
 	(void)av;
 	ft_bzero(&env, sizeof(env));
 	if (init_opengl(&env))
 		return (-1);
+	init_inputs(inputs);
 	unsigned int *textures = (unsigned int*)ft_memalloc(sizeof(unsigned int) * 1);
     textures[0] = env.textures[1];
     //textures[1] = env.textures[1];
@@ -31,11 +34,10 @@ int	scop(int ac, char **av)
 	"resources/shaders/default_shader.fs", &env);
 	add_object(0, &env);
 	scale_object(&env.objects[0].instances[0], new_v3(-0.75f, -0.75f, -0.75f));
-	//move_object(&env->objects[0].instances[0], new_v3(0.25f, 0.0f, 0.0f));
-	//rotate_object(&env->objects[0].instances[0], new_v3(0.0f, to_radians(20.0f), 0.0f));
-
 	while (!glfwWindowShouldClose(env.window))
 	{
+		if (process_inputs(inputs, &env))
+			ft_fatal_error("Error in inputs", &env);
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		draw_triangle(&env);

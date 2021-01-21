@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 23:48:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/20 22:45:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/21 12:29:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,8 +302,8 @@ int		parse_vertex(t_obj_parser *parser, t_object *object, t_env *env)
 
 int		parse_object_line(t_obj_parser *parser, t_object *object, t_env *env)
 {
-	if (!*parser->line)
-		return (custom_error("Empty line!\n"));
+	//if (!*parser->line)
+	//	return (custom_error("Empty line!\n"));
 	if (*parser->line == 'v')
 	{
 		if (!*(++parser->line))

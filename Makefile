@@ -6,7 +6,7 @@
 #    By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/01 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2021/01/21 00:26:37 by lnicosia         ###   ########.fr        #
+#    Updated: 2021/01/21 12:59:03 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ LIB_RAW =
 SRC_RAW =	main.c scop.c init_opengl.c ft_fatal_error.c \
 			free_all.c viewport_update_callback.c key_callback.c \
 			draw_triangle.c shader.c object.c object_transformation.c \
-			projection_matrix.c parse_object.c
+			projection_matrix.c parse_object.c inputs.c 
 
 HEADERS = scop.h env.h inputs.h shader.h object.h camera.h obj_parser.h
 

@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/21 00:29:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/21 13:06:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ int		draw_object(t_object *object, unsigned int shader, t_env *env)
 	while (count < object->count)
 	{
 		matrix_pipeline(&object->instances[count].transform, shader, env);
+		glPolygonMode(GL_FRONT_AND_BACK, env->polygon_mode);
 		glDrawElements(GL_TRIANGLES, (int)object->nb_indices, GL_UNSIGNED_INT, 0);
 		count++;
 	}
