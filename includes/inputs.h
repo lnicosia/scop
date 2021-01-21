@@ -6,16 +6,18 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 17:58:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/21 14:04:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/21 19:31:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INPUTS_H
 # define INPUTS_H
-# define MAX_INPUTS 7
+# define MAX_INPUTS 9
 
 enum				e_inputs
 {
+	MOUSE_LEFT,
+	MOUSE_RIGHT,
 	ESCAPE,
 	ENTER,
 	DRAW_MODE,
@@ -25,12 +27,13 @@ enum				e_inputs
 	DOWN,
 };
 
-enum				e_input_states
+typedef enum		e_input_states
 {
-	PRESSED,
+	PRESS,
 	RELEASED,
-	REST,
-};
+	PRESSED,
+	RELEASE,
+}					t_input_states;
 
 typedef struct		s_input
 {

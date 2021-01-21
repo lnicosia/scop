@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/21 12:57:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/21 18:43:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void	init_camera(t_env *env)
 	env->camera.l = -env->camera.r;
 	env->camera.n = 0.1f;
 	env->camera.f = 100.0f;
-	env->camera.pos = new_v3(0.0f, 0.0f, -3.0f);
+	env->camera.pos = new_v3(0.0f, -1.0f, -3.0f);
+	env->camera.direction= new_v3(0.0f, -0.5f, 0.0f);
 }
 
 int		init_opengl(t_env *env)
@@ -69,7 +70,6 @@ int		init_opengl(t_env *env)
 		ft_fatal_error("Failed to init glad", env);
 	glViewport(0, 0, 900, 900);
 	glfwSetFramebufferSizeCallback(env->window, viewport_update_callback);
-	glfwSetInputMode(env->window, GLFW_STICKY_KEYS, GLFW_TRUE);
 	glfwSetKeyCallback(env->window, key_callback);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);

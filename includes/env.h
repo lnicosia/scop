@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:57:26 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/21 13:30:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/21 18:54:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef struct		s_env
 {
 	GLFWwindow		*window;
 	t_object		objects[MAX_OBJECTS];
+	double			mouse_x_start;
+	double			mouse_y_start;
 	size_t			shader_count;
 	size_t			vao_count;
 	size_t			vbo_count;
@@ -39,9 +41,6 @@ typedef struct		s_env
 	size_t			texture_count;
 	size_t			object_count;
 	unsigned int	shaders[MAX_SHADERS];
-	unsigned int	vaos[MAX_VAO];
-	unsigned int	vbos[MAX_VBO];
-	unsigned int	ebos[MAX_EBO];
 	unsigned int	textures[MAX_TEXTURES];
 	t_camera		camera;
 	unsigned int	polygon_mode;
@@ -50,7 +49,6 @@ typedef struct		s_env
 	int				direction;
 	char			log[512];
 	int				success;
-	char			padding[4];
 }					t_env;
 
 #endif

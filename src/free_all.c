@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:38:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/18 20:30:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/21 18:50:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,17 @@ void	free_all(t_env *env)
 	i = 0;
 	while (i < MAX_VAO)
 	{
-		glDeleteVertexArrays(1, &env->vaos[i]);
 		i++;
 	}
 	(void)env;
 	i = 0;
 	while (i < MAX_VBO)
 	{
-		glDeleteBuffers(1, &env->vbos[i]);
 		i++;
 	}
 	i = 0;
 	while (i < MAX_EBO)
 	{
-		glDeleteBuffers(1, &env->ebos[i]);
 		i++;
 	}
 	i = 0;
