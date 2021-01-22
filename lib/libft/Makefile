@@ -6,15 +6,15 @@
 #    By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2021/01/21 21:08:11 by lnicosia         ###   ########.fr        #
+#    Updated: 2021/01/22 13:30:22 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
-SRC_DIR = .
+SRC_DIR = src
 OBJ_DIR = obj
-INCLUDES_DIR = .
+INCLUDES_DIR = includes
 BIN_DIR = .
 PRINTF_DIR = ft_printf
 OPTI_FLAGS = -O3
@@ -38,7 +38,7 @@ SRC_RAW = ft_memccpy.c ft_memcpy.c ft_memset.c ft_bzero.c ft_memmove.c \
 		  ft_lstcontains.c ft_lstpopfront.c ft_lstdelfront.c \
 		  ft_lstdelnode.c ft_convert_base.c ft_ishexa.c thread_pool.c \
 		  thread_pool_work.c init_tpool.c free_tpool.c skip_chars.c \
-		  check_chars.c 
+		  check_chars.c ft_rmchar.c
 
 HEADERS = libft.h thread_pool.h get_next_line.h
 

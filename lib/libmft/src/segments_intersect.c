@@ -6,12 +6,12 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 10:38:03 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/15 00:56:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/22 13:08:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmft.h"
-#include "../../libft/libft.h"
+#include "../../libft/includes/libft.h"
 
 /*
 **	Checks if two segments given by 4 points intersect

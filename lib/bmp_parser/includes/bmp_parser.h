@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 13:48:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/17 21:42:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/22 13:09:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # define TRUE 1
 # define FALSE 0
 # include <stdint.h>
-# include "../../libft/libft.h"
+# include "../../libft/includes/libft.h"
 
 typedef struct		s_bmp_parser
 {

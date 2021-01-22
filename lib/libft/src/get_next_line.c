@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 11:05:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/19 21:14:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/22 13:40:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int		set_line(t_read *curr, char **line)
 	if (!(*line = ft_strnew(i)))
 		return (-1);
 	ft_strncpy(*line, curr->str, i);
+	*line = ft_rmchar(*line, '\r');
 	if (i < ft_strlen(curr->str) - 1)
 	{
 		tmp = curr->str;

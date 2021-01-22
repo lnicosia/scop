@@ -12,7 +12,7 @@
 
 #include <math.h>
 #include "libmft.h"
-#include "../../libft/libft.h"
+#include "../../libft/includes/libft.h"
 
 void	reset_matrix(float matrix[16])
 {

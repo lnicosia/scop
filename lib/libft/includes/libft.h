@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:01:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/18 19:40:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/22 13:29:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,5 +130,6 @@ char				*skip_spaces(char *line);
 int					valid_int(char *line);
 int					valid_double(char *line);
 int					valid_hexa(char *line);
+char				*ft_rmchar(char *str, char c);
 
 #endif
