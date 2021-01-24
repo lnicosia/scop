@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/22 09:04:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/24 16:37:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,13 @@ void	init_camera(t_env *env)
 	env->camera.l = -env->camera.r;
 	env->camera.n = 0.1f;
 	env->camera.f = 100.0f;
-	env->camera.pos = new_v3(0.0f, -1.0f, -3.0f);
-	env->camera.direction= new_v3(0.0f, -0.5f, 0.0f);
+	env->camera.pos = new_v3(0.0f, 0.0f, -3.0f);
+	env->camera.front = new_v3(0.0f, 0.0, -1.0f);
+	env->camera.up = new_v3(0.0f, 1.0f, 0.0f);
+	env->camera.speed = 0.05f;
+	env->camera.yaw = -90.0f;
+	env->camera.pitch = 0.0f;
+	env->sensi = 0.1f;
 }
 
 int		init_opengl(t_env *env)

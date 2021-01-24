@@ -6,13 +6,14 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 12:58:23 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/21 19:56:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/24 17:01:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 #include "libft.h"
 #include "inputs.h"
+#include <math.h>
 
 int				init_inputs(t_input *inputs)
 {
@@ -40,6 +41,7 @@ int				init_inputs(t_input *inputs)
 	inputs[MOUSE_LEFT].key2 = GLFW_MOUSE_BUTTON_LEFT;
 	inputs[MOUSE_RIGHT].key1 = GLFW_MOUSE_BUTTON_RIGHT;
 	inputs[MOUSE_RIGHT].key2 = GLFW_MOUSE_BUTTON_RIGHT;
+	inputs[RESET].key1 = GLFW_KEY_R;
 	return (0);
 }
 
@@ -81,6 +83,7 @@ int				process_mouse(t_input *inputs, t_env *env)
 {
 	double	x;
 	double	y;
+	t_v3	direction;
 
 	glfwGetCursorPos(env->window, &x, &y);
 	if (inputs[MOUSE_RIGHT].state == PRESS)
@@ -108,8 +111,22 @@ int				process_mouse(t_input *inputs, t_env *env)
 	}
 	if (inputs[MOUSE_LEFT].state == PRESSED)
 	{
-		env->camera.direction.x -= (float)(env->mouse_y_start - y) / 500.0f;
-		env->camera.direction.y -= (float)(env->mouse_x_start - x) / 500.0f;
+		//env->camera.front.y -= (float)(env->mouse_y_start - y) / 500.0f;
+		//env->camera.front.x -= (float)(env->mouse_x_start - x) / 500.0f;
+		env->camera.yaw -= (float)(env->mouse_x_start - x) * env->sensi;
+		env->camera.pitch -= (float)(env->mouse_y_start - y) * env->sensi;
+		if (env->camera.pitch > 89.0f)
+			env->camera.pitch = 89.0f;
+		if (env->camera.pitch < -89.0f)
+			env->camera.pitch = -89.0f;
+		direction.x = cosf(to_radians(env->camera.yaw)
+		* cosf(to_radians(env->camera.pitch)));
+		direction.y = sinf(to_radians(env->camera.pitch));
+		direction.z = sinf(to_radians(env->camera.yaw))
+		* cosf(to_radians(env->camera.pitch));
+		(void)direction;
+		//env->camera.front = normalize(env->camera.front);
+		env->camera.front = normalize(direction);
 		env->mouse_x_start = x;
 		env->mouse_y_start = y;
 	}
@@ -122,6 +139,8 @@ int				process_mouse(t_input *inputs, t_env *env)
 
 int				process_inputs(t_input *inputs, t_env *env)
 {
+	env->camera.speed = 1.5f * ((float)glfwGetTime() - env->last_frame);
+	env->last_frame = (float)glfwGetTime();
 	update_inputs(inputs, env);
 	process_mouse(inputs, env);
 	if (inputs[DRAW_MODE].state == PRESS)
@@ -131,19 +150,29 @@ int				process_inputs(t_input *inputs, t_env *env)
 	}
 	if (inputs[LEFT].state == PRESSED)
 	{
-		env->camera.pos.x += 0.01f;
+		env->camera.pos = add_vec(env->camera.pos,
+			mult_vec(normalize(cross_product(env->camera.front, env->camera.up)),
+			env->camera.speed));
 	}
 	if (inputs[RIGHT].state == PRESSED)
 	{
-		env->camera.pos.x -= 0.01f;
+		env->camera.pos = sub_vec(env->camera.pos,
+			mult_vec(normalize(cross_product(env->camera.front, env->camera.up)),
+			env->camera.speed));
 	}
 	if (inputs[UP].state == PRESSED)
 	{
-		env->camera.pos.z += 0.01f;
+		env->camera.pos = sub_vec(env->camera.pos,
+		mult_vec(env->camera.front, env->camera.speed));
 	}
 	if (inputs[DOWN].state == PRESSED)
 	{
-		env->camera.pos.z -= 0.01f;
+		env->camera.pos = add_vec(env->camera.pos,
+		mult_vec(env->camera.front, env->camera.speed));
+	}
+	if (inputs[RESET].state == PRESSED)
+	{
+		init_camera(env);
 	}
 	return (0);
 }

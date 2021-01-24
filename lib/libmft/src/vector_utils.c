@@ -5,49 +5,53 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/19 12:14:56 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/16 17:02:50 by lnicosia         ###   ########.fr       */
+/*   Created: 2021/01/24 12:25:19 by lnicosia          #+#    #+#             */
+/*   Updated: 2021/01/24 14:24:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmft.h"
 #include <math.h>
 
-t_point	new_point(int x, int y)
+t_v3	normalize(t_v3 vec)
 {
-	t_point	new;
+	float	length;
 
-	new.x = x;
-	new.y = y;
-	return (new);
+	length = sqrtf(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
+	vec.x = vec.x / length;
+	vec.y = vec.y / length;
+	vec.z = vec.z / length;
+	return (vec);
 }
 
-t_v2	new_v2(float x, float y)
+t_v3	dot_product(t_v3 v1, t_v3 v2)
 {
-	t_v2	new;
-
-	new.x = x;
-	new.y = y;
-	return (new);
+	(void)v1;
+	(void)v2;
+	return (v1);
 }
 
-t_v3	new_v3(float x, float y, float z)
+t_v3	cross_product(t_v3 v1, t_v3 v2)
 {
-	t_v3	new;
+	t_v3 res;
 
-	new.x = x;
-	new.y = y;
-	new.z = z;
-	return (new);
+	res.x = v1.y * v2.z - v1.z * v2.y;
+	res.y = v1.z * v2.x - v1.x * v2.z;
+	res.z = v1.x * v2.y - v1.y * v2.x;
+	return (res);
 }
 
-t_v4	new_v4(float x, float y, float z, float w)
+t_v3	add_vec(t_v3 v1, t_v3 v2)
 {
-	t_v4	new;
+	return (new_v3(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z));
+}
 
-	new.x = x;
-	new.y = y;
-	new.z = z;
-	new.w = w;
-	return (new);
+t_v3	sub_vec(t_v3 v1, t_v3 v2)
+{
+	return (new_v3(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z));
+}
+
+t_v3	mult_vec(t_v3 vec, float mult)
+{
+	return (new_v3(vec.x * mult, vec.y * mult, vec.z * mult));
 }

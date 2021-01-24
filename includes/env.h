@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:57:26 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/21 18:54:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/24 15:25:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ typedef struct		s_env
 	unsigned int	polygon_mode;
 	float			matrix[16];
 	float			projection_matrix[16];
+	float			last_frame;
+	float			sensi;
 	int				direction;
 	char			log[512];
 	int				success;

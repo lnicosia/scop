@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 17:56:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/21 13:49:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/24 16:42:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,6 @@ int				parse_object(const char *source_file, t_object *object,
 t_env *env);
 int             process_inputs(t_input *inputs, t_env *env);
 int             init_inputs(t_input *inputs);
+void			init_camera(t_env *env);
 
 #endif

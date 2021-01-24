@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/21 18:35:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/24 16:36:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,10 +111,15 @@ int		matrix_pipeline(t_transform *transform, unsigned int shader, t_env *env)
 	glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, GL_TRUE,
 	env->matrix);
 	reset_matrix(env->matrix);
-	translate(env->matrix, env->camera.pos);
-	rotate_x(env->matrix, env->camera.direction.x);
-	rotate_y(env->matrix, env->camera.direction.y);
-	rotate_z(env->matrix, env->camera.direction.z);
+	//translate(env->matrix, env->camera.pos);
+	/*rotate_x(env->matrix, env->camera.front.x);
+	rotate_y(env->matrix, env->camera.front.y);
+	rotate_z(env->matrix, env->camera.front.z);
+	translate(env->matrix, env->camera.pos);*/
+	//look_at(env->matrix, env->camera.pos,
+	//	add_vec(env->camera.pos, env->camera.front), env->camera.up);
+	look_at(env->matrix, env->camera.pos,
+		env->camera.front, env->camera.up);
 	glUniformMatrix4fv(glGetUniformLocation(shader, "view"), 1, GL_TRUE,
 	env->matrix);
 	glUniformMatrix4fv(glGetUniformLocation(shader, "projection"), 1, GL_TRUE,

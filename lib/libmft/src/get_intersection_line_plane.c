@@ -6,13 +6,13 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 16:31:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/16 17:02:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/24 12:42:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmft.h"
 
-float	dot_product(t_v3 a, t_v3 b)
+float	dot_product2(t_v3 a, t_v3 b)
 {
 	return (a.x * b.x + a.y * b.y + a.z * b.z);
 }
@@ -40,11 +40,11 @@ t_v3 plane_point)
 	t_v3	diff;
 
 	line = sub_vectors(p2, p1);
-	if (dot_product(line, plane.norm) == 0)
+	if (dot_product2(line, plane.norm) == 0)
 		return (new_v3(0, 0, 0));
 	diff = sub_vectors(p1, plane_point);
 	res = add_vectors(add_vectors(diff, plane_point),
-	scale_vector(-dot_product(diff, plane.norm) / dot_product(line, plane.norm),
+	scale_vector(-dot_product2(diff, plane.norm) / dot_product2(line, plane.norm),
 	line));
 	return (res);
 }

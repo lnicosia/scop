@@ -77,3 +77,36 @@ void	print_matrix(float matrix[16])
 	ft_printf("|%f %f %f %f|\n", matrix[8], matrix[9], matrix[10], matrix[11]);
 	ft_printf("|%f %f %f %f|\n", matrix[12], matrix[13], matrix[14], matrix[15]);
 }
+
+void	look_at(float matrix[16], t_v3 pos, t_v3 target, t_v3 up)
+{
+	t_v3	right;
+	t_v3	direction;
+	float	rotation[16];
+	float	translation[16];
+
+	right = normalize(cross_product(normalize(up), target));
+	direction = target;
+	up = cross_product(target, right);
+	pos = new_v3(-pos.x, -pos.y, -pos.z);
+	reset_matrix(rotation);
+	reset_matrix(translation);
+	rotation[0] = right.x;
+	rotation[1] = right.y;
+	rotation[2] = right.z;
+	rotation[3] = 0;
+	rotation[4] = up.x;
+	rotation[5] = up.y;
+	rotation[6] = up.z;
+	rotation[7] = 0;
+	rotation[8] = direction.x;
+	rotation[9] = direction.y;
+	rotation[10] = direction.z;
+	rotation[11] = 0;
+	rotation[12] = 0;
+	rotation[13] = 0;
+	rotation[14] = 0;
+	rotation[15] = 1;
+	translate(translation, pos);
+	mult_matrix(rotation, translation, matrix);
+}

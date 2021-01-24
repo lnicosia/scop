@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 22:16:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/17 18:15:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/24 16:26:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,13 @@ typedef struct		s_complex
 t_point				new_point(int x, int y);
 t_v2				new_v2(float x, float y);
 t_v3				new_v3(float x, float y, float z);
+t_v3				normalize(t_v3 vec);
+t_v3				add_vec(t_v3 v1, t_v3 v2);
+t_v3				sub_vec(t_v3 v1, t_v3 v2);
+t_v3				mult_vec(t_v3 vec, float mult);
+t_v3				dot_product(t_v3 v1, t_v3 v2);
+t_v3				cross_product(t_v3 v1, t_v3 v2);
+void				print_vector(t_v3 vec);
 void				translate(float matrix[16], t_v3 translation);
 void				scale(float matrix[16], t_v3 scale);
 void    			rotate_x(float matrix[16], float angle);
@@ -81,6 +88,7 @@ void    			rotate_z(float matrix[16], float angle);
 void				reset_matrix(float matrix[16]);
 void				print_matrix(float matrix[16]);
 void				mult_matrix(float a[16], float b[16], float res[16]);
+void				look_at(float res[16], t_v3 pos, t_v3 target, t_v3 up);
 
 /*
 ** Geometry
