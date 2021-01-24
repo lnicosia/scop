@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/24 19:18:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/24 20:49:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int nb_textures, t_env *env)
 		return (custom_error("{yellow}Failed to load %s{reset}\n",
 		source_file));
 	new.size = (unsigned int)sizeof(t_vertex) * (unsigned int)new.nb_vertices;
-	//ft_printf("Object parsed\n");
+	ft_printf("Object parsed\n");
 	//print_object(&new);
 	new.name = "";
 	new.nb_textures = nb_textures;
@@ -143,7 +143,7 @@ int		bind_textures(t_object *object, unsigned int shader, t_env *env)
 		glActiveTexture(GL_TEXTURE0 + (unsigned int)i);
 		if (!(nb = ft_itoa(i + 1)))
 			ft_fatal_error("Failed to malloc texture number string", env);
-		if (!(name = ft_strjoin("texture", nb)))
+		if (!(name = ft_strjoin("material.diffuse", nb)))
 			ft_fatal_error("Failed to malloc texture number string", env);
 		glUniform1i(glGetUniformLocation(shader, name), i);
 		ft_strdel(&name);
