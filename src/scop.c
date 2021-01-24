@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:21 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/22 09:03:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/24 19:17:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,26 +27,39 @@ int	scop(int ac, char **av)
 		return (-1);
 	init_inputs(inputs);
 	unsigned int *textures = (unsigned int*)ft_memalloc(sizeof(unsigned int) * 1);
-    textures[0] = env.textures[1];
+    textures[0] = env.textures[0];
+	unsigned int *textures2 = (unsigned int*)ft_memalloc(sizeof(unsigned int) * 1);
+    textures2[0] = env.textures[0];
     //textures[1] = env.textures[1];
 	init_object(av[1], textures, 1, &env);
+	init_object("resources/objects/Cube/Cube.obj", textures2, 1, &env);
 	init_shader("resources/shaders/default_shader.vs",
 	"resources/shaders/default_shader.fs", &env);
+	init_shader("resources/shaders/light_shader.vs",
+	"resources/shaders/light_shader.fs", &env);
 	add_object(0, &env);
+	add_object(1, &env);
 	scale_object(&env.objects[0].instances[0], new_v3(-0.75f, -0.75f, -0.75f));
-	/*add_object(0, &env);
-	add_object(0, &env);
-	scale_object(&env.objects[0].instances[1], new_v3(-0.75f, -0.75f, -0.75f));
-	scale_object(&env.objects[0].instances[2], new_v3(-0.9f, -0.9f, -0.9f));
-	move_object(&env.objects[0].instances[1], new_v3(-0.5f, 0.0f, 0.0f));
-	move_object(&env.objects[0].instances[2], new_v3(-0.0f, 0.0f, -0.5f));*/
+	move_object(&env.objects[0].instances[0], new_v3(0.5f, -1.5f, 1.0f));
+	scale_object(&env.objects[1].instances[0], new_v3(-0.85f, -0.85f, -0.85f));
+	move_object(&env.objects[1].instances[0], new_v3(-0.5f, -0.7f, 0.0f));
+	glUseProgram(env.shaders[0]);
+	glUniform3fv(glGetUniformLocation(env.shaders[0], "camPos"), 1,
+	(float*)&env.camera.pos);
+	glUniform3f(glGetUniformLocation(env.shaders[0], "lightPos"),
+	-0.5f, -0.7f, 0.0f);
+	glUniform3f(glGetUniformLocation(env.shaders[0], "lightColor"),
+	1.0f, 1.0f, 1.0f);
+	glUniform3f(glGetUniformLocation(env.shaders[0], "objectColor"),
+	1.0f, 0.5f, 0.31f);
 	while (!glfwWindowShouldClose(env.window))
 	{
 		if (process_inputs(inputs, &env))
 			ft_fatal_error("Error in inputs", &env);
-		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		draw_triangle(&env);
+		draw_object(&env.objects[0], 0, env.shaders[0], &env);
+		draw_object(&env.objects[1], 0, env.shaders[1], &env);
 		glfwSwapBuffers(env.window);
 		glfwPollEvents();
 	}

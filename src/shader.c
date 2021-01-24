@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 21:06:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/18 20:31:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/24 18:10:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ unsigned int	init_pipeline_shader(GLenum type, const char *file, t_env *env)
 	if (env->success != GLFW_TRUE)
 	{
 		glGetShaderInfoLog(shader, 512, NULL, env->log);
-		custom_error("{yellow}Failed to compile shader\n");
+		custom_error("{yellow}Failed to compile shader %s\n",
+		file);
 		return ((unsigned int)custom_error(env->log));
 	}
 	return (shader);

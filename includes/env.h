@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:57:26 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/24 15:25:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/24 19:15:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 # define MAX_EBO 1
 # define MAX_TEXTURES 2
 # define MAX_SHADERS 2
-# define MAX_OBJECTS 1
+# define MAX_OBJECTS 2
+# define MAX_LIGHTS 1
 
 /*
 ** Defines all the env structure that will contains everything globally needed
@@ -32,6 +33,7 @@ typedef struct		s_env
 {
 	GLFWwindow		*window;
 	t_object		objects[MAX_OBJECTS];
+	t_object		lights[MAX_LIGHTS];
 	double			mouse_x_start;
 	double			mouse_y_start;
 	size_t			shader_count;

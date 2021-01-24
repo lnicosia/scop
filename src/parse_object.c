@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 23:48:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/21 21:05:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/24 18:33:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,18 @@ t_object *object)
 	parser->face_indices[i];
 	object->vertices[object->nb_vertices - 1].pos =
 	parser->pos[parser->face_indices[i].pos - 1];
+	if (parser->face_indices[i].norm == 0)
+	{
+		if (parser->face_indices[i].pos - 1 < parser->nb_norm)
+			object->vertices[object->nb_vertices - 1].norm =
+			parser->norm[parser->face_indices[i].pos - 1];
+		else
+			object->vertices[object->nb_vertices - 1].norm =
+			new_v3(1.0f, 1.0f, 1.0f);
+	}
+	else
+		object->vertices[object->nb_vertices - 1].norm =
+		parser->norm[parser->face_indices[i].norm- 1];
 	if (parser->face_indices[i].uv == 0)
 	{
 		if (parser->face_indices[i].pos - 1 < parser->nb_tex)

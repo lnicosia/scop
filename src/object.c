@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/24 16:36:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/24 19:18:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,11 @@ void	print_object(t_object *object)
 	i = 0;
 	while (i < object->nb_vertices)
 	{
-		ft_printf("%f, %f, %f	%f, %f\n", 
+		ft_printf("%f, %f, %f,	%f, %f, %f,	%f, %f\n", 
 		object->vertices[i].pos.x, object->vertices[i].pos.y,
-		object->vertices[i].pos.z, object->vertices[i].text.x,
-		object->vertices[i].text.y);
+		object->vertices[i].pos.z, object->vertices[i].norm.x,
+		object->vertices[i].norm.y, object->vertices[i].norm.z,
+		object->vertices[i].text.x, object->vertices[i].text.y);
 		i++;
 	}
 	ft_printf("Indices:\n");
@@ -52,12 +53,15 @@ int		init_object_buffers(t_object *object)
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER,
 	(int)sizeof(*object->indices) * object->nb_indices, object->indices,
 	GL_STATIC_DRAW);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float),
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float),
 	(void*)0);
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float),
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float),
 	(void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float),
+	(void*)(6 * sizeof(float)));
+	glEnableVertexAttribArray(2);
 	glBindVertexArray(0);
 	return (0);
 }
@@ -73,7 +77,7 @@ int nb_textures, t_env *env)
 		return (custom_error("{yellow}Failed to load %s{reset}\n",
 		source_file));
 	new.size = (unsigned int)sizeof(t_vertex) * (unsigned int)new.nb_vertices;
-	ft_printf("Object parsed\n");
+	//ft_printf("Object parsed\n");
 	//print_object(&new);
 	new.name = "";
 	new.nb_textures = nb_textures;
@@ -150,21 +154,15 @@ int		bind_textures(t_object *object, unsigned int shader, t_env *env)
 	return (0);
 }
 
-int		draw_object(t_object *object, unsigned int shader, t_env *env)
+int		draw_object(t_object *object, unsigned int instance,
+unsigned int shader, t_env *env)
 {
-	size_t			count;
-
-	count = 0;
 	glUseProgram(shader);
 	bind_textures(object, shader, env);
 	glBindVertexArray(object->vao);
-	while (count < object->count)
-	{
-		matrix_pipeline(&object->instances[count].transform, shader, env);
-		glPolygonMode(GL_FRONT_AND_BACK, env->polygon_mode);
-		glDrawElements(GL_TRIANGLES, (int)object->nb_indices, GL_UNSIGNED_INT, 0);
-		count++;
-	}
+	matrix_pipeline(&object->instances[instance].transform, shader, env);
+	glPolygonMode(GL_FRONT_AND_BACK, env->polygon_mode);
+	glDrawElements(GL_TRIANGLES, (int)object->nb_indices, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 	return (0);
 }

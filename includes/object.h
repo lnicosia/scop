@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 21:15:17 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/20 13:24:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/24 18:31:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 typedef struct		s_vertex
 {
 	t_v3			pos;
+	t_v3			norm;
 	t_v2			text;
 }					t_vertex;
 
