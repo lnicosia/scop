@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:21 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/24 20:50:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/25 13:24:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	scop(int ac, char **av)
 	"resources/shaders/light_shader.fs", &env);
 	add_object(0, &env);
 	add_object(1, &env);
-	scale_object(&env.objects[0].instances[0], new_v3(-0.75f, -0.75f, -0.75f));
+	//scale_object(&env.objects[0].instances[0], new_v3(-0.75f, -0.75f, -0.75f));
 	move_object(&env.objects[0].instances[0], new_v3(0.5f, -1.5f, 1.0f));
 	scale_object(&env.objects[1].instances[0], new_v3(-0.85f, -0.85f, -0.85f));
 	move_object(&env.objects[1].instances[0], new_v3(-0.5f, -0.7f, 0.0f));

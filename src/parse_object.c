@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 23:48:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/24 18:33:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/25 13:32:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,46 +15,53 @@
 #include "scop.h"
 #include "obj_parser.h"
 
-/*int		init_face2(t_index index, t_obj_parser *parser, t_object *object)
+int		scale_new_object(t_object *object)
 {
-	unsigned int	j;
+	t_v3			min;
+	t_v3			max;
+	unsigned int	i;
+	float			scale;
 
-	j = 0;
-	if (!(object->indices = (unsigned int*)realloc(object->indices,
-		(unsigned int)sizeof(unsigned int) * (++object->nb_indices))))
-		return(custom_error("Failed to realloc vertices"));
-	while (j < parser->nb_indices)
+	min = object->vertices[0].pos;
+	max = object->vertices[0].pos;
+	i = 0;
+	while (i < object->nb_vertices)
 	{
-		if (parser->indices[j].pos == index.pos
-			&& parser->indices[j].uv == index.uv
-			&& parser->indices[j].norm == index.norm)
-		{
-			object->indices[object->nb_indices - 1] = j;
-			return (0);
-		}
-		j++;
+		if (object->vertices[i].pos.x < min.x)
+			min.x = object->vertices[i].pos.x;
+		if (object->vertices[i].pos.x > max.x)
+			max.x = object->vertices[i].pos.x;
+		if (object->vertices[i].pos.y < min.y)
+			min.y = object->vertices[i].pos.y;
+		if (object->vertices[i].pos.y > max.y)
+			max.y = object->vertices[i].pos.y;	
+		if (object->vertices[i].pos.z < min.z)
+			min.z = object->vertices[i].pos.z;
+		if (object->vertices[i].pos.z > max.z)
+			max.z = object->vertices[i].pos.z;	
+		i++;
 	}
-	if (!(object->vertices = (t_vertex*)realloc(object->vertices, 
-		sizeof(t_vertex) * (object->nb_vertices + 1))))
-		return (ft_perror("Failed to init new object vertices"));
-	ft_printf("Index %d/%d/%d added \n", index.pos, index.uv, index.norm);
-	object->vertices[object->nb_vertices].pos =
-	parser->pos[index.pos - 1];
-	if (index.uv > 0)
-		object->vertices[object->nb_vertices++].text =
-		parser->tex[index.uv - 1];
-	else
+	object->range.x = max.x - min.x;
+	object->range.y = max.y - min.y;
+	object->range.z = max.z - min.z;
+	scale = (float)ft_fmax(object->range.x, object->range.y);
+	scale = (float)ft_fmax(scale, object->range.z);
+	ft_printf("Range = %f %f %f\n",
+	object->range.x, object->range.y, object->range.z);
+	i = 0;
+	while (i < object->nb_vertices)
 	{
-		if (index.pos - 1 < parser->nb_tex)
-			object->vertices[object->nb_vertices++].text =
-			parser->tex[index.pos - 1];
-		else
-			object->vertices[object->nb_vertices++].text = new_v2(0, 0);
+		object->vertices[i].pos.x -= object->range.x / 2.0f;
+		object->vertices[i].pos.y -= object->range.y / 2.0f;
+		object->vertices[i].pos.z -= object->range.z / 2.0f;
+
+		object->vertices[i].pos.x /= scale;
+		object->vertices[i].pos.y /= scale;
+		object->vertices[i].pos.z /= scale;
+		i++;
 	}
-	object->indices[object->nb_indices - 1] = parser->unique_indices;
-	parser->unique_indices++;
 	return (0);
-}*/
+}
 
 int		set_new_index(t_index index, t_obj_parser *parser)
 {
@@ -368,6 +375,7 @@ int		parse_object(const char *source_file, t_object *object, t_env *env)
 		}
 		ft_strdel(&tmp);
 	}
+	scale_new_object(object);
 	free_obj_parser(&parser);
 	return (0);
 }

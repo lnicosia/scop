@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 21:15:17 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/24 18:31:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/25 12:29:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct		s_object
 	size_t			id;
 	size_t			count;
 	t_v3			center;
+	t_v3			range;
 	unsigned int	size;
 	unsigned int	vao;
 	unsigned int	vbo;
@@ -56,7 +57,6 @@ typedef struct		s_object
 	int				nb_textures;
 	int				no_uv;
 	unsigned int	nb_vertices;
-	char			padding[4];
 }					t_object;
 
 #endif
