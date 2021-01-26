@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 23:48:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/25 13:32:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/25 20:50:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,12 @@ int		scale_new_object(t_object *object)
 	object->range.z = max.z - min.z;
 	scale = (float)ft_fmax(object->range.x, object->range.y);
 	scale = (float)ft_fmax(scale, object->range.z);
-	ft_printf("Range = %f %f %f\n",
-	object->range.x, object->range.y, object->range.z);
 	i = 0;
 	while (i < object->nb_vertices)
 	{
-		object->vertices[i].pos.x -= object->range.x / 2.0f;
-		object->vertices[i].pos.y -= object->range.y / 2.0f;
-		object->vertices[i].pos.z -= object->range.z / 2.0f;
+		object->vertices[i].pos.x -= object->range.x / 2.0f + min.x;
+		object->vertices[i].pos.y -= object->range.y / 2.0f + min.y;
+		object->vertices[i].pos.z -= object->range.z / 2.0f + min.z;
 
 		object->vertices[i].pos.x /= scale;
 		object->vertices[i].pos.y /= scale;
@@ -155,7 +153,8 @@ t_object *object)
 			object->vertices[object->nb_vertices - 1].text =
 			parser->tex[parser->face_indices[i].pos - 1];
 		else
-			object->vertices[object->nb_vertices - 1].text = new_v2(0.0f, 1.0f);
+			object->vertices[object->nb_vertices - 1].text =
+			new_v2(1.0f / (float)(i + 1), 1.0f / (float)(i + 1));
 	}
 	else
 		object->vertices[object->nb_vertices - 1].text =
