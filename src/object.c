@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/25 19:45:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/26 18:29:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int nb_textures, t_env *env)
 		source_file));
 	new.size = (unsigned int)sizeof(t_vertex) * (unsigned int)new.nb_vertices;
 	ft_printf("Object parsed\n");
-	print_object(&new);
+	//print_object(&new);
 	new.name = "";
 	new.nb_textures = nb_textures;
 	init_object_buffers(&new);

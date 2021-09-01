@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 23:48:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/25 20:50:58 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/01/26 18:45:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -321,6 +321,15 @@ int		parse_vertex(t_obj_parser *parser, t_object *object, t_env *env)
 	return (0);
 }
 
+int		parse_mtllib(t_obj_parser *parser, t_object *object, t_env *env)
+{
+	(void)env;
+	(void)parser;
+	(void)object;
+	ft_printf("Mat lib found: %s\n", parser->line);
+	return (0);
+}
+
 int		parse_object_line(t_obj_parser *parser, t_object *object, t_env *env)
 {
 	if (*parser->line == 'v')
@@ -338,6 +347,11 @@ int		parse_object_line(t_obj_parser *parser, t_object *object, t_env *env)
 	{
 		if (parse_index(parser, object, env))
 			return (custom_error("Error while parsing index\n"));
+	}
+	else if (ft_strnequ(parser->line, "mtllib", 6))
+	{
+		if (parse_mtllib(parser, object, env))
+			return (custom_error("Error while parsing material lib\n"));
 	}
 	return (0);
 }
