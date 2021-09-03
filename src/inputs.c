@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 12:58:23 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/24 17:01:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/01 16:22:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int				init_inputs(t_input *inputs)
 	inputs[MOUSE_RIGHT].key1 = GLFW_MOUSE_BUTTON_RIGHT;
 	inputs[MOUSE_RIGHT].key2 = GLFW_MOUSE_BUTTON_RIGHT;
 	inputs[RESET].key1 = GLFW_KEY_R;
+	inputs[TEXTURE].key1 = GLFW_KEY_T;
 	return (0);
 }
 

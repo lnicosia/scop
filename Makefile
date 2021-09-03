@@ -6,7 +6,7 @@
 #    By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/01 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2021/01/22 13:08:26 by lnicosia         ###   ########.fr        #
+#    Updated: 2021/09/02 17:55:44 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ INSTALL_DIR = install
 GLAD_DIR = $(LIB_DIR)/glad
 SED = sed
 ROOT = sudo
+TARGET = unix
 OPENGL = /usr/include/GLFW/glfw3.h
 
 #LIBS
@@ -33,7 +34,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 LIBMFT = $(LIBMFT_DIR)/libmft.a
 BMP_PARSER = $(BMP_PARSER_DIR)/bmp_parser.a
 GLAD = $(GLAD_DIR)/libglad.a
-GLFW = -lglfw -ldl -lm
+GLFW = -ldl -lm
 
 LDLIBS = $(LIBMFT) $(BMP_PARSER) $(GLAD) $(GLFW) $(LIBFT)
 
@@ -74,13 +75,20 @@ CFLAGS =	-Wall -Wextra -Werror -Wpadded -Wconversion -I $(INCLUDES_DIR) \
 #
 
 ifeq ($(OS), Windows_NT)
+	GLFW += lib/glfw3.lib lib.glfw3.dll
+else ifeq ($(TARGET), Windows)
+	GLFW += lib/glfw3.lib lib/glfw3.dll
 else
 	UNAME_S = $(shell uname -s)
     ifeq ($(UNAME_S),Darwin)
 		OPTI_FLAGS += -flto
 		SED = gsed
-    else
+    else ifeq (Target,MacOS)
+		OPTI_FLAGS += -flto
+		SED = gsed
+	else
 		CFLAGS += -Wno-misleading-indentation
+		GLFW += -lglfw
 		OPTI_FLAGS += -flto
     endif
 endif
