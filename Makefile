@@ -45,7 +45,7 @@ LIB_RAW =
 SRC_RAW =	main.c scop.c init_opengl.c ft_fatal_error.c \
 			free_all.c viewport_update_callback.c key_callback.c \
 			draw_triangle.c shader.c object.c object_transformation.c \
-			projection_matrix.c parse_object.c inputs.c 
+			projection_matrix.c parse_object.c inputs.c glad.c 
 
 HEADERS = scop.h env.h inputs.h shader.h object.h camera.h obj_parser.h
 
@@ -75,21 +75,17 @@ CFLAGS =	-Wall -Wextra -Werror -Wpadded -Wconversion -I $(INCLUDES_DIR) \
 #
 
 ifeq ($(OS), Windows_NT)
-	GLFW += lib/glfw3.lib lib.glfw3.dll
-else ifeq ($(TARGET), Windows)
-	GLFW += lib/glfw3.lib lib/glfw3.dll
+	GLFW += lib/glfw3.dll
+	CFLAGS += -Wno-misleading-indentation
 else
 	UNAME_S = $(shell uname -s)
     ifeq ($(UNAME_S),Darwin)
-		OPTI_FLAGS += -flto
-		SED = gsed
-    else ifeq (Target,MacOS)
-		OPTI_FLAGS += -flto
-		SED = gsed
-	else
-		CFLAGS += -Wno-misleading-indentation
-		GLFW += -lglfw
-		OPTI_FLAGS += -flto
+	OPTI_FLAGS += -flto
+	SED = gsed
+    else
+	CFLAGS += -Wno-misleading-indentation
+	GLFW += -lglfw
+	OPTI_FLAGS += -flto
     endif
 endif
 
