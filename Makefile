@@ -6,7 +6,7 @@
 #    By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/01 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2021/09/07 14:43:53 by lnicosia         ###   ########.fr        #
+#    Updated: 2021/09/07 17:28:13 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,9 +64,9 @@ OPTI_FLAGS = -O3
 
 CFLAGS =	-Wall -Wextra -Werror -Wpadded -Wconversion -I $(INCLUDES_DIR) \
 	  	-I $(LIBFT_DIR)/includes -I $(BMP_PARSER_DIR)/includes \
-		-I $(LIBMFT_DIR)/includes -I $(GLAD_DIR)/include -fsanitize=address -g3 \
-		#$(OPTI_FLAGS) \
-		\
+		-I $(LIBMFT_DIR)/includes -I $(GLAD_DIR)/include \
+		$(OPTI_FLAGS) \
+		#-fsanitize=address -g3\
 		
 	
 #
@@ -142,16 +142,10 @@ $(NAME): $(LIBFT) $(LIBMFT) $(BMP_PARSER) $(OBJ_DIR) $(OBJ)
 	@printf ${RESET}
 
 clean:
-	@make --no-print-directory clean -C $(LIBFT_DIR)
-	@make --no-print-directory clean -C $(LIBMFT_DIR)
-	@make --no-print-directory clean -C $(BMP_PARSER_DIR)
 	@printf ${CYAN}"[INFO] Removing objs\n"${RESET}
 	rm -rf $(OBJ_DIR)
 
 fclean:
-	@make --no-print-directory fclean -C $(LIBFT_DIR)
-	@make --no-print-directory fclean -C $(LIBMFT_DIR)
-	@make --no-print-directory fclean -C $(BMP_PARSER_DIR)
 	@printf ${CYAN}"[INFO] Removing objs\n"${RESET}
 	rm -rf $(OBJ_DIR)
 	@printf ${CYAN}"[INFO] Removing $(BIN_DIR)/$(NAME)\n"$(RESET)

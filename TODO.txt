@@ -1,0 +1,2 @@
+Montrer le bonus des multiples instances d'un objet
+FPS?

@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:57:26 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/07 14:53:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/07 17:31:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@
 # define MAX_SHADERS 2
 # define MAX_OBJECTS 2
 # define MAX_LIGHTS 1
+
+enum	e_light_mode
+{
+	LIGHT_ON,
+	LIGHT_OFF,
+};
 
 /*
 ** Defines all the env structure that will contains everything globally needed
@@ -54,8 +60,13 @@ typedef struct		s_env
 	int				direction;
 	char			log[512];
 	const char		*diffuse_names[MAX_ACTIVE_TEXTURES];
+	unsigned int	instance_count;
 	int				success;
-	char			padding[4];
+	int				light_mode;
+	int				moving_mode;
+	int				selected_object;
+	int				selected_axe;
+	//char			padding[4];
 }					t_env;
 
 #endif

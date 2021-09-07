@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 21:06:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/24 18:10:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/07 16:49:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,6 @@ const char *fragment_shader_src , t_env *env)
 		return (custom_error(env->log));
 	}
 	env->shader_count++;
+	ft_printf("Shader '%s':'%s' initialized\n", vertex_shader_src, fragment_shader_src);
 	return (0);
 }

@@ -1,0 +1,6 @@
+Gestion des inputs avancee (type d'input: press/pressed/release/released, 2 touches par binding)
+Possibilité d'ajouter des objets, de sélectionner et bouger chacun d'entre eux.
+Se déplacer dans la scène + tourner la caméra.
+Lumière.
+Light mode switch
+Draw mode switch

@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 12:58:23 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/07 15:12:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/07 18:04:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,34 @@ int				init_inputs(t_input *inputs)
 	inputs[MOUSE_RIGHT].key2 = GLFW_MOUSE_BUTTON_RIGHT;
 	inputs[RESET].key1 = GLFW_KEY_R;
 	inputs[CURRENT_TEXTURE].key1 = GLFW_KEY_T;
+	inputs[LIGHT_MODE].key1 = GLFW_KEY_L;
+	inputs[MOVING_MODE].key1 = GLFW_KEY_C;
+	inputs[ADD_OBJECT].key1 = GLFW_KEY_KP_ADD;
+	inputs[SELECT_OBJECT_0].key1 = GLFW_KEY_0;
+	inputs[SELECT_OBJECT_0].key2 = GLFW_KEY_KP_0;
+	inputs[SELECT_OBJECT_1].key1 = GLFW_KEY_1;
+	inputs[SELECT_OBJECT_1].key2 = GLFW_KEY_KP_1;
+	inputs[SELECT_OBJECT_2].key1 = GLFW_KEY_2;
+	inputs[SELECT_OBJECT_2].key2 = GLFW_KEY_KP_2;
+	inputs[SELECT_OBJECT_3].key1 = GLFW_KEY_3;
+	inputs[SELECT_OBJECT_3].key2 = GLFW_KEY_KP_3;
+	inputs[SELECT_OBJECT_4].key1 = GLFW_KEY_4;
+	inputs[SELECT_OBJECT_4].key2 = GLFW_KEY_KP_4;
+	inputs[SELECT_OBJECT_5].key1 = GLFW_KEY_5;
+	inputs[SELECT_OBJECT_5].key2 = GLFW_KEY_KP_5;
+	inputs[SELECT_OBJECT_6].key1 = GLFW_KEY_6;
+	inputs[SELECT_OBJECT_6].key2 = GLFW_KEY_KP_6;
+	inputs[SELECT_OBJECT_7].key1 = GLFW_KEY_7;
+	inputs[SELECT_OBJECT_7].key2 = GLFW_KEY_KP_7;
+	inputs[SELECT_OBJECT_8].key1 = GLFW_KEY_8;
+	inputs[SELECT_OBJECT_8].key2 = GLFW_KEY_KP_8;
+	inputs[SELECT_OBJECT_9].key1 = GLFW_KEY_9;
+	inputs[SELECT_OBJECT_9].key2 = GLFW_KEY_KP_9;
+	inputs[SELECT_AXE_X].key1 = GLFW_KEY_F1;
+	inputs[SELECT_AXE_Y].key1 = GLFW_KEY_F2;
+	inputs[SELECT_AXE_Z].key1 = GLFW_KEY_F3;
+	inputs[PAGE_UP].key1 = GLFW_KEY_PAGE_UP;
+	inputs[PAGE_DOWN].key1 = GLFW_KEY_PAGE_DOWN;
 	return (0);
 }
 
@@ -146,28 +174,49 @@ int				process_inputs(t_input *inputs, t_env *env)
 	process_mouse(inputs, env);
 	if (inputs[DRAW_MODE].state == PRESS)
 	{
-		env->polygon_mode = env->polygon_mode == GL_LINE ? GL_FILL : GL_LINE;
+		switch (env->polygon_mode)
+		{
+			case GL_LINE:
+				env->polygon_mode = GL_FILL;
+				break;
+			case GL_FILL:
+				env->polygon_mode = GL_POINT;
+				break;
+			case GL_POINT:
+				env->polygon_mode = GL_LINE;
+				break;
+		}
+	}
+	if (inputs[LIGHT_MODE].state == PRESS)
+	{
+		env->light_mode = env->light_mode == LIGHT_ON ? LIGHT_OFF : LIGHT_ON;
+	}
+	if (inputs[MOVING_MODE].state == PRESS)
+	{
+		env->moving_mode = env->moving_mode == MOVE_CAMERA ? MOVE_OBJECT : MOVE_CAMERA;
 	}
 	if (inputs[CURRENT_TEXTURE].state == PRESS)
 	{
-		env->objects[env->object_count - 1].textures[0]++;
-		if (env->objects[env->object_count - 1].textures[0] > MAX_TEXTURES)
-			env->objects[env->object_count - 1].textures[0] = 0;
+		env->current_text++;
+		if (env->current_text >= MAX_TEXTURES)
+			env->current_text = 0;
+		env->objects[1].textures[0] = env->textures[env->current_text];
 	}
 	if (inputs[LEFT].state == PRESSED)
 	{
 		env->camera.pos = add_vec(env->camera.pos,
-			mult_vec(normalize(cross_product(env->camera.front, env->camera.up)),
-			env->camera.speed));
+		mult_vec(normalize(cross_product(env->camera.front, env->camera.up)),
+		env->camera.speed));
 	}
 	if (inputs[RIGHT].state == PRESSED)
 	{
 		env->camera.pos = sub_vec(env->camera.pos,
-			mult_vec(normalize(cross_product(env->camera.front, env->camera.up)),
-			env->camera.speed));
+		mult_vec(normalize(cross_product(env->camera.front, env->camera.up)),
+		env->camera.speed));
 	}
 	if (inputs[UP].state == PRESSED)
 	{
+
 		env->camera.pos = sub_vec(env->camera.pos,
 		mult_vec(env->camera.front, env->camera.speed));
 	}
@@ -175,6 +224,56 @@ int				process_inputs(t_input *inputs, t_env *env)
 	{
 		env->camera.pos = add_vec(env->camera.pos,
 		mult_vec(env->camera.front, env->camera.speed));
+	}
+	if (inputs[ADD_OBJECT].state == PRESS && env->instance_count < 9)
+	{
+		add_object(1, env);
+		env->instance_count++;
+	}
+	if (inputs[SELECT_OBJECT_1].state == PRESSED)
+		env->selected_object = 0;
+	if (inputs[SELECT_OBJECT_2].state == PRESSED && env->instance_count > 1)
+		env->selected_object = 1;
+	if (inputs[SELECT_OBJECT_3].state == PRESSED && env->instance_count > 2)
+		env->selected_object = 2;
+	if (inputs[SELECT_OBJECT_4].state == PRESSED && env->instance_count > 3)
+		env->selected_object = 3;
+	if (inputs[SELECT_OBJECT_5].state == PRESSED && env->instance_count > 4)
+		env->selected_object = 4;
+	if (inputs[SELECT_OBJECT_6].state == PRESSED && env->instance_count > 5)
+		env->selected_object = 5;
+	if (inputs[SELECT_OBJECT_7].state == PRESSED && env->instance_count > 6)
+		env->selected_object = 6;
+	if (inputs[SELECT_OBJECT_8].state == PRESSED && env->instance_count > 7)
+		env->selected_object = 7;
+	if (inputs[SELECT_OBJECT_9].state == PRESSED && env->instance_count > 8)
+		env->selected_object = 8;
+	if (inputs[SELECT_AXE_X].state == PRESS)
+		env->selected_axe = SELECT_AXE_X;
+	if (inputs[SELECT_AXE_Y].state == PRESS)
+		env->selected_axe = SELECT_AXE_Y;
+	if (inputs[SELECT_AXE_Z].state == PRESS)
+		env->selected_axe = SELECT_AXE_Z;
+	t_v3	move = {0.0f, 0.0f, 0.0f};
+	switch (env->selected_axe)
+	{
+		case (SELECT_AXE_X):
+			move.x = 0.05f;
+			break;
+		case (SELECT_AXE_Y):
+			move.y = 0.05f;
+			break;
+		case (SELECT_AXE_Z):
+			move.z = 0.05f;
+			break;
+	}
+	if (inputs[PAGE_UP].state == PRESSED)
+	{
+		move_object(&env->objects[1].instances[env->selected_object], move);
+	}
+	if (inputs[PAGE_DOWN].state == PRESSED)
+	{
+		move_object(&env->objects[1].instances[env->selected_object], mult_vec(move, -1));
 	}
 	if (inputs[RESET].state == PRESSED)
 	{

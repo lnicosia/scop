@@ -6,13 +6,13 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 17:58:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/07 14:58:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/07 17:45:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INPUTS_H
 # define INPUTS_H
-# define MAX_INPUTS 11
+# define MAX_INPUTS 29
 
 enum				e_inputs
 {
@@ -27,6 +27,30 @@ enum				e_inputs
 	DOWN,
 	RESET,
 	CURRENT_TEXTURE,
+	LIGHT_MODE,
+	MOVING_MODE,
+	ADD_OBJECT,
+	SELECT_OBJECT_0,
+	SELECT_OBJECT_1,
+	SELECT_OBJECT_2,
+	SELECT_OBJECT_3,
+	SELECT_OBJECT_4,
+	SELECT_OBJECT_5,
+	SELECT_OBJECT_6,
+	SELECT_OBJECT_7,
+	SELECT_OBJECT_8,
+	SELECT_OBJECT_9,
+	SELECT_AXE_X,
+	SELECT_AXE_Y,
+	SELECT_AXE_Z,
+	PAGE_UP,
+	PAGE_DOWN,
+};
+
+enum				e_moving_mode
+{
+	MOVE_CAMERA,
+	MOVE_OBJECT,
 };
 
 typedef enum		e_input_states

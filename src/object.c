@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/07 15:05:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/07 18:17:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int nb_textures, t_env *env)
 		return (custom_error("{yellow}Failed to load %s{reset}\n",
 		source_file));
 	new.size = (unsigned int)sizeof(t_vertex) * (unsigned int)new.nb_vertices;
-	ft_printf("Object parsed\n");
+	ft_printf("'%s' initialized\n", source_file);
 	//print_object(&new);
 	new.name = "";
 	new.nb_textures = nb_textures;
@@ -134,21 +134,14 @@ int		matrix_pipeline(t_transform *transform, unsigned int shader, t_env *env)
 int		bind_textures(t_object *object, unsigned int shader, t_env *env)
 {
 	int		i;
-	char	*nb;
-	char	*name;
 
 	i = 0;
 	while (i < object->nb_textures)
 	{
 		glActiveTexture(GL_TEXTURE0 + (unsigned int)i);
-		if (!(nb = ft_itoa(i + 1)))
-			ft_fatal_error("Failed to malloc texture number string", env);
-		if (!(name = ft_strjoin("material.diffuse", nb)))
-			ft_fatal_error("Failed to malloc texture number string", env);
-		glUniform1i(glGetUniformLocation(shader, name), i);
-		ft_strdel(&name);
-		ft_strdel(&nb);
-		glBindTexture(GL_TEXTURE_2D, object->textures[i]);
+		//ft_printf("Using texture %d\n", object->textures[i]);
+		glUniform1i(glGetUniformLocation(shader, env->diffuse_names[i]), i);
+		glBindTexture(GL_TEXTURE_2D, env->textures[1]);
 		i++;
 	}
 	return (0);

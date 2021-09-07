@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/07 14:36:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/07 18:15:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int		init_textures(char *file, GLenum format, t_env *env)
 	glGenerateMipmap(GL_TEXTURE_2D);
 	ft_memdel((void**)&texture.pixels);
 	env->texture_count++;
+	ft_printf("Texture '%s' initialized\n", file);
 	return (0);
 }
 
@@ -68,14 +69,21 @@ int		init_shader_textures_names(t_env *env)
 	for (int i = 0; i < MAX_ACTIVE_TEXTURES; i++)
 	{
 		char	*nb;
+		char	*material;
 		if (!(nb = ft_itoa(i)))
 			return (custom_error("Failed to itoa diffuse names\n"));
-		if (!(env->diffuse_names[i] = ft_strjoin("material.diffuse", nb)))
+		if (!(material = ft_strjoin("material", nb)))
 		{
 			ft_strdel(&nb);
 			return (custom_error("Failed to strjoin diffuse names\n"));
 		}
 		ft_strdel(&nb);
+		if (!(env->diffuse_names[i] = ft_strjoin(material, ".diffuse")))
+		{
+			ft_strdel(&material);
+			return (custom_error("Failed to strjoin diffuse names\n"));
+		}
+		ft_strdel(&material);
 	}
 	return (0);
 }
@@ -94,9 +102,6 @@ int		init_opengl(t_env *env)
 	glfwMakeContextCurrent(env->window);
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 		ft_fatal_error("Failed to init glad", env);
-	int data;
-	glGetIntegerv(GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS, &data);
-	ft_printf("GL_MAX_TEXTURE_UNITS = %d\n", data);
 	glViewport(0, 0, 900, 900);
 	glfwSetFramebufferSizeCallback(env->window, viewport_update_callback);
 	glfwSetKeyCallback(env->window, key_callback);
@@ -105,6 +110,7 @@ int		init_opengl(t_env *env)
 	init_camera(env);
 	init_textures("resources/textures/back.bmp", GL_RGBA, env);
 	init_textures("resources/objects/backpack/diffuse.bmp", GL_RGB, env);
+	init_shader_textures_names(env);
 	reset_matrix(env->matrix);
 	reset_matrix(env->projection_matrix);
 	projection_matrix(&env->camera, env->projection_matrix);
