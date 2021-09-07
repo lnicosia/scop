@@ -6,13 +6,13 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 17:58:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/01 16:22:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/07 14:58:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INPUTS_H
 # define INPUTS_H
-# define MAX_INPUTS 10
+# define MAX_INPUTS 11
 
 enum				e_inputs
 {
@@ -26,7 +26,7 @@ enum				e_inputs
 	UP,
 	DOWN,
 	RESET,
-	TEXTURE,
+	CURRENT_TEXTURE,
 };
 
 typedef enum		e_input_states

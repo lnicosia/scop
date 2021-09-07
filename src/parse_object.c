@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 23:48:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/26 18:45:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/06 18:15:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -326,7 +326,7 @@ int		parse_mtllib(t_obj_parser *parser, t_object *object, t_env *env)
 	(void)env;
 	(void)parser;
 	(void)object;
-	ft_printf("Mat lib found: %s\n", parser->line);
+	//ft_printf("Mat lib found: %s\n", parser->line);
 	return (0);
 }
 

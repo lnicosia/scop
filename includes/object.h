@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 21:15:17 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/25 12:29:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/07 14:53:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "libmft.h"
 # include <stdlib.h>
 # define MAX_OBJ_TEXT 8
+# define MAX_ACTIVE_TEXTURES 15
 
 typedef struct		s_vertex
 {

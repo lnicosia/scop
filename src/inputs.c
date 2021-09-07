@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 12:58:23 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/01 16:22:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/07 15:12:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int				init_inputs(t_input *inputs)
 	inputs[MOUSE_RIGHT].key1 = GLFW_MOUSE_BUTTON_RIGHT;
 	inputs[MOUSE_RIGHT].key2 = GLFW_MOUSE_BUTTON_RIGHT;
 	inputs[RESET].key1 = GLFW_KEY_R;
-	inputs[TEXTURE].key1 = GLFW_KEY_T;
+	inputs[CURRENT_TEXTURE].key1 = GLFW_KEY_T;
 	return (0);
 }
 
@@ -146,8 +146,13 @@ int				process_inputs(t_input *inputs, t_env *env)
 	process_mouse(inputs, env);
 	if (inputs[DRAW_MODE].state == PRESS)
 	{
-		ft_printf("Draw mode swapped\n");
 		env->polygon_mode = env->polygon_mode == GL_LINE ? GL_FILL : GL_LINE;
+	}
+	if (inputs[CURRENT_TEXTURE].state == PRESS)
+	{
+		env->objects[env->object_count - 1].textures[0]++;
+		if (env->objects[env->object_count - 1].textures[0] > MAX_TEXTURES)
+			env->objects[env->object_count - 1].textures[0] = 0;
 	}
 	if (inputs[LEFT].state == PRESSED)
 	{

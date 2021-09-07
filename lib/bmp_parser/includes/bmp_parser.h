@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 13:48:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/22 13:09:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/07 14:45:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ typedef struct		s_texture
 {
 	int				w;
 	int				h;
+	int				invalid;
+	int				id;
 	unsigned char	*pixels;
+	const char		*name;
 }					t_texture;
 
 int					parse_bmp(char *file, t_texture *texture);

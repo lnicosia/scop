@@ -6,7 +6,7 @@
 #    By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/01 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2021/09/02 17:55:44 by lnicosia         ###   ########.fr        #
+#    Updated: 2021/09/07 14:43:53 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,9 +64,9 @@ OPTI_FLAGS = -O3
 
 CFLAGS =	-Wall -Wextra -Werror -Wpadded -Wconversion -I $(INCLUDES_DIR) \
 	  	-I $(LIBFT_DIR)/includes -I $(BMP_PARSER_DIR)/includes \
-		-I $(LIBMFT_DIR)/includes -I $(GLAD_DIR)/include \
-		$(OPTI_FLAGS) \
-		#-fsanitize=address -g3 \
+		-I $(LIBMFT_DIR)/includes -I $(GLAD_DIR)/include -fsanitize=address -g3 \
+		#$(OPTI_FLAGS) \
+		\
 		
 	
 #
@@ -107,13 +107,13 @@ RESET :="\e[0m"
 
 all: $(OPENGL)
 	@printf $(CYAN)"[INFO] Building libft..\n"$(RESET)
-	@make --no-print-directory -C $(LIBFT_DIR)
+	@make -j4 --no-print-directory -C $(LIBFT_DIR)
 	@printf $(CYAN)"[INFO] Building libmft..\n"$(RESET)
-	@make --no-print-directory -C $(LIBMFT_DIR)
+	@make -j4 --no-print-directory -C $(LIBMFT_DIR)
 	@printf $(CYAN)"[INFO] Building bmp_parser..\n"$(RESET)
-	@make --no-print-directory -C $(BMP_PARSER_DIR)
+	@make -j4 --no-print-directory -C $(BMP_PARSER_DIR)
 	@printf $(CYAN)"[INFO] Building scop..\n"$(RESET)
-	@make --no-print-directory $(BIN_DIR)/$(NAME)
+	@make -j4 --no-print-directory $(BIN_DIR)/$(NAME)
 
 $(OPENGL):
 	sudo apt-get update

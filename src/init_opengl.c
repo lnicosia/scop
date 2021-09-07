@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/24 16:37:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/07 14:36:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@ int		init_textures(char *file, GLenum format, t_env *env)
 	t_texture	texture;
 
 	if (parse_bmp(file, &texture))
+	{
+		texture.invalid = 1;
 		return (custom_error("Failed to parse bmp\n"));
+	}
+	texture.name = file;
 	glGenTextures(1, &env->textures[env->texture_count]);
 	glBindTexture(GL_TEXTURE_2D, env->textures[env->texture_count]);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -59,11 +63,28 @@ void	init_camera(t_env *env)
 	env->sensi = 0.1f;
 }
 
+int		init_shader_textures_names(t_env *env)
+{
+	for (int i = 0; i < MAX_ACTIVE_TEXTURES; i++)
+	{
+		char	*nb;
+		if (!(nb = ft_itoa(i)))
+			return (custom_error("Failed to itoa diffuse names\n"));
+		if (!(env->diffuse_names[i] = ft_strjoin("material.diffuse", nb)))
+		{
+			ft_strdel(&nb);
+			return (custom_error("Failed to strjoin diffuse names\n"));
+		}
+		ft_strdel(&nb);
+	}
+	return (0);
+}
+
 int		init_opengl(t_env *env)
 {
 	glfwSetErrorCallback(error_callback);
 	if (glfwInit() != GLFW_TRUE)
-		ft_fatal_error("Failed to init GLFW", env);
+		ft_fatal_error("Failed to init GLFW\n", env);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -73,6 +94,9 @@ int		init_opengl(t_env *env)
 	glfwMakeContextCurrent(env->window);
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 		ft_fatal_error("Failed to init glad", env);
+	int data;
+	glGetIntegerv(GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS, &data);
+	ft_printf("GL_MAX_TEXTURE_UNITS = %d\n", data);
 	glViewport(0, 0, 900, 900);
 	glfwSetFramebufferSizeCallback(env->window, viewport_update_callback);
 	glfwSetKeyCallback(env->window, key_callback);

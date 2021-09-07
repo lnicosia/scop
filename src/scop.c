@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:21 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/25 13:24:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/07 15:11:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,14 @@ int	scop(int ac, char **av)
 	if (init_opengl(&env))
 		return (-1);
 	init_inputs(inputs);
-	unsigned int *textures = (unsigned int*)ft_memalloc(sizeof(unsigned int) * 1);
+	unsigned int textures[MAX_ACTIVE_TEXTURES];
     textures[0] = env.textures[1];
-	unsigned int *textures2 = (unsigned int*)ft_memalloc(sizeof(unsigned int) * 1);
+	unsigned int textures2[MAX_ACTIVE_TEXTURES];
     textures2[0] = env.textures[1];
     //textures[1] = env.textures[1];
-	init_object(av[1], textures, 1, &env);
 	init_object("resources/objects/Cube/Cube.obj", textures2, 1, &env);
+	if (ac > 1)
+		init_object(av[1], textures, 1, &env);
 	init_shader("resources/shaders/default_shader.vs",
 	"resources/shaders/default_shader.fs", &env);
 	init_shader("resources/shaders/light_shader.vs",

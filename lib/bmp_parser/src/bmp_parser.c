@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 16:44:23 by sipatry           #+#    #+#             */
-/*   Updated: 2021/01/17 23:19:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/07 14:39:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static int	parse(int fd, t_texture *texture)
 {
 	t_bmp_parser	parser;
 
+	ft_bzero(&parser, sizeof(parser));
 	if (parse_file_header(fd, &parser))
 		return (custom_error("Error in file header\n"));
 	if (get_image_header_size(fd, &parser))
