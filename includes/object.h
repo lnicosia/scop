@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 21:15:17 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/07 14:53:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/08 10:56:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct		s_instance
 {
 	size_t			id;
 	t_transform		transform;
+	float			matrix[16];
 	char			padding[4];
 }					t_instance;
 

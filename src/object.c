@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/08 10:14:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/08 11:05:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,31 +101,16 @@ int		add_object(size_t id, t_env *env)
 	ft_bzero(&env->objects[id].instances[*count - 1],
 	sizeof(env->objects[id].instances[*count - 1]));
 	env->objects[id].instances[*count - 1].transform.scale = new_v3(1, 1, 1);
+	update_object(&env->objects[id].instances[*count - 1]);
 	return (0);
 }
 
-int		matrix_pipeline(t_transform *transform, unsigned int shader, t_env *env)
+int		matrix_pipeline(float *matrix, unsigned int shader, t_env *env)
 {
-	reset_matrix(env->matrix);
-	translate(env->matrix, transform->pos);
-	rotate_along_axis(env->matrix, new_v3(1.0f, 0.0f, 0.0f), transform->rotation.x);
-	rotate_along_axis(env->matrix, new_v3(0.0f, 1.0f, 0.0f), transform->rotation.y);
-	rotate_along_axis(env->matrix, new_v3(0.0f, 0.0f, 1.0f), transform->rotation.z);
-	scale(env->matrix, transform->scale);
 	glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, GL_TRUE,
-	env->matrix);
-	reset_matrix(env->matrix);
-	//translate(env->matrix, env->camera.pos);
-	/*rotate_x(env->matrix, env->camera.front.x);
-	rotate_y(env->matrix, env->camera.front.y);
-	rotate_z(env->matrix, env->camera.front.z);
-	translate(env->matrix, env->camera.pos);*/
-	//look_at(env->matrix, env->camera.pos,
-	//	add_vec(env->camera.pos, env->camera.front), env->camera.up);
-	look_at(env->matrix, env->camera.pos,
-		env->camera.front, env->camera.up);
+	matrix);
 	glUniformMatrix4fv(glGetUniformLocation(shader, "view"), 1, GL_TRUE,
-	env->matrix);
+	env->look_at_matrix);
 	glUniformMatrix4fv(glGetUniformLocation(shader, "projection"), 1, GL_TRUE,
 	env->projection_matrix);
 	return (0);
@@ -153,7 +138,7 @@ unsigned int shader, t_env *env)
 	glUseProgram(shader);
 	bind_textures(object, shader, env);
 	glBindVertexArray(object->vao);
-	matrix_pipeline(&object->instances[instance].transform, shader, env);
+	matrix_pipeline(object->instances[instance].matrix, shader, env);
 	glPolygonMode(GL_FRONT_AND_BACK, env->polygon_mode);
 	glDrawElements(GL_TRIANGLES, (int)object->nb_indices, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);

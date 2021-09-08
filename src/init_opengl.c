@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/07 18:15:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/08 11:06:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,9 @@ int		init_opengl(t_env *env)
 	init_textures("resources/textures/back.bmp", GL_RGBA, env);
 	init_textures("resources/objects/backpack/diffuse.bmp", GL_RGB, env);
 	init_shader_textures_names(env);
-	reset_matrix(env->matrix);
+	reset_matrix(env->look_at_matrix);
+	look_at(env->look_at_matrix, env->camera.pos,
+		env->camera.front, env->camera.up);
 	reset_matrix(env->projection_matrix);
 	projection_matrix(&env->camera, env->projection_matrix);
 	env->polygon_mode = GL_FILL;

@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 12:58:23 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/07 18:04:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/08 11:06:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,8 @@ int				process_mouse(t_input *inputs, t_env *env)
 		env->camera.pos.x += (float)(env->mouse_x_start - x) / 500.0f;
 		env->mouse_x_start = x;
 		env->mouse_y_start = y;
+		look_at(env->look_at_matrix, env->camera.pos,
+		env->camera.front, env->camera.up);
 	}
 	if (inputs[MOUSE_RIGHT].state == RELEASE)
 	{
@@ -158,6 +160,8 @@ int				process_mouse(t_input *inputs, t_env *env)
 		env->camera.front = normalize(direction);
 		env->mouse_x_start = x;
 		env->mouse_y_start = y;
+		look_at(env->look_at_matrix, env->camera.pos,
+		env->camera.front, env->camera.up);
 	}
 	if (inputs[MOUSE_LEFT].state == RELEASE)
 	{
@@ -207,23 +211,31 @@ int				process_inputs(t_input *inputs, t_env *env)
 		env->camera.pos = add_vec(env->camera.pos,
 		mult_vec(normalize(cross_product(env->camera.front, env->camera.up)),
 		env->camera.speed));
+		look_at(env->look_at_matrix, env->camera.pos,
+		env->camera.front, env->camera.up);
 	}
 	if (inputs[RIGHT].state == PRESSED)
 	{
 		env->camera.pos = sub_vec(env->camera.pos,
 		mult_vec(normalize(cross_product(env->camera.front, env->camera.up)),
 		env->camera.speed));
+		look_at(env->look_at_matrix, env->camera.pos,
+		env->camera.front, env->camera.up);
 	}
 	if (inputs[UP].state == PRESSED)
 	{
 
 		env->camera.pos = sub_vec(env->camera.pos,
 		mult_vec(env->camera.front, env->camera.speed));
+		look_at(env->look_at_matrix, env->camera.pos,
+		env->camera.front, env->camera.up);
 	}
 	if (inputs[DOWN].state == PRESSED)
 	{
 		env->camera.pos = add_vec(env->camera.pos,
 		mult_vec(env->camera.front, env->camera.speed));
+		look_at(env->look_at_matrix, env->camera.pos,
+		env->camera.front, env->camera.up);
 	}
 	if (inputs[ADD_OBJECT].state == PRESS && env->instance_count < 9)
 	{

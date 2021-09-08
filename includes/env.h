@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:57:26 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/07 17:31:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/08 11:05:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct		s_env
 	t_camera		camera;
 	unsigned int	polygon_mode;
 	unsigned int	current_text;
-	float			matrix[16];
+	float			look_at_matrix[16];
 	float			projection_matrix[16];
 	float			last_frame;
 	float			sensi;
