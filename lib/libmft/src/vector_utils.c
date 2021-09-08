@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 12:25:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/24 14:24:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/08 09:44:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,12 @@ t_v3	normalize(t_v3 vec)
 
 t_v3	dot_product(t_v3 v1, t_v3 v2)
 {
-	(void)v1;
-	(void)v2;
-	return (v1);
+	t_v3	res;
+
+	res.x = v1.x * v2.x;
+	res.y = v1.y * v2.y;
+	res.z = v1.z * v2.z;
+	return (res);
 }
 
 t_v3	cross_product(t_v3 v1, t_v3 v2)

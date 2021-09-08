@@ -30,13 +30,9 @@ void    translate(float matrix[16], t_v3 translation)
 
 void    scale(float matrix[16], t_v3 scale)
 {
-    float   tmp[16];
-
-    reset_matrix(tmp);
-    tmp[0] = scale.x;
-    tmp[5] = scale.y;
-    tmp[10] = scale.z;
-    mult_matrix(matrix, tmp, matrix);
+    matrix[0] *= scale.x;
+    matrix[5] *= scale.y;
+    matrix[10] *= scale.z;
 }
 
 /*
@@ -80,5 +76,28 @@ void    rotate_z(float matrix[16], float angle)
     tmp[1] = -sinf(angle);
     tmp[4] = sinf(angle);
     tmp[5] = cosf(angle);
+    mult_matrix(matrix, tmp, matrix);
+}
+
+void    rotate_along_axis(float matrix[16], t_v3 axis, float angle)
+{
+    float   tmp[16];
+
+    tmp[0] = cosf(angle) + axis.x * axis.x * (1 - cosf(angle));
+    tmp[1] = axis.x * axis.y * (1 - cosf(angle)) - axis.z * sinf(angle);
+    tmp[2] = axis.x * axis.z * (1 - cosf(angle)) + axis.y * sinf(angle);
+    tmp[3] = 0;
+    tmp[4] = axis.y * axis.x * (1 - cosf(angle)) + axis.z * sinf(angle);
+    tmp[5] = cosf(angle) + axis.y * axis.y * (1 - cosf(angle));
+    tmp[6] = axis.y * axis.z * (1 - cosf(angle)) - axis.x * sinf(angle);
+    tmp[7] = 0;
+    tmp[8] = axis.z * axis.x * (1 - cosf(angle)) - axis.y * sinf(angle);
+    tmp[9] = axis.z * axis.y * (1 - cosf(angle)) - axis.x * sinf(angle);
+    tmp[10] = cosf(angle) + axis.z * axis.z * (1 - cosf(angle));
+    tmp[11] = 0;
+    tmp[12] = 0;
+    tmp[13] = 0;
+    tmp[14] = 0;
+    tmp[15] = 1;
     mult_matrix(matrix, tmp, matrix);
 }

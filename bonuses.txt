@@ -4,3 +4,4 @@ Se déplacer dans la scène + tourner la caméra.
 Lumière.
 Light mode switch
 Draw mode switch
+Shader parsing

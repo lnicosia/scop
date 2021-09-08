@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/07 18:17:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/08 10:14:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,9 @@ int		matrix_pipeline(t_transform *transform, unsigned int shader, t_env *env)
 {
 	reset_matrix(env->matrix);
 	translate(env->matrix, transform->pos);
-	rotate_x(env->matrix, transform->rotation.x);
-	rotate_y(env->matrix, transform->rotation.y);
-	rotate_z(env->matrix, transform->rotation.z);
+	rotate_along_axis(env->matrix, new_v3(1.0f, 0.0f, 0.0f), transform->rotation.x);
+	rotate_along_axis(env->matrix, new_v3(0.0f, 1.0f, 0.0f), transform->rotation.y);
+	rotate_along_axis(env->matrix, new_v3(0.0f, 0.0f, 1.0f), transform->rotation.z);
 	scale(env->matrix, transform->scale);
 	glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, GL_TRUE,
 	env->matrix);

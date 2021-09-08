@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 22:16:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/24 16:26:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/08 10:11:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void				scale(float matrix[16], t_v3 scale);
 void    			rotate_x(float matrix[16], float angle);
 void    			rotate_y(float matrix[16], float angle);
 void    			rotate_z(float matrix[16], float angle);
+void    			rotate_along_axis(float matrix[16], t_v3 axis, float angle);
 void				reset_matrix(float matrix[16]);
 void				print_matrix(float matrix[16]);
 void				mult_matrix(float a[16], float b[16], float res[16]);
