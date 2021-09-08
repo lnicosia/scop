@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/08 11:06:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/08 13:39:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,11 @@ int		init_opengl(t_env *env)
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	init_camera(env);
-	init_textures("resources/textures/back.bmp", GL_RGBA, env);
+	init_textures("resources/textures/unicorn.bmp", GL_RGBA, env);
 	init_textures("resources/objects/backpack/diffuse.bmp", GL_RGB, env);
+	init_textures("resources/textures/back.bmp", GL_RGBA, env);
+	init_textures("resources/textures/awesomeface.bmp", GL_RGB, env);
+	init_textures("resources/textures/container.bmp", GL_RGB, env);
 	init_shader_textures_names(env);
 	reset_matrix(env->look_at_matrix);
 	look_at(env->look_at_matrix, env->camera.pos,

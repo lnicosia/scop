@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/08 11:05:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/08 14:07:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,11 @@ int		init_object_buffers(t_object *object)
 	return (0);
 }
 
-int		init_object(const char *source_file, unsigned int *textures,
-int nb_textures, t_env *env)
+int		init_object(const char *source_file, t_env *env)
 {
 	t_object	new;
 
 	ft_bzero(&new, sizeof(new));
-	new.textures = textures;
 	if (parse_object(source_file, &new, env))
 		return (custom_error("{yellow}Failed to load %s{reset}\n",
 		source_file));
@@ -80,12 +78,20 @@ int nb_textures, t_env *env)
 	ft_printf("'%s' initialized\n", source_file);
 	//print_object(&new);
 	new.name = "";
-	new.nb_textures = nb_textures;
+	new.nb_textures = 1;
 	init_object_buffers(&new);
 	ft_memdel((void**)&new.vertices);
 	new.id = env->object_count;
 	env->objects[env->object_count] = new;
 	env->object_count++;
+	return (0);
+}
+
+int		set_object_texture(t_instance *object, int id, unsigned int text)
+{
+	if (id >= MAX_ACTIVE_TEXTURES)
+		return (-1);
+	object->textures[id] = text;
 	return (0);
 }
 
@@ -102,6 +108,7 @@ int		add_object(size_t id, t_env *env)
 	sizeof(env->objects[id].instances[*count - 1]));
 	env->objects[id].instances[*count - 1].transform.scale = new_v3(1, 1, 1);
 	update_object(&env->objects[id].instances[*count - 1]);
+	set_object_texture(&env->objects[id].instances[*count - 1], 0, env->textures[0]);
 	return (0);
 }
 
@@ -116,7 +123,7 @@ int		matrix_pipeline(float *matrix, unsigned int shader, t_env *env)
 	return (0);
 }
 
-int		bind_textures(t_object *object, unsigned int shader, t_env *env)
+int		bind_textures(t_object *object, t_instance *instance)
 {
 	int		i;
 
@@ -124,9 +131,7 @@ int		bind_textures(t_object *object, unsigned int shader, t_env *env)
 	while (i < object->nb_textures)
 	{
 		glActiveTexture(GL_TEXTURE0 + (unsigned int)i);
-		//ft_printf("Using texture %d\n", object->textures[i]);
-		glUniform1i(glGetUniformLocation(shader, env->diffuse_names[i]), i);
-		glBindTexture(GL_TEXTURE_2D, env->textures[1]);
+		glBindTexture(GL_TEXTURE_2D, instance->textures[i]);
 		i++;
 	}
 	return (0);
@@ -136,7 +141,7 @@ int		draw_object(t_object *object, unsigned int instance,
 unsigned int shader, t_env *env)
 {
 	glUseProgram(shader);
-	bind_textures(object, shader, env);
+	bind_textures(object, &object->instances[instance]);
 	glBindVertexArray(object->vao);
 	matrix_pipeline(object->instances[instance].matrix, shader, env);
 	glPolygonMode(GL_FRONT_AND_BACK, env->polygon_mode);

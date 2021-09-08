@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:21 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/07 17:46:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/08 13:56:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,23 @@
 #include "env.h"
 #include "libft.h"
 #include "inputs.h"
+#include "light.h"
 
-int	scop(int ac, char **av)
+void	init_light(t_env *env)
+{
+	glUseProgram(env->shaders[0]);
+	glUniform1i(glGetUniformLocation(env->shaders[0], env->diffuse_names[0]), 0);
+	glUniform3fv(glGetUniformLocation(env->shaders[0], "camPos"), 1,
+	(float*)&env->camera.pos);
+	glUniform3fv(glGetUniformLocation(env->shaders[0], "light.pos"), 1,
+	(float*)&env->objects[0].instances[0].transform.pos);
+	set_ambient(env->shaders[0], new_v3(0.1f, 0.1f, 0.1f));
+	set_diffuse(env->shaders[0], new_v3(0.5f, 0.5f, 0.5f));
+	set_specular(env->shaders[0], new_v3(1.0f, 1.0f, 1.0f));
+	env->light_mode = LIGHT_OFF;
+}
+
+int		scop(int ac, char **av)
 {
 	t_env		env;
 	t_input		inputs[MAX_INPUTS];
@@ -25,19 +40,14 @@ int	scop(int ac, char **av)
 		return (-1);
 	init_inputs(inputs);
 	env.selected_axe = SELECT_AXE_X;
-	unsigned int textures[MAX_ACTIVE_TEXTURES];
-    textures[0] = env.textures[1];
-	unsigned int textures2[MAX_ACTIVE_TEXTURES];
-    textures2[0] = env.textures[1];
-    //textures[1] = env.textures[1];
-	init_object("resources/objects/Cube/Cube.obj", textures2, 1, &env);
+	init_object("resources/objects/Cube/Cube.obj", &env);
 	add_object(0, &env);
 	move_object(&env.objects[0].instances[0], new_v3(1.f, 0.75f, 0.f));
 	scale_object(&env.objects[0].instances[0], new_v3(-0.85f, -0.85f, -0.85f));
 	if (ac > 1)
-		init_object(av[1], textures, 1, &env);
+		init_object(av[1], &env);
 	else
-		init_object("resources/objects/Cube/Cube.obj", textures, 1, &env);
+		init_object("resources/objects/Cube/Cube.obj", &env);
 	add_object(1, &env);
 	env.instance_count++;
 	move_object(&env.objects[1].instances[0], new_v3(0.f, -0.75f, 2.0f));
@@ -47,25 +57,7 @@ int	scop(int ac, char **av)
 	"resources/shaders/default_shader_no_light.fs", &env);
 	init_shader("resources/shaders/light_shader.vs",
 	"resources/shaders/light_shader.fs", &env);
-	glUseProgram(env.shaders[0]);
-	glUniform3fv(glGetUniformLocation(env.shaders[0], "camPos"), 1,
-	(float*)&env.camera.pos);
-	glUniform3fv(glGetUniformLocation(env.shaders[0], "light.pos"), 1,
-	(float*)&env.objects[0].instances[0].transform.pos);
-	glUniform3f(glGetUniformLocation(env.shaders[0], "light.ambient"),
-	0.1f, 0.1f, 0.1f);
-	glUniform3f(glGetUniformLocation(env.shaders[0], "light.diffuse"),
-	0.5f, 0.5f, 0.5f);
-	glUniform3f(glGetUniformLocation(env.shaders[0], "light.specular"),
-	1.0f, 1.0f, 1.0f);
-	glUniform3f(glGetUniformLocation(env.shaders[0], "material.ambient"),
-	1.0f, 0.5f, 0.31f);
-	glUniform3f(glGetUniformLocation(env.shaders[0], "material.diffuse"),
-	1.0f, 0.5f, 0.31f);
-	glUniform3f(glGetUniformLocation(env.shaders[0], "material.specular"),
-	0.5f, 0.5f, 0.5f);
-	glUniform1f(glGetUniformLocation(env.shaders[0], "material.shininess"),
-	32.0f);
+	init_light(&env);
 	while (!glfwWindowShouldClose(env.window))
 	{
 		if (process_inputs(inputs, &env))

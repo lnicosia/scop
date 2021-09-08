@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 21:15:17 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/08 10:56:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/08 13:54:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include "libmft.h"
 # include <stdlib.h>
 # define MAX_OBJ_TEXT 8
-# define MAX_ACTIVE_TEXTURES 15
+# define MAX_ACTIVE_TEXTURES 4
 
 typedef struct		s_vertex
 {
@@ -35,6 +35,7 @@ typedef struct		s_transform
 typedef struct		s_instance
 {
 	size_t			id;
+	unsigned int	textures[MAX_ACTIVE_TEXTURES];
 	t_transform		transform;
 	float			matrix[16];
 	char			padding[4];
@@ -45,7 +46,6 @@ typedef struct		s_object
 	const char		*name;
 	t_vertex		*vertices;
 	t_instance		*instances;
-	unsigned int	*textures;
 	unsigned int	*indices;
 	size_t			id;
 	size_t			count;

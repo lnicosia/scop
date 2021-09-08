@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 17:56:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/08 11:03:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/08 13:57:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ t_env *env);
 char			*read_shader(const char *file);
 int				init_shader(const char *vertex_shader,
 const char *fragment_shader, t_env *env);
-int				init_object(const char *source_file, unsigned int *textures,
-int nb_textures, t_env *env);
+int				init_object(const char *source_file, t_env *env);
+int				set_object_texture(t_instance *object, int id, unsigned int text);
 int				add_object(size_t id, t_env *env);
 int				move_object(t_instance *object, t_v3 move);
 int				rotate_object(t_instance *object, t_v3 rotate);

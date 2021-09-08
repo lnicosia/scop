@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:57:26 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/08 11:05:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/08 11:51:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # define MAX_VAO 1
 # define MAX_VBO 1
 # define MAX_EBO 1
-# define MAX_TEXTURES 2
-# define MAX_SHADERS 2
+# define MAX_TEXTURES 5
+# define MAX_SHADERS 3
 # define MAX_OBJECTS 2
 # define MAX_LIGHTS 1
 
@@ -50,6 +50,7 @@ typedef struct		s_env
 	size_t			object_count;
 	unsigned int	shaders[MAX_SHADERS];
 	unsigned int	textures[MAX_TEXTURES];
+	const char		*diffuse_names[MAX_ACTIVE_TEXTURES];
 	t_camera		camera;
 	unsigned int	polygon_mode;
 	unsigned int	current_text;
@@ -59,7 +60,6 @@ typedef struct		s_env
 	float			sensi;
 	int				direction;
 	char			log[512];
-	const char		*diffuse_names[MAX_ACTIVE_TEXTURES];
 	unsigned int	instance_count;
 	int				success;
 	int				light_mode;

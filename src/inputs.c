@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 12:58:23 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/08 11:06:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/08 14:07:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,7 +204,9 @@ int				process_inputs(t_input *inputs, t_env *env)
 		env->current_text++;
 		if (env->current_text >= MAX_TEXTURES)
 			env->current_text = 0;
-		env->objects[1].textures[0] = env->textures[env->current_text];
+		set_object_texture(&env->objects[1].instances[env->selected_object], 0,
+		env->textures[env->current_text]);
+		
 	}
 	if (inputs[LEFT].state == PRESSED)
 	{
