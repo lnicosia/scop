@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/28 16:56:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/17 23:19:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/09 16:29:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,10 @@
 int		fill_pixel(unsigned char *str, t_bmp_parser *parser,
 t_texture *texture, int byte)
 {
-	int	filler;
-
-	filler = 0;
-	while (filler < parser->opp)
-	{
-		texture->pixels[byte + filler] = str[byte + filler];
-		filler++;
-	}
 	texture->pixels[byte] = str[byte + 2];
 	texture->pixels[byte + 1] = str[byte + 1];
 	texture->pixels[byte + 2] = str[byte + 0];
-	if (filler == 4)
+	if (parser->opp == 4)
 		texture->pixels[byte + 3] = str[byte + 3];
 	return (0);
 }
@@ -44,7 +36,7 @@ t_texture *texture)
 	int	byte;
 
 	byte = 0;
-	while (byte < parser->ret)
+	while (byte + parser->opp <= parser->ret)
 	{
 		fill_pixel(str, parser, texture, byte);
 		byte += parser->opp;
