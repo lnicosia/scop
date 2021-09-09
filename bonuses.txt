@@ -6,4 +6,5 @@ Light mode switch
 Draw mode switch
 Shader parsing
 Skybox/Cubemaps
-Objets en plusieurs morceaux
+Objets en plusieurs parties, avec plusieurs textures
+Compilation windows

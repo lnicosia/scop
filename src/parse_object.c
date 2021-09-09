@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 23:48:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/09 13:48:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/09 14:43:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,28 +80,34 @@ int		parse_current_index(t_obj_parser *parser)
 	t_index	index;
 
 	ft_bzero(&index, sizeof(index));
-	//ft_printf("Line = %d\n", *parser->line, *parser->line);
 	if (!*parser->line || valid_int(parser->line))
-		return (custom_error("Invalid vertex pos\n"));
+		return (custom_error("Invalid vertex pos at line %d\n", parser->line_nb));
 	index.pos = (unsigned int)ft_atoi(parser->line);
+	if (index.pos > parser->nb_vertices)
+		return (custom_error("Invalid vertex number (%d) at line %d\n", index.pos, parser->line_nb));
 	parser->line = skip_number(parser->line);
 	if (!*parser->line || *parser->line == ' ' || *parser->line == '\r')
 		return (set_new_index(index, parser));
 	if (*parser->line != '/')
-		return (custom_error("Expected / in indices declaration\n"));
+		return (custom_error("Expected / in indices declaration at line %d\n", parser->line_nb));
 	parser->line++;
 	if (!*parser->line || valid_int(parser->line))
-		return (custom_error("Invalid vertex pos\n"));
+		return (custom_error("Invalid vertex pos at line %d\n", parser->line_nb));
 	index.uv = (unsigned int)ft_atoi(parser->line);
+	if (index.uv > parser->nb_tex)
+		return (custom_error("Invalid uv number (%d) at line %d\n", index.uv, parser->line_nb));
 	parser->line = skip_number(parser->line);
 	if (!*parser->line || *parser->line == ' ' || *parser->line == '\r')
 		return (set_new_index(index, parser));
 	if (*parser->line != '/')
-		return (custom_error("Expected / in indices declaration\n"));
+		return (custom_error("Expected / in indices declaration at line %d\n", parser->line_nb));
 	parser->line++;
 	if (!*parser->line || valid_int(parser->line))
-		return (custom_error("Invalid vertex pos\n"));
+		return (custom_error("Invalid vertex pos at line %d\n", parser->line_nb));
 	index.norm = (unsigned int)ft_atoi(parser->line);
+	if (index.norm > parser->nb_norm)
+		return (custom_error("Invalid normal number (%d) at line %d\n",
+			index.norm, parser->line_nb));
 	parser->line = skip_number(parser->line);
 	return (set_new_index(index, parser));
 }
@@ -112,9 +118,9 @@ t_object *object)
 	unsigned int	k;
 
 	k = 0;
-	/*ft_printf("Initializing vertex %d/%d/%d\n", parser->face_indices[i].pos,
-	parser->face_indices[i].uv, parser->face_indices[i].norm);
-	ft_printf("There are %d unique indices\n", parser->nb_unique_indices);*/
+	//ft_printf("Initializing vertex %d/%d/%d\n", parser->face_indices[i].pos,
+	//parser->face_indices[i].uv, parser->face_indices[i].norm);
+	//ft_printf("There are %d unique faces\n", parser->nb_unique_indices);
 	while (k < parser->nb_unique_indices)
 	{
 		if (parser->unique_indices[k].pos == parser->face_indices[i].pos
@@ -217,6 +223,8 @@ int		parse_index(t_obj_parser *parser, t_object *object, t_env *env)
 		if (*parser->line)
 			parser->line++;
 	}
+	if (parser->face_size < 3)
+		return (custom_error("Incorrect number of faces (%d) at line %d\n", parser->face_size, parser->line_nb));
 	/*unsigned int i = 0;
 	ft_printf("Current face: ");
 	while (i < parser->face_size)
@@ -239,22 +247,22 @@ int		parse_normal(t_obj_parser *parser, t_object *object, t_env *env)
 	//ft_printf("NORMAL: ");
 	parser->line++;
 	if (!*parser->line)
-		return (-1);
+		return (custom_error("Normal declaration at line %d is incorrect or incomplete\n", parser->line_nb));
 	parser->line = skip_spaces(parser->line);
 	if (!*parser->line || valid_double(parser->line))
-		return (-1);
+		return (custom_error("Normal declaration at line %d is incorrect or incomplete\n", parser->line_nb));
 	normal.x = (float)ft_atof(parser->line);
 	//ft_printf("x = %f", normal.x);
 	parser->line = skip_number(parser->line);
 	parser->line = skip_spaces(parser->line);
 	if (!*parser->line || valid_double(parser->line))
-		return (-1);
+		return (custom_error("Normal declaration at line %d is incorrect or incomplete\n", parser->line_nb));
 	normal.y = (float)ft_atof(parser->line);
 	//ft_printf(" y = %f", normal.y);
 	parser->line = skip_number(parser->line);
 	parser->line = skip_spaces(parser->line);
 	if (!*parser->line || valid_double(parser->line))
-		return (-1);
+		return (custom_error("Normal declaration at line %d is incorrect or incomplete\n", parser->line_nb));
 	normal.z = (float)ft_atof(parser->line);
 	//ft_printf(" z = %f\n", normal.z);
 	if (!(parser->norm = (t_v3*)realloc(parser->norm,
@@ -272,16 +280,16 @@ int		parse_uv(t_obj_parser *parser, t_object *object, t_env *env)
 	(void)object;
 	parser->line++;
 	if (!*parser->line)
-		return (-1);
+		return (custom_error("UV declaration at line %d is incorrect or incomplete\n", parser->line_nb));
 	parser->line = skip_spaces(parser->line);
 	if (!*parser->line || valid_double(parser->line))
-		return (-1);
+		return (custom_error("UV declaration at line %d is incorrect or incomplete\n", parser->line_nb));
 	tex.x = (float)ft_atof(parser->line);
 	//ft_printf("x = %f", tex.x);
 	parser->line = skip_number(parser->line);
 	parser->line = skip_spaces(parser->line);
 	if (!*parser->line || valid_double(parser->line))
-		return (-1);
+		return (custom_error("UV declaration at line %d is incorrect or incomplete\n", parser->line_nb));
 	tex.y = (float)ft_atof(parser->line);
 	//ft_printf(" y = %f\n", tex.y);
 	if (!(parser->tex = (t_v2*)realloc(parser->tex,
@@ -298,22 +306,21 @@ int		parse_vertex(t_obj_parser *parser, t_object *object, t_env *env)
 	(void)object;
 	//ft_printf("VERTEX ");
 	if (!*parser->line)
-		return (-1);
+		return (custom_error("Vertex declaration at line %d is incorrect or incomplete\n", parser->line_nb));
 	parser->line = skip_spaces(parser->line);
 	if (!*parser->line || valid_double(parser->line))
-		return (-1);
+		return (custom_error("Vertex declaration at line %d is incorrect or incomplete\n", parser->line_nb));
 	vertex.x = (float)ft_atof(parser->line);
 	//ft_printf("x = %f", vertex.x);
 	parser->line = skip_number(parser->line);
 	parser->line = skip_spaces(parser->line);
 	if (!*parser->line || valid_double(parser->line))
-		return (-1);
-	vertex.y = (float)ft_atof(parser->line);
+		return (custom_error("Vertex declaration at line %d is incorrect or incomplete\n", parser->line_nb));	vertex.y = (float)ft_atof(parser->line);
 	//ft_printf(" y = %f", vertex.y);
 	parser->line = skip_number(parser->line);
 	parser->line = skip_spaces(parser->line);
 	if (!*parser->line || valid_double(parser->line))
-		return (-1);
+		return (custom_error("Vertex declaration at line %d is incorrect or incomplete\n", parser->line_nb));
 	vertex.z = (float)ft_atof(parser->line);
 	//ft_printf(" z = %f\n", vertex.z);
 	if (!(parser->pos = (t_v3*)realloc(parser->pos,
@@ -378,6 +385,7 @@ int		parse_object(const char *source_file, t_object *object, t_env *env)
 	ft_bzero(&parser, sizeof(parser));
 	if ((parser.fd = open(source_file, O_RDONLY)) < 0)
 		return (custom_error("Could not open \"%s\"\n", source_file));
+	parser.line_nb = 1;
 	while ((ret = get_next_line(parser.fd, &parser.line)))
 	{
 		//ft_printf("Reading %s\n", parser.line);
@@ -385,9 +393,11 @@ int		parse_object(const char *source_file, t_object *object, t_env *env)
 		if (parse_object_line(&parser, object, env))
 		{
 			free_obj_parser(&parser);
+			free_object(object);
 			ft_strdel(&tmp);
 			return (custom_error("Parsing error in \"%s\"\n", source_file));
 		}
+		parser.line_nb++;
 		ft_strdel(&tmp);
 	}
 	if (object->nb_vertices < 3 || object->nb_indices < 1)

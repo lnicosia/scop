@@ -6,12 +6,22 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:38:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/09 10:17:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/09 14:31:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "libft.h"
+
+void	free_object(t_object *object)
+{
+	ft_memdel((void**)&object->vertices);
+	ft_memdel((void**)&object->instances);
+	ft_memdel((void**)&object->indices);
+	glDeleteVertexArrays(1, &object->vao);
+	glDeleteBuffers(1, &object->vbo);
+	glDeleteBuffers(1, &object->ebo);
+}
 
 void	free_objects(t_env *env)
 {
@@ -20,13 +30,8 @@ void	free_objects(t_env *env)
 	i = 0;
 	while (i < env->object_count)
 	{
-		ft_memdel((void**)&env->objects[i].vertices);
-		ft_memdel((void**)&env->objects[i].instances);
-		ft_memdel((void**)&env->objects[i].indices);
+		free_object(&env->objects[i]);
 		i++;
-		glDeleteVertexArrays(1, &env->objects[i].vao);
-		glDeleteBuffers(1, &env->objects[i].vbo);
-		glDeleteBuffers(1, &env->objects[i].ebo);
 	}
 }
 

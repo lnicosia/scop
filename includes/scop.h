@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 17:56:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/08 13:57:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/09 14:29:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,6 @@ t_env *env);
 int             process_inputs(t_input *inputs, t_env *env);
 int             init_inputs(t_input *inputs);
 void			init_camera(t_env *env);
+void			free_object(t_object *object);
 
 #endif

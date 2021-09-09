@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/09 12:05:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/09 14:02:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int		add_object(size_t id, t_env *env)
 	sizeof(env->objects[id].instances[*count - 1]));
 	env->objects[id].instances[*count - 1].transform.scale = new_v3(1, 1, 1);
 	update_object(&env->objects[id].instances[*count - 1]);
-	set_object_texture(&env->objects[id].instances[*count - 1], 0, env->textures[4]);
+	set_object_texture(&env->objects[id].instances[*count - 1], 0, env->textures[0]);
 	return (0);
 }
 
