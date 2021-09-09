@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/09 10:50:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/09 13:51:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,9 @@ int		init_opengl(t_env *env)
 	init_textures("resources/textures/back.bmp", GL_RGBA, env);
 	init_textures("resources/textures/awesomeface.bmp", GL_RGB, env);
 	init_textures("resources/textures/container.bmp", GL_RGB, env);
+	init_textures("resources/objects/Square/brickwall.bmp", GL_RGBA, env);
+	init_textures("resources/objects/house/TEX_HOUSE_Albedo.bmp", GL_RGBA, env);
+	init_textures("resources/objects/house/TEX_Stairs_Albedo.bmp", GL_RGBA, env);
 	init_shader_textures_names(env);
 	reset_matrix(env->look_at_matrix);
 	look_at(env->look_at_matrix, env->camera.pos,

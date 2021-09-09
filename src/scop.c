@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:21 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/08 15:34:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/09 12:18:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,21 @@ int		scop(int ac, char **av)
 		return (-1);
 	init_inputs(inputs);
 	env.selected_axe = SELECT_AXE_X;
-	init_object("resources/objects/Cube/Cube.obj", &env);
+	if (init_object("resources/objects/Cube/Cube.obj", &env))
+		ft_fatal_error("", &env);
 	add_object(0, &env);
 	move_object(&env.objects[0].instances[0], new_v3(1.f, 0.75f, 0.f));
 	scale_object(&env.objects[0].instances[0], new_v3(-0.85f, -0.85f, -0.85f));
 	if (ac > 1)
-		init_object(av[1], &env);
+	{
+		if (init_object(av[1], &env))
+			ft_fatal_error("", &env);
+	}
 	else
-		init_object("resources/objects/Cube/Cube.obj", &env);
+	{
+		if (init_object("resources/objects/Cube/Cube.obj", &env))
+			ft_fatal_error("", &env);
+	}
 	add_object(1, &env);
 	env.instance_count++;
 	move_object(&env.objects[1].instances[0], new_v3(0.f, -0.75f, 2.0f));

@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/08 14:31:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/09 12:05:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ int		add_object(size_t id, t_env *env)
 {
 	size_t	*count;
 
+	if (id >= env->object_count)
+		return (custom_error("Tried to add a non existing object\n"));
 	count = &env->objects[id].count;
 	if (!(env->objects[id].instances =
 		(t_instance*)realloc(env->objects[id].instances,

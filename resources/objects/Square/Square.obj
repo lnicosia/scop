@@ -14,3 +14,5 @@ usemtl Material
 s off
 f 1 2 4
 f 2 3 4
+f 4 2 1
+f 4 3 2

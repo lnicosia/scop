@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 23:48:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/06 18:15:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/09 13:48:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,9 @@ t_object *object)
 	unsigned int	k;
 
 	k = 0;
-	//ft_printf("Initializing vertex %d/%d/%d\n", parser->face_indices[i].pos,
-	//parser->face_indices[i].uv, parser->face_indices[i].norm);
+	/*ft_printf("Initializing vertex %d/%d/%d\n", parser->face_indices[i].pos,
+	parser->face_indices[i].uv, parser->face_indices[i].norm);
+	ft_printf("There are %d unique indices\n", parser->nb_unique_indices);*/
 	while (k < parser->nb_unique_indices)
 	{
 		if (parser->unique_indices[k].pos == parser->face_indices[i].pos
@@ -193,6 +194,7 @@ int		init_face(t_obj_parser *parser, t_object *object)
 	i = 0;
 	while (i < parser->face_size - 2)
 	{
+		//ft_printf("New triangle\n");
 		if (init_triangle_with_index(i, parser, object))
 			return (-1);
 		i++;
@@ -388,6 +390,8 @@ int		parse_object(const char *source_file, t_object *object, t_env *env)
 		}
 		ft_strdel(&tmp);
 	}
+	if (object->nb_vertices < 3 || object->nb_indices < 1)
+		return (custom_error("Invalid object\n"));
 	scale_new_object(object);
 	free_obj_parser(&parser);
 	return (0);
