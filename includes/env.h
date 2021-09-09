@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:57:26 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/09 13:51:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/09 14:04:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define MAX_VAO 1
 # define MAX_VBO 1
 # define MAX_EBO 1
-# define MAX_TEXTURES 8
+# define MAX_TEXTURES 9
 # define MAX_SHADERS 3
 # define MAX_OBJECTS 2
 # define MAX_LIGHTS 1
@@ -66,7 +66,7 @@ typedef struct		s_env
 	int				moving_mode;
 	int				selected_object;
 	int				selected_axe;
-	char			padding[4];
+	//char			padding[4];
 }					t_env;
 
 #endif
