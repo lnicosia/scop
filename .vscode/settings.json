@@ -1,3 +1,9 @@
 {
-    "files.eol": "\n"
+    "files.eol": "\n",
+    "files.associations": {
+        "scop.h": "c",
+        "env.h": "c",
+        "inputs.h": "c",
+        "glad.h": "c"
+    }
 }

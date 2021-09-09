@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:38:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/07 15:05:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/09 10:17:01 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ void	free_objects(t_env *env)
 		ft_memdel((void**)&env->objects[i].instances);
 		ft_memdel((void**)&env->objects[i].indices);
 		i++;
+		glDeleteVertexArrays(1, &env->objects[i].vao);
+		glDeleteBuffers(1, &env->objects[i].vbo);
+		glDeleteBuffers(1, &env->objects[i].ebo);
 	}
 }
 
@@ -66,5 +69,7 @@ void	free_all(t_env *env)
 		glDeleteTextures((int)env->texture_count, env->textures);
 	free_texture_names(env);
 	free_objects(env);
+	glfwDestroyWindow(env->window);
 	glfwTerminate();
+	ft_printf("Terminate\n");
 }

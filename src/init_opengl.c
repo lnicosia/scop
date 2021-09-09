@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/08 13:39:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/09 10:50:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ int		init_textures(char *file, GLenum format, t_env *env)
 	texture.name = file;
 	glGenTextures(1, &env->textures[env->texture_count]);
 	glBindTexture(GL_TEXTURE_2D, env->textures[env->texture_count]);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texture.w, texture.h, 0, format,
+	GL_UNSIGNED_BYTE, texture.pixels);
+	glGenerateMipmap(GL_TEXTURE_2D);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texture.w, texture.h, 0, format,
-	GL_UNSIGNED_BYTE, texture.pixels);
-	glGenerateMipmap(GL_TEXTURE_2D);
 	ft_memdel((void**)&texture.pixels);
 	env->texture_count++;
 	ft_printf("Texture '%s' initialized\n", file);

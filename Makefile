@@ -6,7 +6,7 @@
 #    By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/01 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2021/09/08 11:58:12 by lnicosia         ###   ########.fr        #
+#    Updated: 2021/09/09 11:39:56 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,9 +66,9 @@ OPTI_FLAGS = -O3
 
 CFLAGS =	-Wall -Wextra -Werror -Wpadded -Wconversion -I $(INCLUDES_DIR) \
 	  	-I $(LIBFT_DIR)/includes -I $(BMP_PARSER_DIR)/includes \
-		-I $(LIBMFT_DIR)/includes -I $(GLAD_DIR)/include \
-		$(OPTI_FLAGS) \
-		#-fsanitize=address -g3\
+		-I $(LIBMFT_DIR)/includes -I $(GLAD_DIR)/include -g3\
+		#$(OPTI_FLAGS) \
+		
 		
 	
 #
@@ -142,6 +142,19 @@ $(NAME): $(LIBFT) $(LIBMFT) $(BMP_PARSER) $(OBJ_DIR) $(OBJ)
 	@gcc $(CFLAGS) -o $(NAME) $(OBJ) $(LDFLAGS) $(LDLIBS)
 	@printf ${GREEN}"[INFO] Compiled $(BIN_DIR)/$(NAME) with success!\n"
 	@printf ${RESET}
+
+leak_proof: $(SRC_DIR)/leak_proof.c $(LIBFT) $(BMP_PARSER)
+	@printf $(CYAN)"[INFO] Building leak_proof\n"$(RESET)
+	@gcc $(SRC_DIR)/leak_proof.c $(LDFLAGS) $(LDLIBS) -g3 -fsanitize=address \
+	-o leak_proof
+	@printf ${GREEN}"[INFO] Compiled leak_proof with success!\n"
+	@printf ${RESET}
+
+fclean_leak_proof:
+	@printf ${CYAN}"[INFO] Removing leak_proof\n"${RESET}
+	rm -rf leak_proof
+
+re_leak_proof: fclean_leak_proof leak_proof
 
 clean:
 	@printf ${CYAN}"[INFO] Removing objs\n"${RESET}
