@@ -6,13 +6,13 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 17:58:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/07 17:45:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/09 14:53:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INPUTS_H
 # define INPUTS_H
-# define MAX_INPUTS 29
+# define MAX_INPUTS 30
 
 enum				e_inputs
 {
@@ -45,6 +45,7 @@ enum				e_inputs
 	SELECT_AXE_Z,
 	PAGE_UP,
 	PAGE_DOWN,
+	SHIFT_MOD,
 };
 
 enum				e_moving_mode

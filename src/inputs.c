@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 12:58:23 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/08 14:07:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/09 15:03:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ int				init_inputs(t_input *inputs)
 	inputs[SELECT_AXE_Z].key1 = GLFW_KEY_F3;
 	inputs[PAGE_UP].key1 = GLFW_KEY_PAGE_UP;
 	inputs[PAGE_DOWN].key1 = GLFW_KEY_PAGE_DOWN;
+	inputs[SHIFT_MOD].key1 = GLFW_KEY_LEFT_SHIFT;
+	inputs[SHIFT_MOD].key2 = GLFW_KEY_RIGHT_SHIFT;
 	return (0);
 }
 
@@ -201,12 +203,22 @@ int				process_inputs(t_input *inputs, t_env *env)
 	}
 	if (inputs[CURRENT_TEXTURE].state == PRESS)
 	{
-		env->current_text++;
-		if (env->current_text >= MAX_TEXTURES)
-			env->current_text = 0;
-		set_object_texture(&env->objects[1].instances[env->selected_object], 0,
-		env->textures[env->current_text]);
-		
+		if (inputs[SHIFT_MOD].state == PRESSED)
+		{
+			if (env->current_text == 0)
+				env->current_text = MAX_TEXTURES;
+			env->current_text--;
+			set_object_texture(&env->objects[1].instances[env->selected_object], 0,
+			env->textures[env->current_text]);
+		}
+		else
+		{
+			env->current_text++;
+			if (env->current_text >= MAX_TEXTURES)
+				env->current_text = 0;
+			set_object_texture(&env->objects[1].instances[env->selected_object], 0,
+			env->textures[env->current_text]);
+		}		
 	}
 	if (inputs[LEFT].state == PRESSED)
 	{
