@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 15:09:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/10 10:36:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/10 10:55:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int		draw_skybox(unsigned int cubemap, unsigned int shader, t_env *env)
 {
 	t_cubemap *skybox = &env->cubemaps[cubemap];
 	
-	glDepthMask(GL_FALSE);
+	glDepthFunc(GL_LEQUAL);
 	glUseProgram(shader);
 	float	view[] = 
 	{
@@ -132,6 +132,6 @@ int		draw_skybox(unsigned int cubemap, unsigned int shader, t_env *env)
 	glBindTexture(GL_TEXTURE_CUBE_MAP, skybox->id);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	glBindVertexArray(0);
-	glDepthMask(GL_TRUE);
+	glDepthFunc(GL_LESS);
 	return (0);
 }

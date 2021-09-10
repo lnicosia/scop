@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:21 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/10 10:47:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/10 10:55:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ int		scop(int ac, char **av)
 			ft_fatal_error("Error in inputs", &env);
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		if (env.draw_skybox == YES)
-			draw_skybox(env.cubemaps[0].id, env.shaders[3], &env);
 		rotate_object(&env.objects[1].instances[0], new_v3(0.0f, 0.005f, 0.0f));
 		for (unsigned int i = 0; i < env.instance_count; i++)
 		{
@@ -82,6 +80,8 @@ int		scop(int ac, char **av)
 		}
 		// Drawing the light
 		draw_object(&env.objects[0], 0, env.shaders[2], &env);
+		if (env.draw_skybox == YES)
+			draw_skybox(env.cubemaps[0].id, env.shaders[3], &env);
 		glfwSwapBuffers(env.window);
 		glfwPollEvents();
 	}

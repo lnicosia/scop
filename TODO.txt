@@ -2,3 +2,4 @@ FPS?
 Fix Rotation de la camera
 Mapping par default quand pas d'uv dans le fichier
 Protection quand texture absente
+Objet en plusieurs parties
