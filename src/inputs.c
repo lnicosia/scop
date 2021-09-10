@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 12:58:23 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/10 10:47:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/10 11:15:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,12 +152,9 @@ int				process_mouse(t_input *inputs, t_env *env)
 			env->camera.pitch = 89.0f;
 		if (env->camera.pitch < -89.0f)
 			env->camera.pitch = -89.0f;
-		direction.x = cosf(to_radians(env->camera.yaw)
-		* cosf(to_radians(env->camera.pitch)));
+		direction.x = cosf(to_radians(env->camera.yaw));
 		direction.y = sinf(to_radians(env->camera.pitch));
-		direction.z = sinf(to_radians(env->camera.yaw))
-		* cosf(to_radians(env->camera.pitch));
-		(void)direction;
+		direction.z = sinf(to_radians(env->camera.yaw));
 		//env->camera.front = normalize(env->camera.front);
 		env->camera.front = normalize(direction);
 		env->mouse_x_start = x;
