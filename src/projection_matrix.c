@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 14:48:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/01/17 18:45:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/10 09:41:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	projection_matrix(t_camera *camera, float matrix[16])
 {
-	(void)camera;
 	matrix[0] = camera->n / camera->r;
 	matrix[1] = 0.0f;
 	matrix[2] = 0.0f;

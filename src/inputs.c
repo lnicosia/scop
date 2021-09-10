@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 12:58:23 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/09 15:03:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/10 10:47:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int				init_inputs(t_input *inputs)
 	inputs[RESET].key1 = GLFW_KEY_R;
 	inputs[CURRENT_TEXTURE].key1 = GLFW_KEY_T;
 	inputs[LIGHT_MODE].key1 = GLFW_KEY_L;
-	inputs[MOVING_MODE].key1 = GLFW_KEY_C;
 	inputs[ADD_OBJECT].key1 = GLFW_KEY_KP_ADD;
 	inputs[SELECT_OBJECT_0].key1 = GLFW_KEY_0;
 	inputs[SELECT_OBJECT_0].key2 = GLFW_KEY_KP_0;
@@ -73,6 +72,7 @@ int				init_inputs(t_input *inputs)
 	inputs[PAGE_DOWN].key1 = GLFW_KEY_PAGE_DOWN;
 	inputs[SHIFT_MOD].key1 = GLFW_KEY_LEFT_SHIFT;
 	inputs[SHIFT_MOD].key2 = GLFW_KEY_RIGHT_SHIFT;
+	inputs[DRAW_SKYBOX].key1 = GLFW_KEY_C;
 	return (0);
 }
 
@@ -193,13 +193,13 @@ int				process_inputs(t_input *inputs, t_env *env)
 				break;
 		}
 	}
+	if (inputs[DRAW_SKYBOX].state == PRESS)
+	{
+		env->draw_skybox = env->draw_skybox == YES ? NO : YES;
+	}
 	if (inputs[LIGHT_MODE].state == PRESS)
 	{
 		env->light_mode = env->light_mode == LIGHT_ON ? LIGHT_OFF : LIGHT_ON;
-	}
-	if (inputs[MOVING_MODE].state == PRESS)
-	{
-		env->moving_mode = env->moving_mode == MOVE_CAMERA ? MOVE_OBJECT : MOVE_CAMERA;
 	}
 	if (inputs[CURRENT_TEXTURE].state == PRESS)
 	{

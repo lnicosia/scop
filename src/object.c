@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/09 14:02:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/09 18:24:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ int		init_object_buffers(t_object *object)
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float),
 	(void*)(6 * sizeof(float)));
 	glEnableVertexAttribArray(2);
-	glBindVertexArray(0);
 	return (0);
 }
 

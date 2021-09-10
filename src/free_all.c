@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:38:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/09 14:31:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/09 17:02:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,12 @@ void	free_all(t_env *env)
 	while (i < env->shader_count)
 	{
 		glDeleteProgram(env->shaders[i]);
+		i++;
+	}
+	i = 0;
+	while (i < env->cubemap_count)
+	{
+		glDeleteTextures(1, &env->cubemaps[i].id);
 		i++;
 	}
 	if (env->texture_count > 0)

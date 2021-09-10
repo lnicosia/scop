@@ -6,12 +6,11 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:21 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/09 12:18:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/10 10:47:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
-#include "env.h"
 #include "libft.h"
 #include "inputs.h"
 #include "light.h"
@@ -40,6 +39,7 @@ int		scop(int ac, char **av)
 		return (-1);
 	init_inputs(inputs);
 	env.selected_axe = SELECT_AXE_X;
+	env.draw_skybox = NO;
 	if (init_object("resources/objects/Cube/Cube.obj", &env))
 		ft_fatal_error("", &env);
 	add_object(0, &env);
@@ -64,6 +64,8 @@ int		scop(int ac, char **av)
 	"resources/shaders/default_shader_no_light.fs", &env);
 	init_shader("resources/shaders/light_shader.vs",
 	"resources/shaders/light_shader.fs", &env);
+	init_shader("resources/shaders/cubemap_shader.vs",
+	"resources/shaders/cubemap_shader.fs", &env);
 	init_light(&env);
 	while (!glfwWindowShouldClose(env.window))
 	{
@@ -71,6 +73,8 @@ int		scop(int ac, char **av)
 			ft_fatal_error("Error in inputs", &env);
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		if (env.draw_skybox == YES)
+			draw_skybox(env.cubemaps[0].id, env.shaders[3], &env);
 		rotate_object(&env.objects[1].instances[0], new_v3(0.0f, 0.005f, 0.0f));
 		for (unsigned int i = 0; i < env.instance_count; i++)
 		{

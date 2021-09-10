@@ -72,10 +72,10 @@ void	mult_matrix(float a[16], float b[16], float res[16])
 
 void	print_matrix(float matrix[16])
 {
-	ft_printf("|%f %f %f %f|\n", matrix[0], matrix[1], matrix[2], matrix[3]);
-	ft_printf("|%f %f %f %f|\n", matrix[4], matrix[5], matrix[6], matrix[7]);
-	ft_printf("|%f %f %f %f|\n", matrix[8], matrix[9], matrix[10], matrix[11]);
-	ft_printf("|%f %f %f %f|\n", matrix[12], matrix[13], matrix[14], matrix[15]);
+	ft_printf("|%9f %9f %9f %9f|\n", matrix[0], matrix[1], matrix[2], matrix[3]);
+	ft_printf("|%9f %9f %9f %9f|\n", matrix[4], matrix[5], matrix[6], matrix[7]);
+	ft_printf("|%9f %9f %9f %9f|\n", matrix[8], matrix[9], matrix[10], matrix[11]);
+	ft_printf("|%9f %9f %9f %9f|\n", matrix[12], matrix[13], matrix[14], matrix[15]);
 }
 
 void	look_at(float matrix[16], t_v3 pos, t_v3 target, t_v3 up)

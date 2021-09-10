@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 17:58:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/09 14:53:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/10 10:45:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ enum				e_inputs
 	RESET,
 	CURRENT_TEXTURE,
 	LIGHT_MODE,
-	MOVING_MODE,
 	ADD_OBJECT,
 	SELECT_OBJECT_0,
 	SELECT_OBJECT_1,
@@ -46,6 +45,7 @@ enum				e_inputs
 	PAGE_UP,
 	PAGE_DOWN,
 	SHIFT_MOD,
+	DRAW_SKYBOX,
 };
 
 enum				e_moving_mode

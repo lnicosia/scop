@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/28 16:56:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/09 16:29:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/10 10:40:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,17 @@ t_texture *texture, int byte)
 	return (0);
 }
 
+int		fill_pixel_flipped(unsigned char *str, t_bmp_parser *parser,
+t_texture *texture, int byte)
+{
+	texture->pixels[byte] = str[parser->ret - byte + 3];
+	texture->pixels[byte + 1] = str[parser->ret - byte + 2];
+	texture->pixels[byte + 2] = str[parser->ret - byte + 1];
+	if (parser->opp == 4)
+		texture->pixels[byte + 3] = str[parser->ret - byte];
+	return (0);
+}
+
 /*
 ** Fills the current pixel array pixel by pixel
 ** Advances of file's byte ber pixel every iteration
@@ -38,7 +49,10 @@ t_texture *texture)
 	byte = 0;
 	while (byte + parser->opp <= parser->ret)
 	{
-		fill_pixel(str, parser, texture, byte);
+		if (parser->flip)
+			fill_pixel_flipped(str, parser, texture, byte);
+		else
+			fill_pixel(str, parser, texture, byte);
 		byte += parser->opp;
 	}
 	return (0);

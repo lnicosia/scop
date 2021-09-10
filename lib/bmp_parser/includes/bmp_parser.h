@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 13:48:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/07 14:45:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/10 10:16:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,11 @@ typedef struct		s_bmp_parser
 	int				ret;
 	int				index;
 	int				skybox_index;
+	int				flip;
 	int16_t			planes;
 	int16_t			bpp;
 	int16_t			opp;
-	char			padding[6];
+	char			padding[2];
 }					t_bmp_parser;
 
 typedef struct		s_texture
@@ -56,6 +57,7 @@ typedef struct		s_texture
 }					t_texture;
 
 int					parse_bmp(char *file, t_texture *texture);
+int					parse_bmp_flipped(char *file, t_texture *texture);
 int32_t				read_int32(unsigned char *str, int index);
 int32_t				read_int16(unsigned char *str, int index);
 int32_t				read_int32_swaped(unsigned char *str, int index);

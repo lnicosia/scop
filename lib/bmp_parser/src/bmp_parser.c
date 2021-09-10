@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 16:44:23 by sipatry           #+#    #+#             */
-/*   Updated: 2021/09/09 16:29:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/10 10:16:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,12 @@ static int	parse2(int fd, t_bmp_parser *parser, t_texture *texture)
 **	-Image data
 */
 
-static int	parse(int fd, t_texture *texture)
+static int	parse(int fd, t_texture *texture, int flip)
 {
 	t_bmp_parser	parser;
 
 	ft_bzero(&parser, sizeof(parser));
+	parser.flip = flip;
 	if (parse_file_header(fd, &parser))
 		return (custom_error("Error in file header\n"));
 	if (get_image_header_size(fd, &parser))
@@ -49,6 +50,27 @@ static int	parse(int fd, t_texture *texture)
 	parser.pixel_bytes = parser.opp * parser.w * parser.h;
 	return (parse2(fd, &parser, texture));
 }
+
+int			parse_bmp_flipped(char *file, t_texture *texture)
+{
+	int	fd;
+
+	ft_bzero(texture, sizeof(*texture));
+	if ((fd = open(file, O_RDONLY)) == -1)
+		return (custom_error("Could not open \"%s\"\n", file));
+	if (parse(fd, texture, 1))
+	{
+		if (close(fd))
+			return (ft_perror("Bmp parsing failed and could not close the"
+			" file\n"));
+		return (custom_error("Error while parsing \"%s\"\n", file));
+	}
+	if (close(fd))
+		return (custom_error("Could not close \"%s\"\n", file));
+	ft_printf("{reset}");
+	return (0);
+}
+
 
 /*
 **	Init function:
@@ -65,7 +87,7 @@ int			parse_bmp(char *file, t_texture *texture)
 	ft_bzero(texture, sizeof(*texture));
 	if ((fd = open(file, O_RDONLY)) == -1)
 		return (custom_error("Could not open \"%s\"\n", file));
-	if (parse(fd, texture))
+	if (parse(fd, texture, 0))
 	{
 		if (close(fd))
 			return (ft_perror("Bmp parsing failed and could not close the"
