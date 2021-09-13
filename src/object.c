@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/09 18:24:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/13 15:16:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	print_object(t_object *object)
 	i = 0;
 	while (i < object->nb_vertices)
 	{
-		ft_printf("%f, %f, %f,	%f, %f, %f,	%f, %f\n", 
+		ft_printf("%9f, %9f, %9f,	%9f, %9f, %9f,	%9f, %9f\n", 
 		object->vertices[i].pos.x, object->vertices[i].pos.y,
 		object->vertices[i].pos.z, object->vertices[i].norm.x,
 		object->vertices[i].norm.y, object->vertices[i].norm.z,
@@ -70,12 +70,12 @@ int		init_object(const char *source_file, t_env *env)
 	t_object	new;
 
 	ft_bzero(&new, sizeof(new));
-	if (parse_object(source_file, &new, env))
+	if (parse_object(source_file, GENERATE_UV, &new, env))
 		return (custom_error("{yellow}Failed to load %s{reset}\n",
 		source_file));
 	new.size = (unsigned int)sizeof(t_vertex) * (unsigned int)new.nb_vertices;
 	ft_printf("'%s' initialized\n", source_file);
-	//print_object(&new);
+	print_object(&new);
 	new.name = "";
 	new.nb_textures = 1;
 	init_object_buffers(&new);

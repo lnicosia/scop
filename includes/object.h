@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 21:15:17 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/08 13:54:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/13 10:38:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@
 # include <stdlib.h>
 # define MAX_OBJ_TEXT 8
 # define MAX_ACTIVE_TEXTURES 4
+
+enum				parsing_mode
+{
+	FULL,
+	GENERATE_UV
+};
 
 typedef struct		s_vertex
 {

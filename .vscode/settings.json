@@ -4,6 +4,9 @@
         "scop.h": "c",
         "env.h": "c",
         "inputs.h": "c",
-        "glad.h": "c"
+        "glad.h": "c",
+        "libft.h": "c",
+        "math.h": "c",
+        "bmp_parser.h": "c"
     }
 }

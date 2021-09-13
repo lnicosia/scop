@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/10 10:40:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/13 15:02:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,27 @@
 #include "scop.h"
 #include <math.h>
 
-int		init_textures(char *file, GLenum format, t_env *env)
+int		init_textures(char *file, int flip, GLenum format, t_env *env)
 {
 	t_texture	texture;
 
-	if (parse_bmp(file, &texture))
+	if (flip == 1)
 	{
-		texture.invalid = 1;
-		return (custom_error("Failed to parse bmp\n"));
+		if (parse_bmp_flipped(file, &texture))
+		{
+			texture.invalid = 1;
+			return (custom_error("Failed to parse bmp\n"));
+		}
 	}
+	else
+	{
+		if (parse_bmp(file, &texture))
+		{
+			texture.invalid = 1;
+			return (custom_error("Failed to parse bmp\n"));
+		}
+	}
+	
 	texture.name = file;
 	glGenTextures(1, &env->textures[env->texture_count]);
 	glBindTexture(GL_TEXTURE_2D, env->textures[env->texture_count]);
@@ -108,15 +120,15 @@ int		init_opengl(t_env *env)
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	init_camera(env);
-	init_textures("resources/objects/Square/brickwall.bmp", GL_RGBA, env);
-	init_textures("resources/textures/unicorn.bmp", GL_RGBA, env);
-	init_textures("resources/objects/backpack/diffuse.bmp", GL_RGB, env);
-	init_textures("resources/textures/skybox1/back.bmp", GL_RGB, env);
-	init_textures("resources/textures/awesomeface.bmp", GL_RGB, env);
-	init_textures("resources/textures/container.bmp", GL_RGB, env);
-	init_textures("resources/objects/house/TEX_HOUSE_Albedo.bmp", GL_RGBA, env);
-	init_textures("resources/objects/house/TEX_Stairs_Albedo.bmp", GL_RGBA, env);
-	init_textures("resources/objects/table/table.bmp", GL_RGBA, env);
+	init_textures("resources/objects/Square/brickwall.bmp", 0, GL_RGBA, env);
+	init_textures("resources/textures/unicorn.bmp", 0, GL_RGBA, env);
+	init_textures("resources/objects/backpack/diffuse.bmp", 0, GL_RGB, env);
+	init_textures("resources/textures/skybox1/back.bmp", 0, GL_RGB, env);
+	init_textures("resources/textures/awesomeface.bmp", 0, GL_RGB, env);
+	init_textures("resources/textures/container.bmp", 0, GL_RGB, env);
+	init_textures("resources/objects/house/TEX_HOUSE_Albedo.bmp", 0, GL_RGBA, env);
+	init_textures("resources/objects/house/TEX_Stairs_Albedo.bmp", 0, GL_RGBA, env);
+	init_textures("resources/objects/table/table.bmp", 0, GL_RGBA, env);
 	char *skybox[] =
 	{
 		"resources/textures/skybox1/right.bmp",

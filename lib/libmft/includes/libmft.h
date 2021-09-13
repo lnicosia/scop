@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 22:16:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/08 10:11:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/10 16:32:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ t_v2 p4);
 t_plane				new_plane(t_v3 p1, t_v3 p2, t_v3 p3);
 t_v3				get_intersection_line_plane(t_v3 p1, t_v3 p2,
 t_plane plane, t_v3 p3);
+float				distance_between_points(t_v3 p1, t_v3 p2);
 
 /*
 ** Complex numbers
