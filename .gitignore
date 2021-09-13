@@ -1,7 +1,7 @@
 # Prerequisites
 *.d
 
-# Object files
+# mesh files
 *.o
 *.ko
 *.elf
@@ -21,7 +21,7 @@
 *.la
 *.lo
 
-# Shared objects (inc. Windows DLLs)
+# Shared meshs (inc. Windows DLLs)
 *.dll
 *.so
 *.so.*

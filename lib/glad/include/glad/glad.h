@@ -712,8 +712,8 @@ typedef void (APIENTRY *GLVULKANPROCNV)(void);
 #define GL_DRAW_FRAMEBUFFER 0x8CA9
 #define GL_READ_FRAMEBUFFER_BINDING 0x8CAA
 #define GL_RENDERBUFFER_SAMPLES 0x8CAB
-#define GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE 0x8CD0
-#define GL_FRAMEBUFFER_ATTACHMENT_OBJECT_NAME 0x8CD1
+#define GL_FRAMEBUFFER_ATTACHMENT_mesh_TYPE 0x8CD0
+#define GL_FRAMEBUFFER_ATTACHMENT_mesh_NAME 0x8CD1
 #define GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL 0x8CD2
 #define GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE 0x8CD3
 #define GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_LAYER 0x8CD4
@@ -900,7 +900,7 @@ typedef void (APIENTRY *GLVULKANPROCNV)(void);
 #define GL_PROVOKING_VERTEX 0x8E4F
 #define GL_TEXTURE_CUBE_MAP_SEAMLESS 0x884F
 #define GL_MAX_SERVER_WAIT_TIMEOUT 0x9111
-#define GL_OBJECT_TYPE 0x9112
+#define GL_mesh_TYPE 0x9112
 #define GL_SYNC_CONDITION 0x9113
 #define GL_SYNC_STATUS 0x9114
 #define GL_SYNC_FLAGS 0x9115
@@ -1319,12 +1319,12 @@ GLAPI PFNGLENDQUERYPROC glad_glEndQuery;
 typedef void (APIENTRYP PFNGLGETQUERYIVPROC)(GLenum target, GLenum pname, GLint *params);
 GLAPI PFNGLGETQUERYIVPROC glad_glGetQueryiv;
 #define glGetQueryiv glad_glGetQueryiv
-typedef void (APIENTRYP PFNGLGETQUERYOBJECTIVPROC)(GLuint id, GLenum pname, GLint *params);
-GLAPI PFNGLGETQUERYOBJECTIVPROC glad_glGetQueryObjectiv;
-#define glGetQueryObjectiv glad_glGetQueryObjectiv
-typedef void (APIENTRYP PFNGLGETQUERYOBJECTUIVPROC)(GLuint id, GLenum pname, GLuint *params);
-GLAPI PFNGLGETQUERYOBJECTUIVPROC glad_glGetQueryObjectuiv;
-#define glGetQueryObjectuiv glad_glGetQueryObjectuiv
+typedef void (APIENTRYP PFNGLGETQUERYmeshIVPROC)(GLuint id, GLenum pname, GLint *params);
+GLAPI PFNGLGETQUERYmeshIVPROC glad_glGetQuerymeshiv;
+#define glGetQuerymeshiv glad_glGetQuerymeshiv
+typedef void (APIENTRYP PFNGLGETQUERYmeshUIVPROC)(GLuint id, GLenum pname, GLuint *params);
+GLAPI PFNGLGETQUERYmeshUIVPROC glad_glGetQuerymeshuiv;
+#define glGetQuerymeshuiv glad_glGetQuerymeshuiv
 typedef void (APIENTRYP PFNGLBINDBUFFERPROC)(GLenum target, GLuint buffer);
 GLAPI PFNGLBINDBUFFERPROC glad_glBindBuffer;
 #define glBindBuffer glad_glBindBuffer
@@ -2075,12 +2075,12 @@ GLAPI PFNGLGETSAMPLERPARAMETERIUIVPROC glad_glGetSamplerParameterIuiv;
 typedef void (APIENTRYP PFNGLQUERYCOUNTERPROC)(GLuint id, GLenum target);
 GLAPI PFNGLQUERYCOUNTERPROC glad_glQueryCounter;
 #define glQueryCounter glad_glQueryCounter
-typedef void (APIENTRYP PFNGLGETQUERYOBJECTI64VPROC)(GLuint id, GLenum pname, GLint64 *params);
-GLAPI PFNGLGETQUERYOBJECTI64VPROC glad_glGetQueryObjecti64v;
-#define glGetQueryObjecti64v glad_glGetQueryObjecti64v
-typedef void (APIENTRYP PFNGLGETQUERYOBJECTUI64VPROC)(GLuint id, GLenum pname, GLuint64 *params);
-GLAPI PFNGLGETQUERYOBJECTUI64VPROC glad_glGetQueryObjectui64v;
-#define glGetQueryObjectui64v glad_glGetQueryObjectui64v
+typedef void (APIENTRYP PFNGLGETQUERYmeshI64VPROC)(GLuint id, GLenum pname, GLint64 *params);
+GLAPI PFNGLGETQUERYmeshI64VPROC glad_glGetQuerymeshi64v;
+#define glGetQuerymeshi64v glad_glGetQuerymeshi64v
+typedef void (APIENTRYP PFNGLGETQUERYmeshUI64VPROC)(GLuint id, GLenum pname, GLuint64 *params);
+GLAPI PFNGLGETQUERYmeshUI64VPROC glad_glGetQuerymeshui64v;
+#define glGetQuerymeshui64v glad_glGetQuerymeshui64v
 typedef void (APIENTRYP PFNGLVERTEXATTRIBDIVISORPROC)(GLuint index, GLuint divisor);
 GLAPI PFNGLVERTEXATTRIBDIVISORPROC glad_glVertexAttribDivisor;
 #define glVertexAttribDivisor glad_glVertexAttribDivisor

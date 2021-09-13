@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   object.c                                           :+:      :+:    :+:   */
+/*   mesh.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/13 15:16:58 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/13 16:54:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,44 +14,44 @@
 #include "libft.h"
 #include "scop.h"
 
-void	print_object(t_object *object)
+void	print_mesh(t_mesh *mesh)
 {
 	unsigned int	i;
 
 	ft_printf("Vertices:\n");
 	i = 0;
-	while (i < object->nb_vertices)
+	while (i < mesh->nb_vertices)
 	{
 		ft_printf("%9f, %9f, %9f,	%9f, %9f, %9f,	%9f, %9f\n", 
-		object->vertices[i].pos.x, object->vertices[i].pos.y,
-		object->vertices[i].pos.z, object->vertices[i].norm.x,
-		object->vertices[i].norm.y, object->vertices[i].norm.z,
-		object->vertices[i].text.x, object->vertices[i].text.y);
+		mesh->vertices[i].pos.x, mesh->vertices[i].pos.y,
+		mesh->vertices[i].pos.z, mesh->vertices[i].norm.x,
+		mesh->vertices[i].norm.y, mesh->vertices[i].norm.z,
+		mesh->vertices[i].text.x, mesh->vertices[i].text.y);
 		i++;
 	}
 	ft_printf("Indices:\n");
 	i = 0;
-	while (i < object->nb_indices)
+	while (i < mesh->nb_indices)
 	{
 		ft_printf("%d, %d, %d\n", 
-		object->indices[i] + 1, object->indices[i + 1] + 1,
-		object->indices[i + 2] + 1);
+		mesh->indices[i] + 1, mesh->indices[i + 1] + 1,
+		mesh->indices[i + 2] + 1);
 		i += 3;
 	}
 }
 
-int		init_object_buffers(t_object *object)
+int		init_mesh_buffers(t_mesh *mesh)
 {
-	glGenVertexArrays(1, &object->vao);
-	glGenBuffers(1, &object->vbo);
-	glGenBuffers(1, &object->ebo);
-	glBindVertexArray(object->vao);
-	glBindBuffer(GL_ARRAY_BUFFER, object->vbo);
-	glBufferData(GL_ARRAY_BUFFER, object->size, object->vertices,
+	glGenVertexArrays(1, &mesh->vao);
+	glGenBuffers(1, &mesh->vbo);
+	glGenBuffers(1, &mesh->ebo);
+	glBindVertexArray(mesh->vao);
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->vbo);
+	glBufferData(GL_ARRAY_BUFFER, mesh->size, mesh->vertices,
 	GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, object->ebo);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->ebo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-	(int)sizeof(*object->indices) * object->nb_indices, object->indices,
+	(int)sizeof(*mesh->indices) * mesh->nb_indices, mesh->indices,
 	GL_STATIC_DRAW);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float),
 	(void*)0);
@@ -65,51 +65,51 @@ int		init_object_buffers(t_object *object)
 	return (0);
 }
 
-int		init_object(const char *source_file, t_env *env)
+int		init_mesh(const char *source_file, t_env *env)
 {
-	t_object	new;
+	t_mesh	new;
 
 	ft_bzero(&new, sizeof(new));
-	if (parse_object(source_file, GENERATE_UV, &new, env))
+	if (parse_mesh(source_file, FULL, &new, env))
 		return (custom_error("{yellow}Failed to load %s{reset}\n",
 		source_file));
 	new.size = (unsigned int)sizeof(t_vertex) * (unsigned int)new.nb_vertices;
 	ft_printf("'%s' initialized\n", source_file);
-	print_object(&new);
+	//print_mesh(&new);
 	new.name = "";
 	new.nb_textures = 1;
-	init_object_buffers(&new);
+	init_mesh_buffers(&new);
 	ft_memdel((void**)&new.vertices);
-	new.id = env->object_count;
-	env->objects[env->object_count] = new;
-	env->object_count++;
+	new.id = env->mesh_count;
+	env->meshs[env->mesh_count] = new;
+	env->mesh_count++;
 	return (0);
 }
 
-int		set_object_texture(t_instance *object, int id, unsigned int text)
+int		set_mesh_texture(t_instance *mesh, int id, unsigned int text)
 {
 	if (id >= MAX_ACTIVE_TEXTURES)
 		return (-1);
-	object->textures[id] = text;
+	mesh->textures[id] = text;
 	return (0);
 }
 
-int		add_object(size_t id, t_env *env)
+int		add_mesh(size_t id, t_env *env)
 {
 	size_t	*count;
 
-	if (id >= env->object_count)
-		return (custom_error("Tried to add a non existing object\n"));
-	count = &env->objects[id].count;
-	if (!(env->objects[id].instances =
-		(t_instance*)realloc(env->objects[id].instances,
+	if (id >= env->mesh_count)
+		return (custom_error("Tried to add a non existing mesh\n"));
+	count = &env->meshs[id].count;
+	if (!(env->meshs[id].instances =
+		(t_instance*)realloc(env->meshs[id].instances,
 		sizeof(t_instance) * ++(*count))))
-		ft_fatal_error("Failed to add object", env);
-	ft_bzero(&env->objects[id].instances[*count - 1],
-	sizeof(env->objects[id].instances[*count - 1]));
-	env->objects[id].instances[*count - 1].transform.scale = new_v3(1, 1, 1);
-	update_object(&env->objects[id].instances[*count - 1]);
-	set_object_texture(&env->objects[id].instances[*count - 1], 0, env->textures[0]);
+		ft_fatal_error("Failed to add mesh", env);
+	ft_bzero(&env->meshs[id].instances[*count - 1],
+	sizeof(env->meshs[id].instances[*count - 1]));
+	env->meshs[id].instances[*count - 1].transform.scale = new_v3(1, 1, 1);
+	update_mesh(&env->meshs[id].instances[*count - 1]);
+	set_mesh_texture(&env->meshs[id].instances[*count - 1], 0, env->textures[0]);
 	return (0);
 }
 
@@ -124,12 +124,12 @@ int		matrix_pipeline(float *matrix, unsigned int shader, t_env *env)
 	return (0);
 }
 
-int		bind_textures(t_object *object, t_instance *instance)
+int		bind_textures(t_mesh *mesh, t_instance *instance)
 {
 	int		i;
 
 	i = 0;
-	while (i < object->nb_textures)
+	while (i < mesh->nb_textures)
 	{
 		glActiveTexture(GL_TEXTURE0 + (unsigned int)i);
 		glBindTexture(GL_TEXTURE_2D, instance->textures[i]);
@@ -138,15 +138,15 @@ int		bind_textures(t_object *object, t_instance *instance)
 	return (0);
 }
 
-int		draw_object(t_object *object, unsigned int instance,
+int		draw_mesh(t_mesh *mesh, unsigned int instance,
 unsigned int shader, t_env *env)
 {
 	glUseProgram(shader);
-	bind_textures(object, &object->instances[instance]);
-	glBindVertexArray(object->vao);
-	matrix_pipeline(object->instances[instance].matrix, shader, env);
+	bind_textures(mesh, &mesh->instances[instance]);
+	glBindVertexArray(mesh->vao);
+	matrix_pipeline(mesh->instances[instance].matrix, shader, env);
 	glPolygonMode(GL_FRONT_AND_BACK, env->polygon_mode);
-	glDrawElements(GL_TRIANGLES, (int)object->nb_indices, GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, (int)mesh->nb_indices, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 	return (0);
 }

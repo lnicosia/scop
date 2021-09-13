@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:57:26 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/10 10:46:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/13 16:50:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define MAX_EBO 1
 # define MAX_TEXTURES 9
 # define MAX_SHADERS 3
-# define MAX_OBJECTS 2
+# define MAX_meshS 2
 # define MAX_LIGHTS 1
 # define MAX_CUBEMAPS 1
 
@@ -46,8 +46,8 @@ enum	e_yes_no
 typedef struct		s_env
 {
 	GLFWwindow		*window;
-	t_object		objects[MAX_OBJECTS];
-	t_object		lights[MAX_LIGHTS];
+	t_mesh		meshs[MAX_meshS];
+	t_mesh		lights[MAX_LIGHTS];
 	t_cubemap		cubemaps[MAX_CUBEMAPS];
 	double			mouse_x_start;
 	double			mouse_y_start;
@@ -56,7 +56,7 @@ typedef struct		s_env
 	size_t			vbo_count;
 	size_t			ebo_count;
 	size_t			texture_count;
-	size_t			object_count;
+	size_t			mesh_count;
 	size_t			cubemap_count;
 	const char		*diffuse_names[MAX_ACTIVE_TEXTURES];
 	unsigned int	shaders[MAX_SHADERS];
@@ -74,7 +74,7 @@ typedef struct		s_env
 	int				success;
 	int				light_mode;
 	int				draw_skybox;
-	int				selected_object;
+	int				selected_mesh;
 	int				selected_axe;
 	//char			padding[4];
 }					t_env;

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   object.h                                           :+:      :+:    :+:   */
+/*   mesh.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OBJECT_H
-# define OBJECT_H
+#ifndef mesh_H
+# define mesh_H
 # include "libmft.h"
 # include <stdlib.h>
 # define MAX_OBJ_TEXT 8
@@ -47,7 +47,7 @@ typedef struct		s_instance
 	char			padding[4];
 }					t_instance;
 
-typedef struct		s_object
+typedef struct		s_mesh
 {
 	const char		*name;
 	t_vertex		*vertices;
@@ -65,6 +65,6 @@ typedef struct		s_object
 	int				nb_textures;
 	int				no_uv;
 	unsigned int	nb_vertices;
-}					t_object;
+}					t_mesh;
 
 #endif
