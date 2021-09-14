@@ -69,10 +69,14 @@ typedef struct		s_object
 {
 	t_mesh			*meshes;
 	t_instance		*instances;
-	char			*name;
+	const char		*name;
 	size_t			count;
+	size_t			id;
+	t_v3			center;
+	t_v3			range;
 	unsigned int	nb_meshes;
-	char			padding[4];
+	unsigned int	nb_vertices;
+	//char			padding[4];
 }					t_object;
 
 

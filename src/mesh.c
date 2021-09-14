@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/14 10:31:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/14 15:59:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	print_mesh(t_mesh *mesh)
 {
 	unsigned int	i;
 
-	ft_printf("Vertices:\n");
+	ft_printf("%d Vertices:\n", mesh->nb_vertices);
 	i = 0;
 	while (i < mesh->nb_vertices)
 	{
@@ -29,7 +29,7 @@ void	print_mesh(t_mesh *mesh)
 		mesh->vertices[i].text.x, mesh->vertices[i].text.y);
 		i++;
 	}
-	ft_printf("Indices:\n");
+	ft_printf("%d Indices:\n", mesh->nb_indices);
 	i = 0;
 	while (i < mesh->nb_indices)
 	{

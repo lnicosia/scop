@@ -6,13 +6,21 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 20:45:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/13 15:26:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/14 11:05:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef OBJ_PARSER_H
 # define OBJ_PARSER_H
 # include "env.h"
+
+enum				e_last_line
+{
+	VERTEX,
+	NORMAL,
+	TEXTURE,
+	FACE
+};
 
 typedef struct		s_index
 {
@@ -40,9 +48,11 @@ typedef struct		s_obj_parser
 	unsigned int	face_start;
 	unsigned int	max_face_size;
 	unsigned int	line_nb;
+	int				current_mesh;
 	int				i;
 	int				fd;
 	int				mode;
+	int				last_line;
 	char			padding[4];
 }					t_obj_parser;
 
