@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_mesh.c                                     :+:      :+:    :+:   */
+/*   parse_object.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 23:48:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/13 15:33:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/14 10:39:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,47 +15,47 @@
 #include "scop.h"
 #include "obj_parser.h"
 
-int		scale_new_mesh(t_mesh *mesh)
+int		scale_new_object(t_object *object)
 {
 	t_v3			min;
 	t_v3			max;
 	unsigned int	i;
 	float			scale;
 
-	min = mesh->vertices[0].pos;
-	max = mesh->vertices[0].pos;
+	min = object->meshes[0].vertices[0].pos;
+	max = object->meshes[0].vertices[0].pos;
 	i = 0;
-	while (i < mesh->nb_vertices)
+	while (i < object->meshes[0].nb_vertices)
 	{
-		if (mesh->vertices[i].pos.x < min.x)
-			min.x = mesh->vertices[i].pos.x;
-		if (mesh->vertices[i].pos.x > max.x)
-			max.x = mesh->vertices[i].pos.x;
-		if (mesh->vertices[i].pos.y < min.y)
-			min.y = mesh->vertices[i].pos.y;
-		if (mesh->vertices[i].pos.y > max.y)
-			max.y = mesh->vertices[i].pos.y;	
-		if (mesh->vertices[i].pos.z < min.z)
-			min.z = mesh->vertices[i].pos.z;
-		if (mesh->vertices[i].pos.z > max.z)
-			max.z = mesh->vertices[i].pos.z;	
+		if (object->meshes[0].vertices[i].pos.x < min.x)
+			min.x = object->meshes[0].vertices[i].pos.x;
+		if (object->meshes[0].vertices[i].pos.x > max.x)
+			max.x = object->meshes[0].vertices[i].pos.x;
+		if (object->meshes[0].vertices[i].pos.y < min.y)
+			min.y = object->meshes[0].vertices[i].pos.y;
+		if (object->meshes[0].vertices[i].pos.y > max.y)
+			max.y = object->meshes[0].vertices[i].pos.y;	
+		if (object->meshes[0].vertices[i].pos.z < min.z)
+			min.z = object->meshes[0].vertices[i].pos.z;
+		if (object->meshes[0].vertices[i].pos.z > max.z)
+			max.z = object->meshes[0].vertices[i].pos.z;	
 		i++;
 	}
-	mesh->range.x = max.x - min.x;
-	mesh->range.y = max.y - min.y;
-	mesh->range.z = max.z - min.z;
-	scale = (float)ft_fmax(mesh->range.x, mesh->range.y);
-	scale = (float)ft_fmax(scale, mesh->range.z);
+	object->meshes[0].range.x = max.x - min.x;
+	object->meshes[0].range.y = max.y - min.y;
+	object->meshes[0].range.z = max.z - min.z;
+	scale = (float)ft_fmax(object->meshes[0].range.x, object->meshes[0].range.y);
+	scale = (float)ft_fmax(scale, object->meshes[0].range.z);
 	i = 0;
-	while (i < mesh->nb_vertices)
+	while (i < object->meshes[0].nb_vertices)
 	{
-		mesh->vertices[i].pos.x -= mesh->range.x / 2.0f + min.x;
-		mesh->vertices[i].pos.y -= mesh->range.y / 2.0f + min.y;
-		mesh->vertices[i].pos.z -= mesh->range.z / 2.0f + min.z;
+		object->meshes[0].vertices[i].pos.x -= object->meshes[0].range.x / 2.0f + min.x;
+		object->meshes[0].vertices[i].pos.y -= object->meshes[0].range.y / 2.0f + min.y;
+		object->meshes[0].vertices[i].pos.z -= object->meshes[0].range.z / 2.0f + min.z;
 
-		mesh->vertices[i].pos.x /= scale;
-		mesh->vertices[i].pos.y /= scale;
-		mesh->vertices[i].pos.z /= scale;
+		object->meshes[0].vertices[i].pos.x /= scale;
+		object->meshes[0].vertices[i].pos.y /= scale;
+		object->meshes[0].vertices[i].pos.z /= scale;
 		i++;
 	}
 	return (0);
@@ -113,7 +113,7 @@ int		parse_current_index(t_obj_parser *parser)
 }
 
 int		init_vertex(unsigned int i, t_obj_parser *parser,
-t_mesh *mesh)
+t_object *object)
 {
 	unsigned int	k;
 
@@ -127,61 +127,61 @@ t_mesh *mesh)
 			&& parser->unique_indices[k].uv == parser->face_indices[i].uv
 			&& parser->unique_indices[k].norm == parser->face_indices[i].norm)
 		{
-			mesh->indices[mesh->nb_indices] = k;
+			object->meshes[0].indices[object->meshes[0].nb_indices] = k;
 			return (0);
 		}
 		k++;
 	}
-	if (!(mesh->vertices = (t_vertex*)realloc(mesh->vertices,
-		(unsigned int)sizeof(t_vertex) * (++mesh->nb_vertices))))
+	if (!(object->meshes[0].vertices = (t_vertex*)realloc(object->meshes[0].vertices,
+		(unsigned int)sizeof(t_vertex) * (++object->meshes[0].nb_vertices))))
 			return (custom_error("Failed to realloc vertices"));
 	if (!(parser->generated_uv = (t_point*)realloc(parser->generated_uv,
-		(unsigned int)sizeof(t_point) * (mesh->nb_vertices))))
+		(unsigned int)sizeof(t_point) * (object->meshes[0].nb_vertices))))
 			return (custom_error("Failed to realloc vertices"));
-	parser->generated_uv[mesh->nb_vertices - 1] = new_point(0, 0);
+	parser->generated_uv[object->meshes[0].nb_vertices - 1] = new_point(0, 0);
 	if (!(parser->unique_indices = (t_index*)realloc(parser->unique_indices,
 		(unsigned int)sizeof(t_index) * (++parser->nb_unique_indices))))
 			return (custom_error("Failed to realloc vertices"));
 	parser->unique_indices[parser->nb_unique_indices - 1] =
 	parser->face_indices[i];
-	mesh->vertices[mesh->nb_vertices - 1].pos =
+	object->meshes[0].vertices[object->meshes[0].nb_vertices - 1].pos =
 	parser->pos[parser->face_indices[i].pos - 1];
 	if (parser->face_indices[i].norm == 0)
 	{
 		if (parser->face_indices[i].pos - 1 < parser->nb_norm)
-			mesh->vertices[mesh->nb_vertices - 1].norm =
+			object->meshes[0].vertices[object->meshes[0].nb_vertices - 1].norm =
 			parser->norm[parser->face_indices[i].pos - 1];
 		else
-			mesh->vertices[mesh->nb_vertices - 1].norm =
+			object->meshes[0].vertices[object->meshes[0].nb_vertices - 1].norm =
 			new_v3(1.0f, 1.0f, 1.0f);
 	}
 	else
-		mesh->vertices[mesh->nb_vertices - 1].norm =
+		object->meshes[0].vertices[object->meshes[0].nb_vertices - 1].norm =
 		parser->norm[parser->face_indices[i].norm - 1];
 	if (parser->face_indices[i].uv == 0)
 	{
 		if (parser->face_indices[i].pos - 1 < parser->nb_tex)
-			mesh->vertices[mesh->nb_vertices - 1].text =
+			object->meshes[0].vertices[object->meshes[0].nb_vertices - 1].text =
 			parser->tex[parser->face_indices[i].pos - 1];
 		else
-			mesh->vertices[mesh->nb_vertices - 1].text = new_v2(0.0f, 0.0f);
+			object->meshes[0].vertices[object->meshes[0].nb_vertices - 1].text = new_v2(0.0f, 0.0f);
 			//new_v2(1.0f / (float)(i + 1), 1.0f / (float)(i + 1));
 	}
 	else
-		mesh->vertices[mesh->nb_vertices - 1].text =
+		object->meshes[0].vertices[object->meshes[0].nb_vertices - 1].text =
 		parser->tex[parser->face_indices[i].uv - 1];
 	//ft_printf("Nb uniques = %d\n", parser->nb_unique_indices);
-	mesh->indices[mesh->nb_indices] = parser->nb_unique_indices - 1;
+	object->meshes[0].indices[object->meshes[0].nb_indices] = parser->nb_unique_indices - 1;
 	/*ft_printf("Adding vertex %f %f %f\n",
-	mesh->vertices[mesh->nb_vertices - 1].pos.x,
-	mesh->vertices[mesh->nb_vertices - 1].pos.y,
-	mesh->vertices[mesh->nb_vertices - 1].pos.z);*/
+	object->meshes[0].vertices[object->meshes[0].nb_vertices - 1].pos.x,
+	object->meshes[0].vertices[object->meshes[0].nb_vertices - 1].pos.y,
+	object->meshes[0].vertices[object->meshes[0].nb_vertices - 1].pos.z);*/
 	return (0);
 }
 
-int		compute_uv(t_obj_parser *parser, t_mesh *mesh)
+int		compute_uv(t_obj_parser *parser, t_object *object)
 {
-	(void)mesh;
+	(void)object;
 	unsigned int i = 0;
 	/*ft_printf("Current face: ");
 	while (i < parser->face_size)
@@ -245,37 +245,37 @@ int		compute_uv(t_obj_parser *parser, t_mesh *mesh)
 	i = 0;
 	while (i < parser->face_size)
 	{
-		unsigned int vertex_index = mesh->nb_vertices - parser->face_size + i;
+		unsigned int vertex_index = object->meshes[0].nb_vertices - parser->face_size + i;
 		float	start_x = 0, start_y = 0, start_z = 0;
 		if (min == z_length)
 		{
 			if (parser->generated_uv[vertex_index].x == 0)
 			{
-				mesh->vertices[vertex_index].text.x = 
-				mesh->vertices[vertex_index].pos.x * div_x + start_x;
+				object->meshes[0].vertices[vertex_index].text.x = 
+				object->meshes[0].vertices[vertex_index].pos.x * div_x + start_x;
 				parser->generated_uv[vertex_index].x = 1;
 			}
 			else
 			{
-				start_x = mesh->vertices[vertex_index].text.x;
+				start_x = object->meshes[0].vertices[vertex_index].text.x;
 			}
 			if (parser->generated_uv[vertex_index].y == 0)
 			{
-				mesh->vertices[vertex_index].text.y = 
-				mesh->vertices[vertex_index].pos.y * div_y + start_y;
+				object->meshes[0].vertices[vertex_index].text.y = 
+				object->meshes[0].vertices[vertex_index].pos.y * div_y + start_y;
 				parser->generated_uv[vertex_index].y = 1;
 			}
 			else
 			{
-				start_y = mesh->vertices[vertex_index].text.y;
+				start_y = object->meshes[0].vertices[vertex_index].text.y;
 			}
 		}
 		else if (min == x_length)
 		{
 			if (parser->generated_uv[vertex_index].x == 0)
 			{
-				mesh->vertices[vertex_index].text.x = 
-				mesh->vertices[vertex_index].pos.z * div_y + start_z;
+				object->meshes[0].vertices[vertex_index].text.x = 
+				object->meshes[0].vertices[vertex_index].pos.z * div_y + start_z;
 				parser->generated_uv[vertex_index].x = 1;
 			}
 			else
@@ -284,8 +284,8 @@ int		compute_uv(t_obj_parser *parser, t_mesh *mesh)
 			}
 			if (parser->generated_uv[vertex_index].y == 0)
 			{
-				mesh->vertices[vertex_index].text.y = 
-				mesh->vertices[vertex_index].pos.y * div_z + start_y;
+				object->meshes[0].vertices[vertex_index].text.y = 
+				object->meshes[0].vertices[vertex_index].pos.y * div_z + start_y;
 				parser->generated_uv[vertex_index].y = 1;
 			}
 			else
@@ -297,18 +297,18 @@ int		compute_uv(t_obj_parser *parser, t_mesh *mesh)
 		{
 			if (parser->generated_uv[vertex_index].x == 0)
 			{
-				mesh->vertices[vertex_index].text.x = 
-				mesh->vertices[vertex_index].pos.z * div_x + start_x;
+				object->meshes[0].vertices[vertex_index].text.x = 
+				object->meshes[0].vertices[vertex_index].pos.z * div_x + start_x;
 				parser->generated_uv[vertex_index].x = 1;
 			}
 			else
 			{
-				start_x = mesh->vertices[vertex_index].text.x;
+				start_x = object->meshes[0].vertices[vertex_index].text.x;
 			}
 			if (parser->generated_uv[vertex_index].y == 0)
 			{
-				mesh->vertices[vertex_index].text.y = 
-				mesh->vertices[vertex_index].pos.x * div_z + start_z;
+				object->meshes[0].vertices[vertex_index].text.y = 
+				object->meshes[0].vertices[vertex_index].pos.x * div_z + start_z;
 				parser->generated_uv[vertex_index].y = 1;
 			}
 			else
@@ -317,32 +317,32 @@ int		compute_uv(t_obj_parser *parser, t_mesh *mesh)
 			}
 		}
 		/*ft_printf("Vertex %d uv = [%9f %9f]\n", vertex_index + 1,
-		mesh->vertices[vertex_index].text.x,
-		mesh->vertices[vertex_index].text.y);*/
+		object->meshes[0].vertices[vertex_index].text.x,
+		object->meshes[0].vertices[vertex_index].text.y);*/
 		i++;
 	}
 	return (0);
 }
 
 int		init_triangle_with_index(unsigned int i, t_obj_parser *parser,
-t_mesh *mesh)
+t_object *object)
 {
-	if (!(mesh->indices = (unsigned int*)realloc(mesh->indices,
-		(unsigned int)sizeof(unsigned int) * (mesh->nb_indices + 3))))
+	if (!(object->meshes[0].indices = (unsigned int*)realloc(object->meshes[0].indices,
+		(unsigned int)sizeof(unsigned int) * (object->meshes[0].nb_indices + 3))))
 		return(custom_error("Failed to realloc vertices"));
-	if (init_vertex(0, parser, mesh))
+	if (init_vertex(0, parser, object))
 		return (-1);
-		mesh->nb_indices++;
-	if (init_vertex(i + 1, parser, mesh))
+		object->meshes[0].nb_indices++;
+	if (init_vertex(i + 1, parser, object))
 		return (-1);
-		mesh->nb_indices++;
-	if (init_vertex(i + 2, parser, mesh))
+		object->meshes[0].nb_indices++;
+	if (init_vertex(i + 2, parser, object))
 		return (-1);
-	mesh->nb_indices++;
+	object->meshes[0].nb_indices++;
 	return (0);
 }
 
-int		init_face(t_obj_parser *parser, t_mesh *mesh)
+int		init_face(t_obj_parser *parser, t_object *object)
 {
 	unsigned int	i;
 	int				uv;
@@ -354,16 +354,16 @@ int		init_face(t_obj_parser *parser, t_mesh *mesh)
 		//ft_printf("New triangle\n");
 		if (parser->face_indices[i].uv != 0)
 			uv = YES;
-		if (init_triangle_with_index(i, parser, mesh))
+		if (init_triangle_with_index(i, parser, object))
 			return (-1);
 		i++;
 	}
 	if (uv == NO || parser->mode == GENERATE_UV)
-		compute_uv(parser, mesh);
+		compute_uv(parser, object);
 	return (0);
 }
 
-int		parse_index(t_obj_parser *parser, t_mesh *mesh, t_env *env)
+int		parse_index(t_obj_parser *parser, t_object *object, t_env *env)
 {
 	(void)env;
 	parser->line++;
@@ -389,16 +389,16 @@ int		parse_index(t_obj_parser *parser, t_mesh *mesh, t_env *env)
 		i++;
 	}
 	ft_printf("\n");*/
-	if (init_face(parser, mesh))
+	if (init_face(parser, object))
 		return (-1);
 	return (0);
 }
 
-int		parse_normal(t_obj_parser *parser, t_mesh *mesh, t_env *env)
+int		parse_normal(t_obj_parser *parser, t_object *object, t_env *env)
 {
 	t_v3	normal;
 
-	(void)mesh;
+	(void)object;
 	//ft_printf("NORMAL: ");
 	parser->line++;
 	if (!*parser->line)
@@ -427,12 +427,12 @@ int		parse_normal(t_obj_parser *parser, t_mesh *mesh, t_env *env)
 	return (0);
 }
 
-int		parse_uv(t_obj_parser *parser, t_mesh *mesh, t_env *env)
+int		parse_uv(t_obj_parser *parser, t_object *object, t_env *env)
 {
 	t_v2	tex;
 
 	//ft_printf("TEXTURE ");
-	(void)mesh;
+	(void)object;
 	parser->line++;
 	if (!*parser->line)
 		return (custom_error("UV declaration at line %d is incorrect or incomplete\n", parser->line_nb));
@@ -454,11 +454,11 @@ int		parse_uv(t_obj_parser *parser, t_mesh *mesh, t_env *env)
 	return (0);
 }
 
-int		parse_vertex(t_obj_parser *parser, t_mesh *mesh, t_env *env)
+int		parse_vertex(t_obj_parser *parser, t_object *object, t_env *env)
 {
 	t_v3	vertex;
 
-	(void)mesh;
+	(void)object;
 	//ft_printf("VERTEX ");
 	if (!*parser->line)
 		return (custom_error("Vertex declaration at line %d is incorrect or incomplete\n", parser->line_nb));
@@ -485,36 +485,36 @@ int		parse_vertex(t_obj_parser *parser, t_mesh *mesh, t_env *env)
 	return (0);
 }
 
-int		parse_mtllib(t_obj_parser *parser, t_mesh *mesh, t_env *env)
+int		parse_mtllib(t_obj_parser *parser, t_object *object, t_env *env)
 {
 	(void)env;
 	(void)parser;
-	(void)mesh;
+	(void)object;
 	//ft_printf("Mat lib found: %s\n", parser->line);
 	return (0);
 }
 
-int		parse_mesh_line(t_obj_parser *parser, t_mesh *mesh, t_env *env)
+int		parse_object_line(t_obj_parser *parser, t_object *object, t_env *env)
 {
 	if (*parser->line == 'v')
 	{
 		if (!*(++parser->line))
 			return (custom_error("Empty vertex or multiple spaces!\n"));
-		if (*parser->line == ' ' && parse_vertex(parser, mesh, env))
+		if (*parser->line == ' ' && parse_vertex(parser, object, env))
 			return (custom_error("Error while parsing vertices\n"));
-		else if (*parser->line == 't' && parse_uv(parser, mesh, env))
+		else if (*parser->line == 't' && parse_uv(parser, object, env))
 			return (custom_error("Error while parsing uv's\n"));
-		else if (*parser->line == 'n' && parse_normal(parser, mesh, env))
+		else if (*parser->line == 'n' && parse_normal(parser, object, env))
 			return (custom_error("Error while parsing normals\n"));
 	}
 	else if (*parser->line == 'f')
 	{
-		if (parse_index(parser, mesh, env))
+		if (parse_index(parser, object, env))
 			return (custom_error("Error while parsing index\n"));
 	}
 	else if (ft_strnequ(parser->line, "mtllib", 6))
 	{
-		if (parse_mtllib(parser, mesh, env))
+		if (parse_mtllib(parser, object, env))
 			return (custom_error("Error while parsing material lib\n"));
 	}
 	return (0);
@@ -531,7 +531,7 @@ void	free_obj_parser(t_obj_parser *parser)
 	close(parser->fd);
 }
 
-int		parse_mesh(const char *source_file, int mode, t_mesh *mesh, t_env *env)
+int		parse_object(const char *source_file, int mode, t_object *object, t_env *env)
 {
 	int				ret;
 	char			*tmp;
@@ -539,6 +539,8 @@ int		parse_mesh(const char *source_file, int mode, t_mesh *mesh, t_env *env)
 
 	ret = 0;
 	ft_bzero(&parser, sizeof(parser));
+	if (!(object->meshes = (t_mesh*)ft_memalloc(sizeof(t_mesh) * 1)))
+		return (custom_error("Malloc fail when allocating new object's meshes\n"));
 	if ((parser.fd = open(source_file, O_RDONLY)) < 0)
 		return (custom_error("Could not open \"%s\"\n", source_file));
 	parser.line_nb = 1;
@@ -547,19 +549,19 @@ int		parse_mesh(const char *source_file, int mode, t_mesh *mesh, t_env *env)
 	{
 		//ft_printf("Reading %s\n", parser.line);
 		tmp = parser.line;
-		if (parse_mesh_line(&parser, mesh, env))
+		if (parse_object_line(&parser, object, env))
 		{
 			free_obj_parser(&parser);
-			free_mesh(mesh);
+			free_object(object);
 			ft_strdel(&tmp);
 			return (custom_error("Parsing error in \"%s\"\n", source_file));
 		}
 		parser.line_nb++;
 		ft_strdel(&tmp);
 	}
-	if (mesh->nb_vertices < 3 || mesh->nb_indices < 1)
-		return (custom_error("Invalid mesh\n"));
-	scale_new_mesh(mesh);
+	if (object->meshes[0].nb_vertices < 3 || object->meshes[0].nb_indices < 1)
+		return (custom_error("Invalid object\n"));
+	scale_new_object(object);
 	free_obj_parser(&parser);
 	return (0);
 }

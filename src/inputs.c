@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 12:58:23 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/13 16:49:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/14 10:34:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,7 @@ int				process_inputs(t_input *inputs, t_env *env)
 			if (env->current_text == 0)
 				env->current_text = MAX_TEXTURES;
 			env->current_text--;
-			set_mesh_texture(&env->meshs[1].instances[env->selected_mesh], 0,
+			set_object_texture(&env->objects[1].instances[env->selected_mesh], 0,
 			env->textures[env->current_text]);
 		}
 		else
@@ -213,7 +213,7 @@ int				process_inputs(t_input *inputs, t_env *env)
 			env->current_text++;
 			if (env->current_text >= MAX_TEXTURES)
 				env->current_text = 0;
-			set_mesh_texture(&env->meshs[1].instances[env->selected_mesh], 0,
+			set_object_texture(&env->objects[1].instances[env->selected_mesh], 0,
 			env->textures[env->current_text]);
 		}		
 	}
@@ -250,7 +250,7 @@ int				process_inputs(t_input *inputs, t_env *env)
 	}
 	if (inputs[ADD_mesh].state == PRESS && env->instance_count < 9)
 	{
-		add_mesh(1, env);
+		add_object(1, env);
 		env->instance_count++;
 	}
 	if (inputs[SELECT_mesh_1].state == PRESSED)
@@ -292,11 +292,11 @@ int				process_inputs(t_input *inputs, t_env *env)
 	}
 	if (inputs[PAGE_UP].state == PRESSED)
 	{
-		move_mesh(&env->meshs[1].instances[env->selected_mesh], move);
+		move_object(&env->objects[1].instances[env->selected_mesh], move);
 	}
 	if (inputs[PAGE_DOWN].state == PRESSED)
 	{
-		move_mesh(&env->meshs[1].instances[env->selected_mesh], mult_vec(move, -1));
+		move_object(&env->objects[1].instances[env->selected_mesh], mult_vec(move, -1));
 	}
 	if (inputs[RESET].state == PRESSED)
 	{

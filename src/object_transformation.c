@@ -12,39 +12,39 @@
 
 #include "object.h"
 
-void	update_mesh(t_instance *mesh)
+void	update_object(t_instance *object)
 {
-	reset_matrix(mesh->matrix);
-	translate(mesh->matrix, mesh->transform.pos);
-	rotate_along_axis(mesh->matrix, new_v3(1.0f, 0.0f, 0.0f), mesh->transform.rotation.x);
-	rotate_along_axis(mesh->matrix, new_v3(0.0f, 1.0f, 0.0f), mesh->transform.rotation.y);
-	rotate_along_axis(mesh->matrix, new_v3(0.0f, 0.0f, 1.0f), mesh->transform.rotation.z);
-	scale(mesh->matrix, mesh->transform.scale);
+	reset_matrix(object->matrix);
+	translate(object->matrix, object->transform.pos);
+	rotate_along_axis(object->matrix, new_v3(1.0f, 0.0f, 0.0f), object->transform.rotation.x);
+	rotate_along_axis(object->matrix, new_v3(0.0f, 1.0f, 0.0f), object->transform.rotation.y);
+	rotate_along_axis(object->matrix, new_v3(0.0f, 0.0f, 1.0f), object->transform.rotation.z);
+	scale(object->matrix, object->transform.scale);
 }
 
-int		move_mesh(t_instance *mesh, t_v3 move)
+int		move_object(t_instance *object, t_v3 move)
 {
-	mesh->transform.pos.x += move.x;
-	mesh->transform.pos.y += move.y;
-	mesh->transform.pos.z += move.z;
-	update_mesh(mesh);
+	object->transform.pos.x += move.x;
+	object->transform.pos.y += move.y;
+	object->transform.pos.z += move.z;
+	update_object(object);
 	return (0);
 }
 
-int		rotate_mesh(t_instance *mesh, t_v3 rotate)
+int		rotate_object(t_instance *object, t_v3 rotate)
 {
-	mesh->transform.rotation.x += rotate.x;
-	mesh->transform.rotation.y += rotate.y;
-	mesh->transform.rotation.z += rotate.z;
-	update_mesh(mesh);
+	object->transform.rotation.x += rotate.x;
+	object->transform.rotation.y += rotate.y;
+	object->transform.rotation.z += rotate.z;
+	update_object(object);
 	return (0);
 }
 
-int		scale_mesh(t_instance *mesh, t_v3 scale)
+int		scale_object(t_instance *object, t_v3 scale)
 {
-	mesh->transform.scale.x += scale.x;
-	mesh->transform.scale.y += scale.y;
-	mesh->transform.scale.z += scale.z;
-	update_mesh(mesh);
+	object->transform.scale.x += scale.x;
+	object->transform.scale.y += scale.y;
+	object->transform.scale.z += scale.z;
+	update_object(object);
 	return (0);
 }

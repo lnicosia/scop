@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/13 16:54:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/14 10:31:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,51 +65,30 @@ int		init_mesh_buffers(t_mesh *mesh)
 	return (0);
 }
 
-int		init_mesh(const char *source_file, t_env *env)
-{
-	t_mesh	new;
-
-	ft_bzero(&new, sizeof(new));
-	if (parse_mesh(source_file, FULL, &new, env))
-		return (custom_error("{yellow}Failed to load %s{reset}\n",
-		source_file));
-	new.size = (unsigned int)sizeof(t_vertex) * (unsigned int)new.nb_vertices;
-	ft_printf("'%s' initialized\n", source_file);
-	//print_mesh(&new);
-	new.name = "";
-	new.nb_textures = 1;
-	init_mesh_buffers(&new);
-	ft_memdel((void**)&new.vertices);
-	new.id = env->mesh_count;
-	env->meshs[env->mesh_count] = new;
-	env->mesh_count++;
-	return (0);
-}
-
-int		set_mesh_texture(t_instance *mesh, int id, unsigned int text)
+int		set_object_texture(t_instance *object, int id, unsigned int text)
 {
 	if (id >= MAX_ACTIVE_TEXTURES)
 		return (-1);
-	mesh->textures[id] = text;
+	object->textures[id] = text;
 	return (0);
 }
 
-int		add_mesh(size_t id, t_env *env)
+int		add_object(size_t id, t_env *env)
 {
 	size_t	*count;
 
-	if (id >= env->mesh_count)
+	if (id >= env->object_count)
 		return (custom_error("Tried to add a non existing mesh\n"));
-	count = &env->meshs[id].count;
-	if (!(env->meshs[id].instances =
-		(t_instance*)realloc(env->meshs[id].instances,
+	count = &env->objects[id].count;
+	if (!(env->objects[id].instances =
+		(t_instance*)realloc(env->objects[id].instances,
 		sizeof(t_instance) * ++(*count))))
 		ft_fatal_error("Failed to add mesh", env);
-	ft_bzero(&env->meshs[id].instances[*count - 1],
-	sizeof(env->meshs[id].instances[*count - 1]));
-	env->meshs[id].instances[*count - 1].transform.scale = new_v3(1, 1, 1);
-	update_mesh(&env->meshs[id].instances[*count - 1]);
-	set_mesh_texture(&env->meshs[id].instances[*count - 1], 0, env->textures[0]);
+	ft_bzero(&env->objects[id].instances[*count - 1],
+	sizeof(env->objects[id].instances[*count - 1]));
+	env->objects[id].instances[*count - 1].transform.scale = new_v3(1, 1, 1);
+	update_object(&env->objects[id].instances[*count - 1]);
+	set_object_texture(&env->objects[id].instances[*count - 1], 0, env->textures[0]);
 	return (0);
 }
 
@@ -138,13 +117,13 @@ int		bind_textures(t_mesh *mesh, t_instance *instance)
 	return (0);
 }
 
-int		draw_mesh(t_mesh *mesh, unsigned int instance,
+int		draw_mesh(t_object *object, t_mesh *mesh, unsigned int instance,
 unsigned int shader, t_env *env)
 {
 	glUseProgram(shader);
-	bind_textures(mesh, &mesh->instances[instance]);
+	bind_textures(mesh, &object->instances[instance]);
 	glBindVertexArray(mesh->vao);
-	matrix_pipeline(mesh->instances[instance].matrix, shader, env);
+	matrix_pipeline(object->instances[instance].matrix, shader, env);
 	glPolygonMode(GL_FRONT_AND_BACK, env->polygon_mode);
 	glDrawElements(GL_TRIANGLES, (int)mesh->nb_indices, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);

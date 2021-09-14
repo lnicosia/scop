@@ -6,7 +6,7 @@
 #    By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/01 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2021/09/13 16:51:15 by lnicosia         ###   ########.fr        #
+#    Updated: 2021/09/14 10:34:26 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ SRC_RAW =	main.c scop.c init_opengl.c ft_fatal_error.c \
 			free_all.c viewport_update_callback.c key_callback.c \
 			draw_triangle.c shader.c mesh.c object_transformation.c \
 			projection_matrix.c parse_object.c inputs.c glad.c \
-			light_setters.c cubemap.c \
+			light_setters.c cubemap.c object.c \
 
 HEADERS =	scop.h env.h inputs.h shader.h object.h camera.h obj_parser.h \
 			light.h cubemap.h

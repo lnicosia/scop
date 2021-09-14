@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:57:26 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/13 16:50:58 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/13 17:14:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ enum	e_yes_no
 typedef struct		s_env
 {
 	GLFWwindow		*window;
-	t_mesh		meshs[MAX_meshS];
-	t_mesh		lights[MAX_LIGHTS];
+	t_object		objects[MAX_meshS];
+	t_object		lights[MAX_LIGHTS];
 	t_cubemap		cubemaps[MAX_CUBEMAPS];
 	double			mouse_x_start;
 	double			mouse_y_start;
@@ -56,7 +56,7 @@ typedef struct		s_env
 	size_t			vbo_count;
 	size_t			ebo_count;
 	size_t			texture_count;
-	size_t			mesh_count;
+	size_t			object_count;
 	size_t			cubemap_count;
 	const char		*diffuse_names[MAX_ACTIVE_TEXTURES];
 	unsigned int	shaders[MAX_SHADERS];

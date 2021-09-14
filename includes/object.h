@@ -51,10 +51,8 @@ typedef struct		s_mesh
 {
 	const char		*name;
 	t_vertex		*vertices;
-	t_instance		*instances;
 	unsigned int	*indices;
 	size_t			id;
-	size_t			count;
 	t_v3			center;
 	t_v3			range;
 	unsigned int	size;
@@ -66,5 +64,16 @@ typedef struct		s_mesh
 	int				no_uv;
 	unsigned int	nb_vertices;
 }					t_mesh;
+
+typedef struct		s_object
+{
+	t_mesh			*meshes;
+	t_instance		*instances;
+	char			*name;
+	size_t			count;
+	unsigned int	nb_meshes;
+	char			padding[4];
+}					t_object;
+
 
 #endif
