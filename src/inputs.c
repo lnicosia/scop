@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 12:58:23 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/14 10:34:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/14 18:30:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,27 +44,27 @@ int				init_inputs(t_input *inputs)
 	inputs[RESET].key1 = GLFW_KEY_R;
 	inputs[CURRENT_TEXTURE].key1 = GLFW_KEY_T;
 	inputs[LIGHT_MODE].key1 = GLFW_KEY_L;
-	inputs[ADD_mesh].key1 = GLFW_KEY_KP_ADD;
-	inputs[SELECT_mesh_0].key1 = GLFW_KEY_0;
-	inputs[SELECT_mesh_0].key2 = GLFW_KEY_KP_0;
-	inputs[SELECT_mesh_1].key1 = GLFW_KEY_1;
-	inputs[SELECT_mesh_1].key2 = GLFW_KEY_KP_1;
-	inputs[SELECT_mesh_2].key1 = GLFW_KEY_2;
-	inputs[SELECT_mesh_2].key2 = GLFW_KEY_KP_2;
-	inputs[SELECT_mesh_3].key1 = GLFW_KEY_3;
-	inputs[SELECT_mesh_3].key2 = GLFW_KEY_KP_3;
-	inputs[SELECT_mesh_4].key1 = GLFW_KEY_4;
-	inputs[SELECT_mesh_4].key2 = GLFW_KEY_KP_4;
-	inputs[SELECT_mesh_5].key1 = GLFW_KEY_5;
-	inputs[SELECT_mesh_5].key2 = GLFW_KEY_KP_5;
-	inputs[SELECT_mesh_6].key1 = GLFW_KEY_6;
-	inputs[SELECT_mesh_6].key2 = GLFW_KEY_KP_6;
-	inputs[SELECT_mesh_7].key1 = GLFW_KEY_7;
-	inputs[SELECT_mesh_7].key2 = GLFW_KEY_KP_7;
-	inputs[SELECT_mesh_8].key1 = GLFW_KEY_8;
-	inputs[SELECT_mesh_8].key2 = GLFW_KEY_KP_8;
-	inputs[SELECT_mesh_9].key1 = GLFW_KEY_9;
-	inputs[SELECT_mesh_9].key2 = GLFW_KEY_KP_9;
+	inputs[ADD_OBJECT].key1 = GLFW_KEY_KP_ADD;
+	inputs[SELECT_OBJECT_0].key1 = GLFW_KEY_0;
+	inputs[SELECT_OBJECT_0].key2 = GLFW_KEY_KP_0;
+	inputs[SELECT_OBJECT_1].key1 = GLFW_KEY_1;
+	inputs[SELECT_OBJECT_1].key2 = GLFW_KEY_KP_1;
+	inputs[SELECT_OBJECT_2].key1 = GLFW_KEY_2;
+	inputs[SELECT_OBJECT_2].key2 = GLFW_KEY_KP_2;
+	inputs[SELECT_OBJECT_3].key1 = GLFW_KEY_3;
+	inputs[SELECT_OBJECT_3].key2 = GLFW_KEY_KP_3;
+	inputs[SELECT_OBJECT_4].key1 = GLFW_KEY_4;
+	inputs[SELECT_OBJECT_4].key2 = GLFW_KEY_KP_4;
+	inputs[SELECT_OBJECT_5].key1 = GLFW_KEY_5;
+	inputs[SELECT_OBJECT_5].key2 = GLFW_KEY_KP_5;
+	inputs[SELECT_OBJECT_6].key1 = GLFW_KEY_6;
+	inputs[SELECT_OBJECT_6].key2 = GLFW_KEY_KP_6;
+	inputs[SELECT_OBJECT_7].key1 = GLFW_KEY_7;
+	inputs[SELECT_OBJECT_7].key2 = GLFW_KEY_KP_7;
+	inputs[SELECT_OBJECT_8].key1 = GLFW_KEY_8;
+	inputs[SELECT_OBJECT_8].key2 = GLFW_KEY_KP_8;
+	inputs[SELECT_OBJECT_9].key1 = GLFW_KEY_9;
+	inputs[SELECT_OBJECT_9].key2 = GLFW_KEY_KP_9;
 	inputs[SELECT_AXE_X].key1 = GLFW_KEY_F1;
 	inputs[SELECT_AXE_Y].key1 = GLFW_KEY_F2;
 	inputs[SELECT_AXE_Z].key1 = GLFW_KEY_F3;
@@ -169,6 +169,11 @@ int				process_mouse(t_input *inputs, t_env *env)
 	return (0);
 }
 
+void			set_spartan_textures(t_env *env)
+{
+	(void)env;
+}
+
 int				process_inputs(t_input *inputs, t_env *env)
 {
 	env->camera.speed = 1.5f * ((float)glfwGetTime() - env->last_frame);
@@ -203,19 +208,22 @@ int				process_inputs(t_input *inputs, t_env *env)
 		if (inputs[SHIFT_MOD].state == PRESSED)
 		{
 			if (env->current_text == 0)
-				env->current_text = MAX_TEXTURES;
+				env->current_text = MAX_TEXTURES - 7;
 			env->current_text--;
-			set_object_texture(&env->objects[1].instances[env->selected_mesh], 0,
-			env->textures[env->current_text]);
 		}
 		else
 		{
 			env->current_text++;
-			if (env->current_text >= MAX_TEXTURES)
+			if (env->current_text >= MAX_TEXTURES - 7)
 				env->current_text = 0;
-			set_object_texture(&env->objects[1].instances[env->selected_mesh], 0,
+		}
+		for (unsigned int i = 0; i < env->objects[1].nb_meshes; i++)
+		{
+			set_mesh_texture(&env->objects[1].meshes[i], env->selected_object, 0,
 			env->textures[env->current_text]);
-		}		
+		}
+		if (ft_strequ(env->objects[1].name, "resources/objects/Spartan/source/Spartan.obj"))
+			set_spartan_textures(env);
 	}
 	if (inputs[LEFT].state == PRESSED)
 	{
@@ -248,29 +256,29 @@ int				process_inputs(t_input *inputs, t_env *env)
 		look_at(env->look_at_matrix, env->camera.pos,
 		env->camera.front, env->camera.up);
 	}
-	if (inputs[ADD_mesh].state == PRESS && env->instance_count < 9)
+	if (inputs[ADD_OBJECT].state == PRESS && env->instance_count < 9)
 	{
 		add_object(1, env);
 		env->instance_count++;
 	}
-	if (inputs[SELECT_mesh_1].state == PRESSED)
-		env->selected_mesh = 0;
-	if (inputs[SELECT_mesh_2].state == PRESSED && env->instance_count > 1)
-		env->selected_mesh = 1;
-	if (inputs[SELECT_mesh_3].state == PRESSED && env->instance_count > 2)
-		env->selected_mesh = 2;
-	if (inputs[SELECT_mesh_4].state == PRESSED && env->instance_count > 3)
-		env->selected_mesh = 3;
-	if (inputs[SELECT_mesh_5].state == PRESSED && env->instance_count > 4)
-		env->selected_mesh = 4;
-	if (inputs[SELECT_mesh_6].state == PRESSED && env->instance_count > 5)
-		env->selected_mesh = 5;
-	if (inputs[SELECT_mesh_7].state == PRESSED && env->instance_count > 6)
-		env->selected_mesh = 6;
-	if (inputs[SELECT_mesh_8].state == PRESSED && env->instance_count > 7)
-		env->selected_mesh = 7;
-	if (inputs[SELECT_mesh_9].state == PRESSED && env->instance_count > 8)
-		env->selected_mesh = 8;
+	if (inputs[SELECT_OBJECT_1].state == PRESSED)
+		env->selected_object = 0;
+	if (inputs[SELECT_OBJECT_2].state == PRESSED && env->instance_count > 1)
+		env->selected_object = 1;
+	if (inputs[SELECT_OBJECT_3].state == PRESSED && env->instance_count > 2)
+		env->selected_object = 2;
+	if (inputs[SELECT_OBJECT_4].state == PRESSED && env->instance_count > 3)
+		env->selected_object = 3;
+	if (inputs[SELECT_OBJECT_5].state == PRESSED && env->instance_count > 4)
+		env->selected_object = 4;
+	if (inputs[SELECT_OBJECT_6].state == PRESSED && env->instance_count > 5)
+		env->selected_object = 5;
+	if (inputs[SELECT_OBJECT_7].state == PRESSED && env->instance_count > 6)
+		env->selected_object = 6;
+	if (inputs[SELECT_OBJECT_8].state == PRESSED && env->instance_count > 7)
+		env->selected_object = 7;
+	if (inputs[SELECT_OBJECT_9].state == PRESSED && env->instance_count > 8)
+		env->selected_object = 8;
 	if (inputs[SELECT_AXE_X].state == PRESS)
 		env->selected_axe = SELECT_AXE_X;
 	if (inputs[SELECT_AXE_Y].state == PRESS)
@@ -292,11 +300,11 @@ int				process_inputs(t_input *inputs, t_env *env)
 	}
 	if (inputs[PAGE_UP].state == PRESSED)
 	{
-		move_object(&env->objects[1].instances[env->selected_mesh], move);
+		move_object(&env->objects[1].instances[env->selected_object], move);
 	}
 	if (inputs[PAGE_DOWN].state == PRESSED)
 	{
-		move_object(&env->objects[1].instances[env->selected_mesh], mult_vec(move, -1));
+		move_object(&env->objects[1].instances[env->selected_object], mult_vec(move, -1));
 	}
 	if (inputs[RESET].state == PRESSED)
 	{

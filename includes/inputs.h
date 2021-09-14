@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 17:58:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/13 16:49:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/14 18:08:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,17 @@ enum				e_inputs
 	RESET,
 	CURRENT_TEXTURE,
 	LIGHT_MODE,
-	ADD_mesh,
-	SELECT_mesh_0,
-	SELECT_mesh_1,
-	SELECT_mesh_2,
-	SELECT_mesh_3,
-	SELECT_mesh_4,
-	SELECT_mesh_5,
-	SELECT_mesh_6,
-	SELECT_mesh_7,
-	SELECT_mesh_8,
-	SELECT_mesh_9,
+	ADD_OBJECT,
+	SELECT_OBJECT_0,
+	SELECT_OBJECT_1,
+	SELECT_OBJECT_2,
+	SELECT_OBJECT_3,
+	SELECT_OBJECT_4,
+	SELECT_OBJECT_5,
+	SELECT_OBJECT_6,
+	SELECT_OBJECT_7,
+	SELECT_OBJECT_8,
+	SELECT_OBJECT_9,
 	SELECT_AXE_X,
 	SELECT_AXE_Y,
 	SELECT_AXE_Z,
@@ -51,7 +51,7 @@ enum				e_inputs
 enum				e_moving_mode
 {
 	MOVE_CAMERA,
-	MOVE_mesh,
+	MOVE_OBJECT,
 };
 
 typedef enum		e_input_states

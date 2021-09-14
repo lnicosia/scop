@@ -47,12 +47,19 @@ typedef struct		s_instance
 	char			padding[4];
 }					t_instance;
 
+typedef struct		s_texture_id
+{
+	unsigned int	textures[MAX_ACTIVE_TEXTURES];
+}					t_texture_id;
+
 typedef struct		s_mesh
 {
 	const char		*name;
 	t_vertex		*vertices;
 	unsigned int	*indices;
+	t_texture_id	*instances;
 	size_t			id;
+	size_t			nb_textures;
 	t_v3			center;
 	t_v3			range;
 	unsigned int	size;
@@ -60,9 +67,9 @@ typedef struct		s_mesh
 	unsigned int	vbo;
 	unsigned int	ebo;
 	unsigned int	nb_indices;
-	int				nb_textures;
-	int				no_uv;
 	unsigned int	nb_vertices;
+	int				no_uv;
+	char			padding[4];
 }					t_mesh;
 
 typedef struct		s_object

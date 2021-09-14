@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/14 15:59:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/14 18:27:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,15 @@ int		set_object_texture(t_instance *object, int id, unsigned int text)
 	return (0);
 }
 
+
+int		set_mesh_texture(t_mesh *mesh, size_t instance, int id, unsigned int text)
+{
+	if (id >= MAX_ACTIVE_TEXTURES)
+		return (-1);
+	mesh->instances[instance].textures[id] = text;
+	return (0);
+}
+
 int		add_object(size_t id, t_env *env)
 {
 	size_t	*count;
@@ -84,11 +93,21 @@ int		add_object(size_t id, t_env *env)
 		(t_instance*)realloc(env->objects[id].instances,
 		sizeof(t_instance) * ++(*count))))
 		ft_fatal_error("Failed to add mesh", env);
+	for (unsigned int i = 0; i < env->objects[id].nb_meshes; i++)
+	{
+		if (!(env->objects[id].meshes[i].instances =
+			(t_texture_id*)realloc(env->objects[id].meshes[i].instances,
+			sizeof(t_texture_id) * *count)))
+			ft_fatal_error("Failed to add mesh", env);
+	}
 	ft_bzero(&env->objects[id].instances[*count - 1],
 	sizeof(env->objects[id].instances[*count - 1]));
 	env->objects[id].instances[*count - 1].transform.scale = new_v3(1, 1, 1);
 	update_object(&env->objects[id].instances[*count - 1]);
-	set_object_texture(&env->objects[id].instances[*count - 1], 0, env->textures[0]);
+	for (unsigned int i = 0; i < env->objects[id].nb_meshes; i++)
+	{
+		set_mesh_texture(&env->objects[id].meshes[i], *count - 1, 0, env->textures[env->current_text]);
+	}
 	return (0);
 }
 
@@ -103,15 +122,15 @@ int		matrix_pipeline(float *matrix, unsigned int shader, t_env *env)
 	return (0);
 }
 
-int		bind_textures(t_mesh *mesh, t_instance *instance)
+int		bind_textures(t_mesh *mesh, unsigned int instance)
 {
-	int		i;
+	size_t	i;
 
 	i = 0;
 	while (i < mesh->nb_textures)
 	{
 		glActiveTexture(GL_TEXTURE0 + (unsigned int)i);
-		glBindTexture(GL_TEXTURE_2D, instance->textures[i]);
+		glBindTexture(GL_TEXTURE_2D, mesh->instances[instance].textures[i]);
 		i++;
 	}
 	return (0);
@@ -121,7 +140,7 @@ int		draw_mesh(t_object *object, t_mesh *mesh, unsigned int instance,
 unsigned int shader, t_env *env)
 {
 	glUseProgram(shader);
-	bind_textures(mesh, &object->instances[instance]);
+	bind_textures(mesh, instance);
 	glBindVertexArray(mesh->vao);
 	matrix_pipeline(object->instances[instance].matrix, shader, env);
 	glPolygonMode(GL_FRONT_AND_BACK, env->polygon_mode);

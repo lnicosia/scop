@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/13 17:07:38 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/14 16:06:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/14 17:27:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		init_object(const char *source_file, t_env *env)
 	if (parse_object(source_file, FULL, &new, env))
 		return (custom_error("{yellow}Failed to load %s{reset}\n",
 		source_file));
-	ft_printf("'%s' initialized\n", source_file);
+	ft_printf("'%s' initialized\n", new.name);
 	//print_object(&new);
 	for (unsigned int i = 0; i < new.nb_meshes; i++)
 	{
