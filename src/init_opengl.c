@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/15 15:08:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/15 16:17:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,10 @@ int		init_opengl(t_env *env)
 	init_textures("resources/objects/Spartan/textures/Spartan_Helmet_Mat_BaseColor.bmp", 0, GL_RGBA, env);
 	init_textures("resources/objects/Spartan/textures/Spartan_Legs_Mat_BaseColor.bmp", 0, GL_RGBA, env);
 	init_textures("resources/objects/Spartan/textures/Spartan_Undersuit_Mat_BaseColor.bmp", 0, GL_RGBA, env);
+	init_textures("resources/objects/swamp-location/source/terrain.bmp", 0, GL_RGBA, env);
+	init_textures("resources/objects/swamp-location/source/grass.bmp", 0, GL_RGBA, env);
+	init_textures("resources/objects/swamp-location/source/object.bmp", 0, GL_RGBA, env);
+	init_textures("resources/objects/swamp-location/source/water.bmp", 0, GL_RGBA, env);
 	char *skybox[] =
 	{
 		"resources/textures/skybox1/right.bmp",

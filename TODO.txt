@@ -3,6 +3,5 @@ Mapping par default quand pas d'uv dans le fichier
 Protection quand texture absente
 Crash si on parse un dossier
 Protection sur /dev etc pour obj et bmp
-Objet en plusieurs parties
 Flags d'opti avant de rendre
 Fix bmp parsing (crash avec sanitize ou valgrind)

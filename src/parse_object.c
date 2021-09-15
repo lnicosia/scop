@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 23:48:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/15 14:54:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/15 16:19:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,8 +138,7 @@ t_object *object)
 			&& parser->unique_indices[k].norm == parser->face_indices[i].norm)
 		{
 			object->meshes[parser->current_mesh].
-			indices[object->meshes[parser->current_mesh].nb_indices] =
-			k;// - object->nb_vertices;
+			indices[object->meshes[parser->current_mesh].nb_indices] = k;
 			return (0);
 		}
 		k++;
@@ -184,7 +183,7 @@ t_object *object)
 		parser->tex[parser->face_indices[i].uv - 1];
 	//ft_printf("Nb uniques = %d\n", parser->nb_unique_indices);
 	object->meshes[parser->current_mesh].indices[object->meshes[parser->current_mesh].nb_indices] =
-	parser->nb_unique_indices - 1;// - object->nb_vertices;
+	parser->nb_unique_indices - 1;
 	/*ft_printf("Adding vertex %f %f %f\n",
 	object->meshes[parser->current_mesh].vertices[object->meshes[parser->current_mesh].nb_vertices - 1].pos.x,
 	object->meshes[parser->current_mesh].vertices[object->meshes[parser->current_mesh].nb_vertices - 1].pos.y,
@@ -535,7 +534,7 @@ int		parse_object_line(t_obj_parser *parser, t_object *object, t_env *env)
 	// if last line is -1, it's the first mesh
 	// and if it was a face, we have a new mesh
 	if (parser->last_line == -1 ||
-		(parser->last_line == FACE && *parser->line != 'f'))
+		(parser->last_line == FACE && *parser->line != 'f' && *parser->line != '#'))
 	{
 		if (new_mesh(parser, object))
 			return (-1);
@@ -608,11 +607,12 @@ int		parse_object(const char *source_file, int mode, t_object *object, t_env *en
 		ft_strdel(&tmp);
 	}
 	if (object->nb_meshes == 0)
-		return (custom_error("Invalid object\n"));
+		return (custom_error("Invalid object (no mesh)\n"));
 	for (unsigned int i = 0; i < object->nb_meshes; i++)
 	{
 		if (object->meshes[i].nb_vertices < 3 || object->meshes[i].nb_indices < 1)
-			return (custom_error("Invalid object\n"));
+			return (custom_error("Invalid object (mesh %d has %d vertices and %d indices)\n",
+			i, object->meshes[i].nb_vertices, object->meshes[i].nb_indices));
 	}
 	object->nb_vertices += object->meshes[parser.current_mesh].nb_vertices;
 	scale_and_center_object(object);

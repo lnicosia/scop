@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:57:26 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/15 15:08:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/15 16:17:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define MAX_VAO 1
 # define MAX_VBO 1
 # define MAX_EBO 1
-# define MAX_TEXTURES 16
+# define MAX_TEXTURES 20
 # define USABLE_TEXTURES 5
 # define MAX_SHADERS 4
 # define MAX_OBJECTS 2

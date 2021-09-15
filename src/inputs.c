@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 12:58:23 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/15 15:14:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/15 16:23:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,12 +224,7 @@ int				process_inputs(t_input *inputs, t_env *env)
 		env->texture_mode = env->texture_mode == SINGLE_TEXTURE ? MULTIPLE_TEXTURES : SINGLE_TEXTURE;
 		if (env->texture_mode == MULTIPLE_TEXTURES)
 		{
-			if (ft_strequ(env->objects[1].name, "resources/objects/Spartan/source/Spartan.obj"))
-				set_spartan_textures(env);
-			if (ft_strequ(env->objects[1].name, "resources/objects/house/house.obj"))
-				set_house_textures(env);
-			if (ft_strequ(env->objects[1].name, "resources/objects/backpack/backpack.obj"))
-				set_object_texture(&env->objects[1], 0, 0, env->textures[5]);
+			set_textures(env);
 		}
 		else
 		{

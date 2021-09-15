@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 17:56:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/15 15:11:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/15 16:23:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ void			print_mesh(t_mesh *mesh);
 void			print_object(t_object *object);
 int				set_object_texture(t_object *object, size_t instance, int id, unsigned int text);
 int				set_mesh_texture(t_mesh *mesh, size_t instance, int id, unsigned int text);
+
 void			set_spartan_textures(t_env *env);
+void			set_swamp_textures(t_env *env);
 void			set_house_textures(t_env *env);
+void			set_textures(t_env *env);
 
 #endif

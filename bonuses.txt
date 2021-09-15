@@ -8,3 +8,4 @@ Shader parsing
 Skybox/Cubemaps
 Objets en plusieurs parties, avec plusieurs textures
 Compilation windows
+Gerer la transparence
