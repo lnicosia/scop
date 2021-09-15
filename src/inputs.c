@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 12:58:23 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/14 18:30:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/15 15:14:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int				init_inputs(t_input *inputs)
 	inputs[SHIFT_MOD].key1 = GLFW_KEY_LEFT_SHIFT;
 	inputs[SHIFT_MOD].key2 = GLFW_KEY_RIGHT_SHIFT;
 	inputs[DRAW_SKYBOX].key1 = GLFW_KEY_C;
+	inputs[TEXTURE_MODE].key1 = GLFW_KEY_N;
 	return (0);
 }
 
@@ -169,11 +170,6 @@ int				process_mouse(t_input *inputs, t_env *env)
 	return (0);
 }
 
-void			set_spartan_textures(t_env *env)
-{
-	(void)env;
-}
-
 int				process_inputs(t_input *inputs, t_env *env)
 {
 	env->camera.speed = 1.5f * ((float)glfwGetTime() - env->last_frame);
@@ -185,13 +181,13 @@ int				process_inputs(t_input *inputs, t_env *env)
 		switch (env->polygon_mode)
 		{
 			case GL_LINE:
-				env->polygon_mode = GL_FILL;
-				break;
-			case GL_FILL:
 				env->polygon_mode = GL_POINT;
 				break;
-			case GL_POINT:
+			case GL_FILL:
 				env->polygon_mode = GL_LINE;
+				break;
+			case GL_POINT:
+				env->polygon_mode = GL_FILL;
 				break;
 		}
 	}
@@ -208,13 +204,13 @@ int				process_inputs(t_input *inputs, t_env *env)
 		if (inputs[SHIFT_MOD].state == PRESSED)
 		{
 			if (env->current_text == 0)
-				env->current_text = MAX_TEXTURES - 7;
+				env->current_text = USABLE_TEXTURES;
 			env->current_text--;
 		}
 		else
 		{
 			env->current_text++;
-			if (env->current_text >= MAX_TEXTURES - 7)
+			if (env->current_text >= USABLE_TEXTURES)
 				env->current_text = 0;
 		}
 		for (unsigned int i = 0; i < env->objects[1].nb_meshes; i++)
@@ -222,8 +218,27 @@ int				process_inputs(t_input *inputs, t_env *env)
 			set_mesh_texture(&env->objects[1].meshes[i], env->selected_object, 0,
 			env->textures[env->current_text]);
 		}
-		if (ft_strequ(env->objects[1].name, "resources/objects/Spartan/source/Spartan.obj"))
-			set_spartan_textures(env);
+	}
+	if (inputs[TEXTURE_MODE].state == PRESS)
+	{
+		env->texture_mode = env->texture_mode == SINGLE_TEXTURE ? MULTIPLE_TEXTURES : SINGLE_TEXTURE;
+		if (env->texture_mode == MULTIPLE_TEXTURES)
+		{
+			if (ft_strequ(env->objects[1].name, "resources/objects/Spartan/source/Spartan.obj"))
+				set_spartan_textures(env);
+			if (ft_strequ(env->objects[1].name, "resources/objects/house/house.obj"))
+				set_house_textures(env);
+			if (ft_strequ(env->objects[1].name, "resources/objects/backpack/backpack.obj"))
+				set_object_texture(&env->objects[1], 0, 0, env->textures[5]);
+		}
+		else
+		{
+			for (unsigned int i = 0; i < env->objects[1].nb_meshes; i++)
+			{
+				set_mesh_texture(&env->objects[1].meshes[i], env->selected_object, 0,
+				env->textures[env->current_text]);
+			}
+		}
 	}
 	if (inputs[LEFT].state == PRESSED)
 	{

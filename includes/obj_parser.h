@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 20:45:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/14 11:05:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/15 11:55:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ enum				e_last_line
 	VERTEX,
 	NORMAL,
 	TEXTURE,
-	FACE
+	FACE,
+	OTHER
 };
 
 typedef struct		s_index
@@ -44,6 +45,7 @@ typedef struct		s_obj_parser
 	unsigned int	nb_indices;
 	unsigned int	count;
 	unsigned int	nb_unique_indices;
+	unsigned int	nb_mesh_indices;
 	unsigned int	face_size;
 	unsigned int	face_start;
 	unsigned int	max_face_size;
@@ -53,7 +55,7 @@ typedef struct		s_obj_parser
 	int				fd;
 	int				mode;
 	int				last_line;
-	char			padding[4];
+	//char			padding[4];
 }					t_obj_parser;
 
 

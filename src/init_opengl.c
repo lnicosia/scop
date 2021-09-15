@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/14 16:27:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/15 15:08:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,13 +122,13 @@ int		init_opengl(t_env *env)
 	init_camera(env);
 	init_textures("resources/objects/Square/brickwall.bmp", 0, GL_RGBA, env);
 	init_textures("resources/textures/unicorn.bmp", 0, GL_RGBA, env);
-	init_textures("resources/objects/backpack/diffuse.bmp", 0, GL_RGB, env);
-	init_textures("resources/textures/skybox1/back.bmp", 0, GL_RGB, env);
 	init_textures("resources/textures/awesomeface.bmp", 0, GL_RGB, env);
 	init_textures("resources/textures/container.bmp", 0, GL_RGB, env);
+	init_textures("resources/textures/skybox1/back.bmp", 0, GL_RGB, env);
+	init_textures("resources/objects/backpack/diffuse.bmp", 0, GL_RGB, env);
+	init_textures("resources/objects/table/table.bmp", 0, GL_RGBA, env);
 	init_textures("resources/objects/house/TEX_HOUSE_Albedo.bmp", 0, GL_RGBA, env);
 	init_textures("resources/objects/house/TEX_Stairs_Albedo.bmp", 0, GL_RGBA, env);
-	init_textures("resources/objects/table/table.bmp", 0, GL_RGBA, env);
 	init_textures("resources/objects/Spartan/textures/ODST_Shoulder_Mat_BaseColor.bmp", 0, GL_RGBA, env);
 	init_textures("resources/objects/Spartan/textures/Spartan_Arms_Mat_BaseColor.bmp", 0, GL_RGBA, env);
 	init_textures("resources/objects/Spartan/textures/Spartan_Chest_Mat_BaseColor.bmp", 0, GL_RGBA, env);

@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/13 17:07:38 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/14 17:27:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/15 15:07:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	print_object(t_object *object)
 	ft_printf("%s has %d mesh(es)\n", object->name, object->nb_meshes);
 	for (unsigned int i = 0; i < object->nb_meshes; i++)
 	{
-		print_mesh(&object->meshes[i]);
+		//print_mesh(&object->meshes[i]);
 	}
 }
 

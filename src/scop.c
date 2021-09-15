@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:21 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/13 17:20:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/15 15:13:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,12 @@ int		scop(int ac, char **av)
 			ft_fatal_error("", &env);
 	}
 	add_object(1, &env);
+	if (ft_strequ(env.objects[1].name, "resources/objects/Spartan/source/Spartan.obj"))
+		set_spartan_textures(&env);
+	if (ft_strequ(env.objects[1].name, "resources/objects/house/house.obj"))
+		set_house_textures(&env);
+	if (ft_strequ(env.objects[1].name, "resources/objects/backpack/backpack.obj"))
+		set_object_texture(&env.objects[1], 0, 0, env.textures[5]);
 	env.instance_count++;
 	move_object(&env.objects[1].instances[0], new_v3(0.f, -0.75f, 2.0f));
 	init_shader("resources/shaders/default_shader.vs",

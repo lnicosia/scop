@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 17:56:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/14 18:09:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/15 15:11:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ char			*read_shader(const char *file);
 int				init_shader(const char *vertex_shader,
 const char *fragment_shader, t_env *env);
 int				init_object(const char *source_file, t_env *env);
-int				set_object_texture(t_instance *mesh, int id, unsigned int text);
 int				add_object(size_t id, t_env *env);
 int				move_object(t_instance *mesh, t_v3 move);
 int				rotate_object(t_instance *mesh, t_v3 rotate);
@@ -54,6 +53,9 @@ int				draw_skybox(unsigned int cubemap, unsigned int shader, t_env *env);
 int				init_mesh_buffers(t_mesh *mesh);
 void			print_mesh(t_mesh *mesh);
 void			print_object(t_object *object);
+int				set_object_texture(t_object *object, size_t instance, int id, unsigned int text);
 int				set_mesh_texture(t_mesh *mesh, size_t instance, int id, unsigned int text);
+void			set_spartan_textures(t_env *env);
+void			set_house_textures(t_env *env);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 23:48:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/14 17:28:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/15 14:54:56 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ t_object *object)
 		{
 			object->meshes[parser->current_mesh].
 			indices[object->meshes[parser->current_mesh].nb_indices] =
-			k - object->nb_vertices;
+			k;// - object->nb_vertices;
 			return (0);
 		}
 		k++;
@@ -184,7 +184,7 @@ t_object *object)
 		parser->tex[parser->face_indices[i].uv - 1];
 	//ft_printf("Nb uniques = %d\n", parser->nb_unique_indices);
 	object->meshes[parser->current_mesh].indices[object->meshes[parser->current_mesh].nb_indices] =
-	parser->nb_unique_indices - 1 - object->nb_vertices;
+	parser->nb_unique_indices - 1;// - object->nb_vertices;
 	/*ft_printf("Adding vertex %f %f %f\n",
 	object->meshes[parser->current_mesh].vertices[object->meshes[parser->current_mesh].nb_vertices - 1].pos.x,
 	object->meshes[parser->current_mesh].vertices[object->meshes[parser->current_mesh].nb_vertices - 1].pos.y,
@@ -513,6 +513,12 @@ int		parse_mtllib(t_obj_parser *parser, t_object *object, t_env *env)
 
 int		new_mesh(t_obj_parser *parser, t_object *object)
 {
+	//ft_memdel((void**)&parser->unique_indices);
+	//parser->nb_unique_indices = 0;
+	ft_printf("Mesh #%d:", object->nb_meshes);
+	ft_printf(" line %d: %s\n", parser->line_nb, parser->line);
+	ft_memdel((void**)&parser->unique_indices);
+	parser->nb_unique_indices = 0;
 	if (object->nb_meshes > 0)
 		object->nb_vertices += object->meshes[parser->current_mesh].nb_vertices;
 	parser->current_mesh++;
@@ -526,17 +532,18 @@ int		new_mesh(t_obj_parser *parser, t_object *object)
 
 int		parse_object_line(t_obj_parser *parser, t_object *object, t_env *env)
 {
+	// if last line is -1, it's the first mesh
+	// and if it was a face, we have a new mesh
+	if (parser->last_line == -1 ||
+		(parser->last_line == FACE && *parser->line != 'f'))
+	{
+		if (new_mesh(parser, object))
+			return (-1);
+	}
 	if (*parser->line == 'v')
 	{
 		if (!*(++parser->line))
 			return (custom_error("Empty vertex or multiple spaces!\n"));
-		// if last line is -1, it's the first mesh
-		// and if it was a face, we have a new mesh
-		if (parser->last_line == -1 || parser->last_line == FACE)
-		{
-			if (new_mesh(parser, object))
-				return (-1);
-		}
 		if (*parser->line == ' ' && parse_vertex(parser, object, env))
 			return (custom_error("Error while parsing vertices\n"));
 		else if (*parser->line == 't' && parse_uv(parser, object, env))
@@ -554,6 +561,8 @@ int		parse_object_line(t_obj_parser *parser, t_object *object, t_env *env)
 		if (parse_mtllib(parser, object, env))
 			return (custom_error("Error while parsing material lib\n"));
 	}
+	else
+		parser->last_line = OTHER;
 	return (0);
 }
 

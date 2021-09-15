@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:57:26 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/14 18:27:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/15 15:08:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define MAX_VBO 1
 # define MAX_EBO 1
 # define MAX_TEXTURES 16
+# define USABLE_TEXTURES 5
 # define MAX_SHADERS 4
 # define MAX_OBJECTS 2
 # define MAX_LIGHTS 1
@@ -30,6 +31,12 @@ enum	e_light_mode
 {
 	LIGHT_ON,
 	LIGHT_OFF,
+};
+
+enum	e_texture_mode
+{
+	SINGLE_TEXTURE,
+	MULTIPLE_TEXTURES,
 };
 
 enum	e_yes_no
@@ -65,6 +72,7 @@ typedef struct		s_env
 	t_camera		camera;
 	unsigned int	polygon_mode;
 	unsigned int	current_text;
+	unsigned int	texture_mode;
 	float			look_at_matrix[16];
 	float			projection_matrix[16];
 	float			last_frame;
@@ -76,7 +84,7 @@ typedef struct		s_env
 	int				light_mode;
 	int				draw_skybox;
 	int				selected_axe;
-	char			padding[4];
+	//char			padding[4];
 }					t_env;
 
 #endif
