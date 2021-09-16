@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:02:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/15 16:52:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/16 17:15:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,28 +25,48 @@ void			set_textures(t_env *env)
 		set_swamp_textures(env);
 }
 
+void			draw_swamp(t_env *env)
+{
+	for (unsigned int i = 0; i < env->instance_count; i++)
+	{
+		for (unsigned int j = 0; j < 6; j++)
+		{
+			draw_mesh(&env->objects[1], &env->objects[1].meshes[j], i,
+			env->shaders[env->light_mode], env);
+		}
+		draw_mesh(&env->objects[1], &env->objects[1].meshes[6], i,
+		env->shaders[1], env);
+		draw_mesh(&env->objects[1], &env->objects[1].meshes[7], i,
+		env->shaders[1], env);
+		draw_mesh(&env->objects[1], &env->objects[1].meshes[8], i,
+		env->shaders[1], env);
+		draw_mesh(&env->objects[1], &env->objects[1].meshes[9], i,
+		env->shaders[1], env);
+	}
+}
+
 void			set_swamp_textures(t_env *env)
 {
 	set_mesh_texture(&env->objects[1].meshes[0], env->selected_object, 0,
-	env->textures[16]);
+	env->textures[16]); // Terrain
 	set_mesh_texture(&env->objects[1].meshes[1], env->selected_object, 0,
-	env->textures[19]);
+	env->textures[19]); // Fontaine
 	set_mesh_texture(&env->objects[1].meshes[2], env->selected_object, 0,
-	env->textures[19]);
+	env->textures[19]); // Riviere
 	set_mesh_texture(&env->objects[1].meshes[3], env->selected_object, 0,
-	env->textures[17]);
+	env->textures[17]); //
 	set_mesh_texture(&env->objects[1].meshes[4], env->selected_object, 0,
-	env->textures[19]);
+	env->textures[19]); // Base du tronc
 	set_mesh_texture(&env->objects[1].meshes[5], env->selected_object, 0,
-	env->textures[18]);
+	env->textures[18]); // Objets
 	set_mesh_texture(&env->objects[1].meshes[6], env->selected_object, 0,
-	env->textures[19]);
+	env->textures[19]); // Brasero 1
 	set_mesh_texture(&env->objects[1].meshes[7], env->selected_object, 0,
-	env->textures[19]);
+	env->textures[19]); // Brasero 2
 	set_mesh_texture(&env->objects[1].meshes[8], env->selected_object, 0,
-	env->textures[19]);
+	env->textures[19]); // Brasero arbre
 	set_mesh_texture(&env->objects[1].meshes[9], env->selected_object, 0,
-	env->textures[19]);
+	env->textures[19]); // Aura arbre
 }
 
 void			set_house_textures(t_env *env)

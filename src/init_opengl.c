@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/16 11:34:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/16 15:34:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		init_textures(char *file, int flip, GLenum format, t_env *env)
 	texture.name = file;
 	glGenTextures(1, &env->textures[env->texture_count]);
 	glBindTexture(GL_TEXTURE_2D, env->textures[env->texture_count]);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texture.w, texture.h, 0, format,
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture.w, texture.h, 0, format,
 	GL_UNSIGNED_BYTE, texture.pixels);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -119,6 +119,8 @@ int		init_opengl(t_env *env)
 	glfwSetKeyCallback(env->window, key_callback);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	init_camera(env);
 	init_textures("resources/objects/Square/brickwall.bmp", 0, GL_RGBA, env);
 	init_textures("resources/textures/unicorn.bmp", 0, GL_RGBA, env);

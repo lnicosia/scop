@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:21 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/16 09:56:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/16 17:16:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,15 @@ int		scop(int ac, char **av)
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		rotate_object(&env.objects[1].instances[0], new_v3(0.0f, 0.005f, 0.0f));
-		for (unsigned int i = 0; i < env.instance_count; i++)
+		if (ft_strequ(env.objects[1].name, "resources/objects/swamp-location/source/map_1.obj")
+			&& env.objects[1].nb_meshes == 10) // Protection if the swamp meshes are valid
+			draw_swamp(&env);
+		else
 		{
-			draw_object(&env.objects[1], i, env.shaders[env.light_mode], &env);
+			for (unsigned int i = 0; i < env.instance_count; i++)
+			{
+				draw_object(&env.objects[1], i, env.shaders[env.light_mode], &env);
+			}
 		}
 		// Drawing the light
 		draw_object(&env.objects[0], 0, env.shaders[2], &env);

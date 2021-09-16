@@ -1,7 +1,4 @@
 FPS?
 Mapping par default quand pas d'uv dans le fichier
-Protection quand texture absente
-Crash si on parse un dossier
-Protection sur /dev etc pour obj et bmp
 Leak parser
 Transparence

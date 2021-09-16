@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 17:56:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/16 09:56:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/16 16:57:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,6 @@ void			set_spartan_textures(t_env *env);
 void			set_swamp_textures(t_env *env);
 void			set_house_textures(t_env *env);
 void			set_textures(t_env *env);
+void			draw_swamp(t_env *env);
 
 #endif

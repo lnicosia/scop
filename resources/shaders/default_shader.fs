@@ -32,16 +32,17 @@ uniform vec3	camPos;
 
 void	main()
 {
+	vec4 textColor = texture(material0.diffuse, TexCoord);
 
 	// Ambient
 	float	ambientStrenght = 0.1;
-	vec3	ambient = vec3(texture(material0.diffuse, TexCoord)) * light.ambient;
+	vec3	ambient = vec3(textColor) * light.ambient;
 
 	// Diffuse
 	vec3	norm = normalize(Normal);
 	vec3	lightDir = normalize(light.pos - FragPos);
 	float	diff = max(dot(norm, lightDir), 0.0);
-	vec3	diffuse = diff * vec3(texture(material0.diffuse, TexCoord)) * light.diffuse;
+	vec3	diffuse = diff * vec3(textColor) * light.diffuse;
 
 	// Specular
 	vec3	camDir = normalize(camPos - FragPos);
@@ -52,5 +53,5 @@ void	main()
 	vec3	result = (ambient + diffuse + specular);
 
 	// Light
-	FragColor = vec4(result, 1.0);
+	FragColor = vec4(result, textColor.a);
 }
