@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 15:09:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/16 09:56:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/16 11:09:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ int		init_cubemap(char *files[6], int flip[6], GLenum format, t_env *env)
 	init_skybox_buffers(env);
 	glGenTextures(1, &env->cubemaps[env->cubemap_count].texture);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, env->cubemaps[env->cubemap_count].texture);
-	ft_printf("Init cubemap texture id = %d\n", env->cubemaps[env->cubemap_count].texture);
 	for (unsigned int i = 0; i < 6; i++)
 	{
 		t_texture	texture;

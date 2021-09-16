@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 23:48:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/16 09:08:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/16 11:32:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -539,6 +539,8 @@ int		parse_object_line(t_obj_parser *parser, t_object *object, t_env *env)
 		if (new_mesh(parser, object))
 			return (-1);
 	}
+	if (!parser->line)
+		return (custom_error("Line %d is invalid\n", parser->line_nb));
 	if (*parser->line == 'v')
 	{
 		if (!*(++parser->line))
@@ -594,7 +596,6 @@ int		parse_object(const char *source_file, int mode, t_object *object, t_env *en
 	object->name = source_file;
 	while ((ret = get_next_line(parser.fd, &parser.line)))
 	{
-		//ft_printf("Reading %s\n", parser.line);
 		tmp = parser.line;
 		if (parse_object_line(&parser, object, env))
 		{
