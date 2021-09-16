@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/15 16:17:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/16 10:14:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ int		init_textures(char *file, int flip, GLenum format, t_env *env)
 	{
 		if (parse_bmp(file, &texture))
 		{
+			ft_printf("Parsing not flipped\n");
 			texture.invalid = 1;
 			return (custom_error("Failed to parse bmp\n"));
 		}
 	}
-	
 	texture.name = file;
 	glGenTextures(1, &env->textures[env->texture_count]);
 	glBindTexture(GL_TEXTURE_2D, env->textures[env->texture_count]);
@@ -124,7 +124,7 @@ int		init_opengl(t_env *env)
 	init_textures("resources/textures/unicorn.bmp", 0, GL_RGBA, env);
 	init_textures("resources/textures/awesomeface.bmp", 0, GL_RGB, env);
 	init_textures("resources/textures/container.bmp", 0, GL_RGB, env);
-	init_textures("resources/textures/skybox1/back.bmp", 0, GL_RGB, env);
+	init_textures("resources/textures/skybox1/right.bmp", 0, GL_RGB, env);
 	init_textures("resources/objects/backpack/diffuse.bmp", 0, GL_RGB, env);
 	init_textures("resources/objects/table/table.bmp", 0, GL_RGBA, env);
 	init_textures("resources/objects/house/TEX_HOUSE_Albedo.bmp", 0, GL_RGBA, env);

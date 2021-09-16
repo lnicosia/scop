@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 13:48:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/10 10:16:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/16 10:45:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,14 @@ typedef struct		s_bmp_parser
 	int32_t			blue_mask;
 	int32_t			pixel_bytes;
 	int				ret;
+	int				img_end;
 	int				index;
 	int				skybox_index;
 	int				flip;
 	int16_t			planes;
 	int16_t			bpp;
 	int16_t			opp;
-	char			padding[2];
+	char			padding[6];
 }					t_bmp_parser;
 
 typedef struct		s_texture

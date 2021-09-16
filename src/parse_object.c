@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 23:48:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/15 16:19:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/16 09:08:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -514,8 +514,8 @@ int		new_mesh(t_obj_parser *parser, t_object *object)
 {
 	//ft_memdel((void**)&parser->unique_indices);
 	//parser->nb_unique_indices = 0;
-	ft_printf("Mesh #%d:", object->nb_meshes);
-	ft_printf(" line %d: %s\n", parser->line_nb, parser->line);
+	//ft_printf("Mesh #%d:", object->nb_meshes);
+	//ft_printf(" line %d: %s\n", parser->line_nb, parser->line);
 	ft_memdel((void**)&parser->unique_indices);
 	parser->nb_unique_indices = 0;
 	if (object->nb_meshes > 0)

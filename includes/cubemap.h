@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 15:05:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/09 18:34:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/16 09:56:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@
 typedef struct		s_cubemap
 {
 	const char		*name;
-	unsigned int	id;
+	unsigned int	texture;
 	unsigned int	vao;
 	unsigned int	vbo;
 	char			padding[4];
 }					t_cubemap;
+
+void				print_cubemap(t_cubemap *cubemap);
 
 #endif

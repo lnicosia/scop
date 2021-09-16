@@ -5,3 +5,5 @@ Crash si on parse un dossier
 Protection sur /dev etc pour obj et bmp
 Flags d'opti avant de rendre
 Fix bmp parsing (crash avec sanitize ou valgrind)
+Leak parser
+Transparence

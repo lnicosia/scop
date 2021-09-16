@@ -8,6 +8,7 @@
         "libft.h": "c",
         "math.h": "c",
         "bmp_parser.h": "c",
-        "object.h": "c"
+        "object.h": "c",
+        "cubemap.h": "c"
     }
 }

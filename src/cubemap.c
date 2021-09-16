@@ -6,13 +6,21 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 15:09:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/10 10:55:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/16 09:56:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "cubemap.h"
 #include "bmp_parser.h"
+
+void	print_cubemap(t_cubemap *cubemap)
+{
+	ft_printf("Cubemap:\n");
+	ft_printf("Texture id = %d\n", cubemap->texture);
+	ft_printf("Texture vao = %d\n", cubemap->vao);
+	ft_printf("Texture vbo = %d\n", cubemap->vbo);
+}
 
 int		init_skybox_buffers(t_env *env)
 {
@@ -72,8 +80,9 @@ int		init_skybox_buffers(t_env *env)
 int		init_cubemap(char *files[6], int flip[6], GLenum format, t_env *env)
 {
 	init_skybox_buffers(env);
-	glGenTextures(1, &env->cubemaps[env->cubemap_count].id);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, env->cubemaps[env->cubemap_count].id);
+	glGenTextures(1, &env->cubemaps[env->cubemap_count].texture);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, env->cubemaps[env->cubemap_count].texture);
+	ft_printf("Init cubemap texture id = %d\n", env->cubemaps[env->cubemap_count].texture);
 	for (unsigned int i = 0; i < 6; i++)
 	{
 		t_texture	texture;
@@ -110,10 +119,8 @@ int		init_cubemap(char *files[6], int flip[6], GLenum format, t_env *env)
 	return (0);
 }
 
-int		draw_skybox(unsigned int cubemap, unsigned int shader, t_env *env)
+int		draw_skybox(t_cubemap *skybox, unsigned int shader, t_env *env)
 {
-	t_cubemap *skybox = &env->cubemaps[cubemap];
-	
 	glDepthFunc(GL_LEQUAL);
 	glUseProgram(shader);
 	float	view[] = 
@@ -128,8 +135,8 @@ int		draw_skybox(unsigned int cubemap, unsigned int shader, t_env *env)
 	glUniformMatrix4fv(glGetUniformLocation(shader, "projection"), 1, GL_TRUE,
 	env->projection_matrix);
 	glUniform1i(glGetUniformLocation(shader, "cubemap"), 0);
-	glBindVertexArray(env->cubemaps[0].vao);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, skybox->id);
+	glBindVertexArray(skybox->vao);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, skybox->texture);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	glBindVertexArray(0);
 	glDepthFunc(GL_LESS);

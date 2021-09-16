@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:21 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/15 16:24:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/16 09:56:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int		scop(int ac, char **av)
 		// Drawing the light
 		draw_object(&env.objects[0], 0, env.shaders[2], &env);
 		if (env.draw_skybox == YES)
-			draw_skybox(env.cubemaps[0].id, env.shaders[3], &env);
+			draw_skybox(&env.cubemaps[0], env.shaders[3], &env);
 		glfwSwapBuffers(env.window);
 		glfwPollEvents();
 	}

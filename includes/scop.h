@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 17:56:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/15 16:23:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/16 09:56:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int             init_inputs(t_input *inputs);
 void			init_camera(t_env *env);
 void			free_object(t_object *object);
 int				init_cubemap(char *files[6], int flip[6], GLenum format, t_env *env);
-int				draw_skybox(unsigned int cubemap, unsigned int shader, t_env *env);
+int				draw_skybox(t_cubemap *cubemap, unsigned int shader, t_env *env);
 int				init_mesh_buffers(t_mesh *mesh);
 void			print_mesh(t_mesh *mesh);
 void			print_object(t_object *object);

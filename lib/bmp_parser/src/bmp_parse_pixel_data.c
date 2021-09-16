@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/28 16:56:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/10 10:40:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/16 10:47:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ t_texture *texture, int byte)
 int		fill_pixel_flipped(unsigned char *str, t_bmp_parser *parser,
 t_texture *texture, int byte)
 {
-	texture->pixels[byte] = str[parser->ret - byte + 3];
-	texture->pixels[byte + 1] = str[parser->ret - byte + 2];
-	texture->pixels[byte + 2] = str[parser->ret - byte + 1];
+	texture->pixels[byte] = str[parser->img_end - parser->opp - byte + 3];
+	texture->pixels[byte + 1] = str[parser->img_end - parser->opp - byte + 2];
+	texture->pixels[byte + 2] = str[parser->img_end - parser->opp - byte + 1];
 	if (parser->opp == 4)
-		texture->pixels[byte + 3] = str[parser->ret - byte];
+		texture->pixels[byte + 3] = str[parser->ret - 1 - byte];
 	return (0);
 }
 
@@ -74,6 +74,24 @@ int		set_byte(int *x, int *y, double *byte, t_bmp_parser *parser)
 	return (0);
 }
 
+/*int		flip_image(t_bmp_parser *parser, t_texture *texture)
+{
+	unsigned char	*data;
+	int				i;
+
+	if (!(data = (unsigned char*)ft_memalloc(parser->ret)))
+		return (ft_perror("Failed to malloc data\n"));
+	i = 0;
+	while (i < parser->ret)
+	{
+		data[i] = texture->pixels[parser->ret - 4 - i];
+		i++;
+	}
+	ft_memdel((void**)&texture->pixels);
+	texture->pixels = data;
+	return (0);
+}*/
+
 int		parse_pixel_data(int fd, t_bmp_parser *parser, t_texture *texture)
 {
 	int				size;
@@ -81,17 +99,22 @@ int		parse_pixel_data(int fd, t_bmp_parser *parser, t_texture *texture)
 
 	ft_printf("{cyan}");
 	if (parser->image_size)
-		size = parser->image_size;
+		size = parser->image_size; 
 	else
 		size = ceil((parser->w * parser->bpp) / 32.0) * 4 * parser->h;
 	if (!(str = (unsigned char*)ft_memalloc(sizeof(unsigned char) * size)))
 		return (ft_perror("Could not malloc buffer for pixel data\n"));
 	if ((parser->ret = read(fd, str, size)) > 0)
 	{
+		parser->img_end = parser->ret;
+		if (parser->img_end % parser->opp != 0)
+			parser->img_end -= parser->opp;
 		if (!(texture->pixels = (unsigned char*)ft_memalloc(parser->ret)))
 			return (ft_perror("Failed to malloc data\n"));
 		parse_pixels(str, parser, texture);
 	}
 	ft_memdel((void**)&str);
+	//if (parser->flip && flip_image(parser, texture))
+	//	return (-1);
 	return (0);
 }
