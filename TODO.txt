@@ -1,4 +1,5 @@
 FPS?
+Couleurs de base (differente par face)
 Mapping par default quand pas d'uv dans le fichier
 Leak parser
 Transparence

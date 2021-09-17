@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/13 17:07:38 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/15 15:07:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/17 11:09:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		init_object(const char *source_file, t_env *env)
 		return (custom_error("{yellow}Failed to load %s{reset}\n",
 		source_file));
 	ft_printf("'%s' initialized\n", new.name);
-	//print_object(&new);
+	print_object(&new);
 	for (unsigned int i = 0; i < new.nb_meshes; i++)
 	{
 		new.meshes[i].size = (unsigned int)sizeof(t_vertex) * new.meshes[i].nb_vertices;

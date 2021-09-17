@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 20:45:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/15 11:55:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/17 10:15:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct		s_obj_parser
 	t_v2			*tex;
 	t_index			*face_indices;
 	t_index			*unique_indices;
-	t_point			*generated_uv;
+	char			*uv_exists;
 	char			*line;
 	unsigned int	nb_vertices;
 	unsigned int	nb_tex;
