@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:38:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/16 09:54:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/17 18:38:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	free_mesh(t_mesh *mesh)
 {
 	ft_memdel((void**)&mesh->vertices);
 	ft_memdel((void**)&mesh->indices);
+	ft_memdel((void**)&mesh->instances);
 	glDeleteVertexArrays(1, &mesh->vao);
 	glDeleteBuffers(1, &mesh->vbo);
 	glDeleteBuffers(1, &mesh->ebo);
@@ -29,6 +30,7 @@ void	free_object(t_object *object)
 		free_mesh(&object->meshes[i]);
 	}
 	ft_memdel((void**)&object->instances);
+	ft_memdel((void**)&object->meshes);
 }
 
 void	free_objects(t_env *env)
