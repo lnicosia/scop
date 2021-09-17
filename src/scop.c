@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:21 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/16 17:16:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/17 18:34:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "libft.h"
 #include "inputs.h"
 #include "light.h"
+#include <math.h>
 
 void	init_light(t_env *env)
 {
@@ -67,7 +68,16 @@ int		scop(int ac, char **av)
 	"resources/shaders/light_shader.fs", &env);
 	init_shader("resources/shaders/cubemap_shader.vs",
 	"resources/shaders/cubemap_shader.fs", &env);
+	init_shader("resources/shaders/default_shader.vs",
+	"resources/shaders/default_shader.fs", &env);
+	init_shader("resources/shaders/default_shader.vs",
+	"resources/shaders/random_color_no_light.fs", &env);
 	init_light(&env);
+	ft_printf("Shaders:\n");
+	for (int i = 0; i < MAX_SHADERS; i++)
+	{
+		ft_printf("%d (%d)\n", i, env.shaders[i]);
+	}
 	while (!glfwWindowShouldClose(env.window))
 	{
 		if (process_inputs(inputs, &env))
@@ -82,7 +92,15 @@ int		scop(int ac, char **av)
 		{
 			for (unsigned int i = 0; i < env.instance_count; i++)
 			{
-				draw_object(&env.objects[1], i, env.shaders[env.light_mode], &env);
+				if (env.texture_mode == COLOR)
+				{
+					int location = glGetUniformLocation(env.shaders[4 + env.light_mode], "nb_vertices");
+					glUseProgram(env.shaders[4 + env.light_mode]);
+					glUniform1f(location, (float)env.objects[1].nb_vertices);
+					draw_object(&env.objects[1], i, env.shaders[4 + env.light_mode], &env);
+				}
+				else
+					draw_object(&env.objects[1], i, env.shaders[env.light_mode], &env);
 			}
 		}
 		// Drawing the light

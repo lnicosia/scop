@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:57:26 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/16 09:28:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/17 15:24:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define MAX_EBO 1
 # define MAX_TEXTURES 20
 # define USABLE_TEXTURES 5
-# define MAX_SHADERS 4
+# define MAX_SHADERS 6
 # define MAX_OBJECTS 2
 # define MAX_LIGHTS 1
 # define MAX_CUBEMAPS 1
@@ -30,13 +30,14 @@
 enum	e_light_mode
 {
 	LIGHT_ON,
-	LIGHT_OFF,
+	LIGHT_OFF
 };
 
 enum	e_texture_mode
 {
+	COLOR,
 	SINGLE_TEXTURE,
-	MULTIPLE_TEXTURES,
+	MULTIPLE_TEXTURES
 };
 
 enum	e_yes_no

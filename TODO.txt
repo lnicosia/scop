@@ -1,5 +1,4 @@
 FPS?
-Couleurs de base (differente par face)
-Mapping par default quand pas d'uv dans le fichier
+Meilleure generation d'uv
 Leak parser
-Transparence
+Modele de lampe pour la lumiere

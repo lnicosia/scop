@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 12:58:23 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/15 16:23:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/17 16:50:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,7 @@ int				process_inputs(t_input *inputs, t_env *env)
 	{
 		env->light_mode = env->light_mode == LIGHT_ON ? LIGHT_OFF : LIGHT_ON;
 	}
-	if (inputs[CURRENT_TEXTURE].state == PRESS)
+	if (inputs[CURRENT_TEXTURE].state == PRESS && env->texture_mode != COLOR)
 	{
 		if (inputs[SHIFT_MOD].state == PRESSED)
 		{
@@ -221,18 +221,24 @@ int				process_inputs(t_input *inputs, t_env *env)
 	}
 	if (inputs[TEXTURE_MODE].state == PRESS)
 	{
-		env->texture_mode = env->texture_mode == SINGLE_TEXTURE ? MULTIPLE_TEXTURES : SINGLE_TEXTURE;
+		env->texture_mode++;
+		if (env->texture_mode >= 3)
+			env->texture_mode = 0;
 		if (env->texture_mode == MULTIPLE_TEXTURES)
 		{
 			set_textures(env);
 		}
-		else
+		else if (env->texture_mode == SINGLE_TEXTURE)
 		{
 			for (unsigned int i = 0; i < env->objects[1].nb_meshes; i++)
 			{
 				set_mesh_texture(&env->objects[1].meshes[i], env->selected_object, 0,
 				env->textures[env->current_text]);
 			}
+		}
+		else
+		{
+			
 		}
 	}
 	if (inputs[LEFT].state == PRESSED)

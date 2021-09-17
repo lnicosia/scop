@@ -1,11 +1,14 @@
-Gestion des inputs avancee (type d'input: press/pressed/release/released, 2 touches par binding)
-Possibilité d'ajouter des objets, de sélectionner et bouger chacun d'entre eux.
-Se déplacer dans la scène + tourner la caméra.
-Lumière.
-Light mode switch
-Draw mode switch
+Parsing et application des UV
+Parsing et application des normales -> Lumière.
 Shader parsing
 Skybox/Cubemaps
 Objets en plusieurs parties, avec plusieurs textures
 Compilation windows
-Gerer la transparence
+Transparence
+Gestion des inputs avancee (type d'input: press/pressed/release/released, 2 touches par binding)
+Features inputs:
+_Possibilité d'ajouter des objets, de sélectionner et bouger chacun d'entre eux.
+_Light mode switch
+_Draw mode switch
+_Texture mode switch (5 differentes + shift pour aller dans l'autre sens + N pour objet multi mesh)
+_Se déplacer dans la scène + tourner la caméra.

@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/16 15:34:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/17 18:25:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,8 @@ int		init_opengl(t_env *env)
 		1, 1, 0, 0, 1, 1
 	};
 	init_cubemap(skybox, flipped, GL_RGB, env);
-	init_shader_textures_names(env);
+	if (init_shader_textures_names(env))
+		return (-1);
 	reset_matrix(env->look_at_matrix);
 	look_at(env->look_at_matrix, env->camera.pos,
 		env->camera.front, env->camera.up);
