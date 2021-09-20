@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/13 17:07:38 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/20 11:02:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/20 18:13:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,17 @@ void	print_object(t_object *object)
 	{
 		print_mesh(&object->meshes[i]);
 	}
+}
+
+int		set_object_texture(t_object *object, size_t instance, int id, unsigned int text)
+{
+	if (id >= MAX_ACTIVE_TEXTURES)
+		return (-1);
+	for (unsigned int i = 0; i < object->nb_meshes; i++)
+	{
+		object->meshes[i].instances[instance].textures[id] = text;
+	}
+	return (0);
 }
 
 int		draw_all_instances(t_object *object, t_env *env)

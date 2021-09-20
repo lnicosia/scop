@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 23:48:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/17 18:41:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/20 18:09:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int		scale_and_center_object(t_obj_parser *parser, t_object *object)
 		i = 0;
 		while (i < object->meshes[j].nb_vertices)
 		{
-			if (parser->mode == GENERATE_UV && parser->uv_exists[i + j] == NO)
+			if (parser->mode == GENERATE_UV || parser->uv_exists[j] == NO)
 			{
 				if (max_axis == object->range.x)
 				{

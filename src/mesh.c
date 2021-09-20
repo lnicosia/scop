@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/20 13:39:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/20 14:01:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,18 +64,6 @@ int		init_mesh_buffers(t_mesh *mesh)
 	glEnableVertexAttribArray(2);
 	return (0);
 }
-
-int		set_object_texture(t_object *object, size_t instance, int id, unsigned int text)
-{
-	if (id >= MAX_ACTIVE_TEXTURES)
-		return (-1);
-	for (unsigned int i = 0; i < object->nb_meshes; i++)
-	{
-		object->meshes[i].instances[instance].textures[id] = text;
-	}
-	return (0);
-}
-
 
 int		set_mesh_texture(t_mesh *mesh, size_t instance, int id, unsigned int text)
 {
