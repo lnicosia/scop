@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/17 16:15:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/20 11:53:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ int		add_object(size_t id, t_env *env)
 	for (unsigned int i = 0; i < env->objects[id].nb_meshes; i++)
 	{
 		if (!(env->objects[id].meshes[i].instances =
-			(t_texture_id*)realloc(env->objects[id].meshes[i].instances,
-			sizeof(t_texture_id) * *count)))
+			(t_material*)realloc(env->objects[id].meshes[i].instances,
+			sizeof(t_material) * *count)))
 			ft_fatal_error("Failed to add mesh", env);
 	}
 	ft_bzero(&env->objects[id].instances[*count - 1],
@@ -110,7 +110,10 @@ int		add_object(size_t id, t_env *env)
 	for (unsigned int i = 0; i < env->objects[id].nb_meshes; i++)
 	{
 		set_mesh_texture(&env->objects[id].meshes[i], *count - 1, 0, env->textures[env->current_text]);
+		env->objects[id].meshes[i].instances[*count - 1].shader =
+		env->shaders[4 + env->light_mode];
 	}
+	env->selected_object = (unsigned int)*count - 1;
 	return (0);
 }
 
@@ -139,13 +142,13 @@ int		bind_textures(t_mesh *mesh, unsigned int instance)
 	return (0);
 }
 
-int		draw_mesh(t_object *object, t_mesh *mesh, unsigned int instance,
-unsigned int shader, t_env *env)
+int		draw_mesh(t_object *object, t_mesh *mesh, unsigned int instance, t_env *env)
 {
-	glUseProgram(shader);
+	glUseProgram(mesh->instances[instance].shader);
 	bind_textures(mesh, instance);
 	glBindVertexArray(mesh->vao);
-	matrix_pipeline(object->instances[instance].matrix, shader, env);
+	matrix_pipeline(object->instances[instance].matrix,
+	mesh->instances[instance].shader, env);
 	glPolygonMode(GL_FRONT_AND_BACK, env->polygon_mode);
 	glDrawElements(GL_TRIANGLES, (int)mesh->nb_indices, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);

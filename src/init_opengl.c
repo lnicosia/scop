@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/17 18:25:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/20 09:29:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ int		init_opengl(t_env *env)
 	init_textures("resources/objects/swamp-location/source/grass.bmp", 0, GL_RGBA, env);
 	init_textures("resources/objects/swamp-location/source/object.bmp", 0, GL_RGBA, env);
 	init_textures("resources/objects/swamp-location/source/water.bmp", 0, GL_RGBA, env);
+	init_textures("resources/objects/goreforged-greatsword/textures/lambert1_Base_Color.bmp", 0, GL_RGBA, env);
 	char *skybox[] =
 	{
 		"resources/textures/skybox1/right.bmp",

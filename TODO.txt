@@ -1,4 +1,4 @@
 FPS?
 Meilleure generation d'uv
-Leak parser
 Modele de lampe pour la lumiere
+Readme

@@ -6,47 +6,73 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:02:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/16 17:15:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/20 11:47:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 #include "libft.h"
 
-void			set_textures(t_env *env)
+void	set_all_instances_shader(t_object *object, unsigned int shader)
 {
-	if (ft_strequ(env->objects[1].name, "resources/objects/Spartan/source/Spartan.obj"))
-		set_spartan_textures(env);
-	if (ft_strequ(env->objects[1].name, "resources/objects/house/house.obj"))
-		set_house_textures(env);
-	if (ft_strequ(env->objects[1].name, "resources/objects/backpack/backpack.obj"))
-		set_object_texture(&env->objects[1], 0, 0, env->textures[5]);
-	if (ft_strequ(env->objects[1].name, "resources/objects/swamp-location/source/map_1.obj"))
-		set_swamp_textures(env);
-}
-
-void			draw_swamp(t_env *env)
-{
-	for (unsigned int i = 0; i < env->instance_count; i++)
+	for (unsigned int i = 0; i < object->nb_meshes; i++)
 	{
-		for (unsigned int j = 0; j < 6; j++)
+		for (unsigned int j = 0; j < object->count; j++)
 		{
-			draw_mesh(&env->objects[1], &env->objects[1].meshes[j], i,
-			env->shaders[env->light_mode], env);
+			object->meshes[i].instances[j].shader = shader;
 		}
-		draw_mesh(&env->objects[1], &env->objects[1].meshes[6], i,
-		env->shaders[1], env);
-		draw_mesh(&env->objects[1], &env->objects[1].meshes[7], i,
-		env->shaders[1], env);
-		draw_mesh(&env->objects[1], &env->objects[1].meshes[8], i,
-		env->shaders[1], env);
-		draw_mesh(&env->objects[1], &env->objects[1].meshes[9], i,
-		env->shaders[1], env);
 	}
 }
 
-void			set_swamp_textures(t_env *env)
+void	set_object_shader(t_object *object, unsigned int instance,
+unsigned int shader)
 {
+	for (unsigned int i = 0; i < object->nb_meshes; i++)
+	{
+		object->meshes[i].instances[instance].shader = shader;
+	}
+}
+
+void	set_textures(t_env *env)
+{
+	if (env->objects[1].instances[env->selected_object].texture_mode == SINGLE_TEXTURE)
+	{
+		set_object_shader(&env->objects[1], env->selected_object, env->shaders[env->light_mode]);
+		set_object_texture(&env->objects[1], env->selected_object,
+		0, env->textures[env->current_text]);
+	}
+	else if (env->objects[1].instances[env->selected_object].texture_mode == MULTIPLE_TEXTURES)
+	{
+		set_object_shader(&env->objects[1], env->selected_object, env->shaders[env->light_mode]);
+		if (ft_strequ(env->objects[1].name, "resources/objects/Spartan/source/Spartan.obj"))
+			set_spartan_textures(env);
+		if (ft_strequ(env->objects[1].name, "resources/objects/house/house.obj"))
+			set_house_textures(env);
+		if (ft_strequ(env->objects[1].name, "resources/objects/backpack/backpack.obj"))
+			set_object_texture(&env->objects[1], env->selected_object, 0, env->textures[5]);
+		if (ft_strequ(env->objects[1].name, "resources/objects/swamp-location/source/map_1.obj"))
+			set_swamp_textures(env);
+		if (ft_strequ(env->objects[1].name, "resources/objects/goreforged-greatsword/source/sword.obj"))
+			set_object_texture(&env->objects[1], env->selected_object, 0, env->textures[20]);
+	}
+	else
+	{
+		set_object_shader(&env->objects[1], env->selected_object, env->shaders[4 + env->light_mode]);
+	}
+}
+
+void	set_swamp_textures(t_env *env)
+{
+	for (unsigned int j = 0; j < 6; j++)
+	{
+		env->objects[1].meshes[j].instances[env->selected_object].shader =
+		env->shaders[env->light_mode];
+	}
+	for (unsigned int j = 6; j < 10; j++)
+	{
+		env->objects[1].meshes[j].instances[env->selected_object].shader =
+		env->shaders[1];
+	}
 	set_mesh_texture(&env->objects[1].meshes[0], env->selected_object, 0,
 	env->textures[16]); // Terrain
 	set_mesh_texture(&env->objects[1].meshes[1], env->selected_object, 0,
@@ -69,7 +95,7 @@ void			set_swamp_textures(t_env *env)
 	env->textures[19]); // Aura arbre
 }
 
-void			set_house_textures(t_env *env)
+void	set_house_textures(t_env *env)
 {
 	set_mesh_texture(&env->objects[1].meshes[0], env->selected_object, 0,
 	env->textures[7]);
@@ -81,7 +107,7 @@ void			set_house_textures(t_env *env)
 	env->textures[8]);
 }
 
-void			set_spartan_textures(t_env *env)
+void	set_spartan_textures(t_env *env)
 {
 	set_mesh_texture(&env->objects[1].meshes[0], env->selected_object, 0,
 	env->textures[0]);

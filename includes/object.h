@@ -44,20 +44,22 @@ typedef struct		s_instance
 	unsigned int	textures[MAX_ACTIVE_TEXTURES];
 	t_transform		transform;
 	float			matrix[16];
-	char			padding[4];
+	unsigned int	texture_mode;
+	//char			padding[4];
 }					t_instance;
 
-typedef struct		s_texture_id
+typedef struct		s_material
 {
 	unsigned int	textures[MAX_ACTIVE_TEXTURES];
-}					t_texture_id;
+	unsigned int	shader;
+}					t_material;
 
 typedef struct		s_mesh
 {
 	const char		*name;
 	t_vertex		*vertices;
 	unsigned int	*indices;
-	t_texture_id	*instances;
+	t_material		*instances;
 	size_t			id;
 	size_t			nb_textures;
 	t_v3			center;

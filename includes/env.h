@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:57:26 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/17 15:24:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/20 11:09:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define MAX_VAO 1
 # define MAX_VBO 1
 # define MAX_EBO 1
-# define MAX_TEXTURES 20
+# define MAX_TEXTURES 21
 # define USABLE_TEXTURES 5
 # define MAX_SHADERS 6
 # define MAX_OBJECTS 2
@@ -66,7 +66,6 @@ typedef struct		s_env
 	size_t			texture_count;
 	size_t			object_count;
 	size_t			cubemap_count;
-	size_t			selected_object;
 	const char		*diffuse_names[MAX_ACTIVE_TEXTURES];
 	unsigned int	shaders[MAX_SHADERS];
 	unsigned int	textures[MAX_TEXTURES];
@@ -74,6 +73,8 @@ typedef struct		s_env
 	unsigned int	polygon_mode;
 	unsigned int	current_text;
 	unsigned int	texture_mode;
+	unsigned int	light_mode;
+	unsigned int	selected_object;
 	float			look_at_matrix[16];
 	float			projection_matrix[16];
 	float			last_frame;
@@ -82,7 +83,6 @@ typedef struct		s_env
 	char			log[512];
 	unsigned int	instance_count;
 	int				success;
-	int				light_mode;
 	int				draw_skybox;
 	int				selected_axe;
 	//char			padding[4];

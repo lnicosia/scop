@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 12:58:23 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/17 16:50:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/20 11:50:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,13 @@ int				process_inputs(t_input *inputs, t_env *env)
 	if (inputs[LIGHT_MODE].state == PRESS)
 	{
 		env->light_mode = env->light_mode == LIGHT_ON ? LIGHT_OFF : LIGHT_ON;
+		unsigned int tmp = env->selected_object;
+		for (unsigned int i = 0; i < env->instance_count; i++)
+		{
+			env->selected_object = i;
+			set_textures(env);
+		}
+		env->selected_object = tmp;
 	}
 	if (inputs[CURRENT_TEXTURE].state == PRESS && env->texture_mode != COLOR)
 	{
@@ -221,25 +228,19 @@ int				process_inputs(t_input *inputs, t_env *env)
 	}
 	if (inputs[TEXTURE_MODE].state == PRESS)
 	{
-		env->texture_mode++;
-		if (env->texture_mode >= 3)
-			env->texture_mode = 0;
-		if (env->texture_mode == MULTIPLE_TEXTURES)
+		if (inputs[SHIFT_MOD].state == PRESSED)
 		{
-			set_textures(env);
-		}
-		else if (env->texture_mode == SINGLE_TEXTURE)
-		{
-			for (unsigned int i = 0; i < env->objects[1].nb_meshes; i++)
-			{
-				set_mesh_texture(&env->objects[1].meshes[i], env->selected_object, 0,
-				env->textures[env->current_text]);
-			}
+			if (env->objects[1].instances[env->selected_object].texture_mode == 0)
+				env->objects[1].instances[env->selected_object].texture_mode = 3;
+			env->objects[1].instances[env->selected_object].texture_mode--;
 		}
 		else
 		{
-			
+			env->objects[1].instances[env->selected_object].texture_mode++;
+			if (env->objects[1].instances[env->selected_object].texture_mode >= 3)
+				env->objects[1].instances[env->selected_object].texture_mode = 0;
 		}
+		set_textures(env);
 	}
 	if (inputs[LEFT].state == PRESSED)
 	{

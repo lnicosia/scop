@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 17:56:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/17 15:54:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/20 11:02:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ int				rotate_object(t_instance *mesh, t_v3 rotate);
 int				scale_object(t_instance *mesh, t_v3 scale);
 int				update_object(t_instance *mesh);
 int				draw_mesh(t_object *object, t_mesh *mesh, unsigned int instance,
-unsigned int shader, t_env *env);
-int				draw_object(t_object *object, unsigned int instance,
-unsigned int shader, t_env *env);
+t_env *env);
+int				draw_object(t_object *object, unsigned int instance, t_env *env);
+int				draw_all_instances(t_object *object, t_env *env);
 void			projection_matrix(t_camera *camera, float matrix[16]);
 int				parse_object(const char *source_file, int mode, t_object *object,
 t_env *env);
