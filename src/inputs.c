@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 12:58:23 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/20 11:50:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/20 13:38:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,24 +206,25 @@ int				process_inputs(t_input *inputs, t_env *env)
 		}
 		env->selected_object = tmp;
 	}
-	if (inputs[CURRENT_TEXTURE].state == PRESS && env->texture_mode != COLOR)
+	if (inputs[CURRENT_TEXTURE].state == PRESS
+		&& env->objects[1].instances[env->selected_object].texture_mode != COLOR)
 	{
 		if (inputs[SHIFT_MOD].state == PRESSED)
 		{
-			if (env->current_text == 0)
-				env->current_text = USABLE_TEXTURES;
-			env->current_text--;
+			if (env->objects[1].instances[env->selected_object].current_text == 0)
+				env->objects[1].instances[env->selected_object].current_text = USABLE_TEXTURES;
+			env->objects[1].instances[env->selected_object].current_text--;
 		}
 		else
 		{
-			env->current_text++;
-			if (env->current_text >= USABLE_TEXTURES)
-				env->current_text = 0;
+			env->objects[1].instances[env->selected_object].current_text++;
+			if (env->objects[1].instances[env->selected_object].current_text >= USABLE_TEXTURES)
+				env->objects[1].instances[env->selected_object].current_text = 0;
 		}
 		for (unsigned int i = 0; i < env->objects[1].nb_meshes; i++)
 		{
 			set_mesh_texture(&env->objects[1].meshes[i], env->selected_object, 0,
-			env->textures[env->current_text]);
+			env->textures[env->objects[1].instances[env->selected_object].current_text]);
 		}
 	}
 	if (inputs[TEXTURE_MODE].state == PRESS)

@@ -45,7 +45,8 @@ typedef struct		s_instance
 	t_transform		transform;
 	float			matrix[16];
 	unsigned int	texture_mode;
-	//char			padding[4];
+	unsigned int	current_text;
+	char			padding[4];
 }					t_instance;
 
 typedef struct		s_material

@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 22:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/20 11:53:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/20 13:39:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int		add_object(size_t id, t_env *env)
 	update_object(&env->objects[id].instances[*count - 1]);
 	for (unsigned int i = 0; i < env->objects[id].nb_meshes; i++)
 	{
-		set_mesh_texture(&env->objects[id].meshes[i], *count - 1, 0, env->textures[env->current_text]);
+		set_mesh_texture(&env->objects[id].meshes[i], *count - 1, 0, env->textures[0]);
 		env->objects[id].meshes[i].instances[*count - 1].shader =
 		env->shaders[4 + env->light_mode];
 	}

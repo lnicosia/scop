@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:57:26 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/20 11:09:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/20 13:37:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ typedef struct		s_env
 	unsigned int	textures[MAX_TEXTURES];
 	t_camera		camera;
 	unsigned int	polygon_mode;
-	unsigned int	current_text;
 	unsigned int	texture_mode;
 	unsigned int	light_mode;
 	unsigned int	selected_object;
@@ -85,7 +84,7 @@ typedef struct		s_env
 	int				success;
 	int				draw_skybox;
 	int				selected_axe;
-	//char			padding[4];
+	char			padding[4];
 }					t_env;
 
 #endif

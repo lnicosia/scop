@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:02:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/20 11:47:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/20 13:40:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	set_textures(t_env *env)
 	{
 		set_object_shader(&env->objects[1], env->selected_object, env->shaders[env->light_mode]);
 		set_object_texture(&env->objects[1], env->selected_object,
-		0, env->textures[env->current_text]);
+		0, env->textures[env->objects[1].instances[env->selected_object].current_text]);
 	}
 	else if (env->objects[1].instances[env->selected_object].texture_mode == MULTIPLE_TEXTURES)
 	{
