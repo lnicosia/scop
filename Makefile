@@ -6,7 +6,7 @@
 #    By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/01 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2021/09/20 18:09:57 by lnicosia         ###   ########.fr        #
+#    Updated: 2021/09/21 14:05:15 by lnicosia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SED = sed
 ROOT = sudo
 TARGET = unix
 OPENGL = /usr/include/GLFW/glfw3.h
+RESOURCES = resources/ 
 
 #LIBS
 LIBFT = $(LIBFT_DIR)/libft.a
@@ -59,8 +60,6 @@ SRC = $(addprefix $(SRC_DIR)/, $(SRC_RAW))
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_RAW:.c=.o))
 
 INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
-
-RESOURCES =
 
 OPTI_FLAGS = -O3
 
@@ -108,7 +107,7 @@ RESET :="\e[0m"
 # Rules
 #
 
-all: $(OPENGL)
+all: $(OPENGL) $(RESOURCES)
 	@printf $(CYAN)"[INFO] Building libft..\n"$(RESET)
 	@make -j4 --no-print-directory -C $(LIBFT_DIR)
 	@printf $(CYAN)"[INFO] Building libmft..\n"$(RESET)
@@ -131,6 +130,9 @@ $(LIBMFT):
 $(BMP_PARSER):
 	@make --no-print-directory -C $(BMP_PARSER_DIR)
 
+$(RESOURCES):
+	tar -xvf resources.tar
+
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
@@ -138,7 +140,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES)
 	@printf $(YELLOW)"Compiling $<\n"$(RESET)
 	@gcc -c $< -o $@ $(CFLAGS) 
 
-$(NAME): $(LIBFT) $(LIBMFT) $(BMP_PARSER) $(OBJ_DIR) $(OBJ) 
+$(NAME): $(LIBFT) $(LIBMFT) $(BMP_PARSER) $(OBJ_DIR) $(OBJ) $(RESOURCES) 
 	@printf $(CYAN)"[INFO] Linking ${BIN_DIR}/${NAME}\n"$(RESET)
 	@gcc $(CFLAGS) -o $(NAME) $(OBJ) $(LDFLAGS) $(LDLIBS)
 	@printf ${GREEN}"[INFO] Compiled $(BIN_DIR)/$(NAME) with success!\n"
