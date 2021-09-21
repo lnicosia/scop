@@ -7,9 +7,8 @@ Project from 42 (https://42.fr/en)
 
 * [Introduction](#introduction)
 * [Installation](#installation)
-* [How to use](#how to use)
+* [How to use](#how%20to%20use)
 * [Features](#features)
-* 
 
 ## Introduction
 
