@@ -1,6 +1,6 @@
 Parsing et application des UV
 Parsing et application des normales -> Lumière.
-Shader parsing
+Theiere
 Skybox/Cubemaps
 Objets en plusieurs parties, avec plusieurs textures
 Compilation windows

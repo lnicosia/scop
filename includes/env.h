@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:57:26 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/20 13:37:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/21 09:09:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define MAX_VAO 1
 # define MAX_VBO 1
 # define MAX_EBO 1
-# define MAX_TEXTURES 21
+# define MAX_TEXTURES 18
 # define USABLE_TEXTURES 5
 # define MAX_SHADERS 6
 # define MAX_OBJECTS 2
@@ -84,7 +84,7 @@ typedef struct		s_env
 	int				success;
 	int				draw_skybox;
 	int				selected_axe;
-	char			padding[4];
+	//char			padding[4];
 }					t_env;
 
 #endif
