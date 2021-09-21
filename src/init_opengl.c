@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 16:39:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/21 09:09:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/21 10:56:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int		init_opengl(t_env *env)
 	init_camera(env);
 	init_textures("resources/objects/Square/brickwall.bmp", 0, GL_RGBA, env);
 	init_textures("resources/textures/unicorn.bmp", 0, GL_RGBA, env);
-	init_textures("resources/textures/awesomeface.bmp", 0, GL_RGB, env);
+	init_textures("resources/textures/awesomeface_alpha.bmp", 0, GL_RGBA, env);
 	init_textures("resources/textures/container.bmp", 0, GL_RGB, env);
 	init_textures("resources/textures/skybox1/right.bmp", 0, GL_RGB, env);
 	init_textures("resources/objects/backpack/diffuse.bmp", 0, GL_RGB, env);
