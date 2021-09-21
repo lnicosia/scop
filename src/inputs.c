@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 12:58:23 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/20 13:38:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/21 10:04:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,8 +145,6 @@ int				process_mouse(t_input *inputs, t_env *env)
 	}
 	if (inputs[MOUSE_LEFT].state == PRESSED)
 	{
-		//env->camera.front.y -= (float)(env->mouse_y_start - y) / 500.0f;
-		//env->camera.front.x -= (float)(env->mouse_x_start - x) / 500.0f;
 		env->camera.yaw -= (float)(env->mouse_x_start - x) * env->sensi;
 		env->camera.pitch -= (float)(env->mouse_y_start - y) * env->sensi;
 		if (env->camera.pitch > 89.0f)
@@ -156,7 +154,6 @@ int				process_mouse(t_input *inputs, t_env *env)
 		direction.x = cosf(to_radians(env->camera.yaw));
 		direction.y = sinf(to_radians(env->camera.pitch));
 		direction.z = sinf(to_radians(env->camera.yaw));
-		//env->camera.front = normalize(env->camera.front);
 		env->camera.front = normalize(direction);
 		env->mouse_x_start = x;
 		env->mouse_y_start = y;

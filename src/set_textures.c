@@ -6,7 +6,7 @@
 /*   By: lnicosia <lnicosia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:02:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2021/09/21 09:11:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2021/09/21 10:13:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	set_textures(t_env *env)
 		if (ft_strequ(env->objects[1].name, "resources/objects/swamp-location/source/map_1.obj"))
 			set_swamp_textures(env);
 		if (ft_strequ(env->objects[1].name, "resources/objects/goreforged-greatsword/source/sword.obj"))
-			set_object_texture(&env->objects[1], env->selected_object, 0, env->textures[20]);
+			set_object_texture(&env->objects[1], env->selected_object, 0, env->textures[17]);
 	}
 	else
 	{
