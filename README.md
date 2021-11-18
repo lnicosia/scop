@@ -12,7 +12,7 @@ Project from 42 (https://42.fr/en)
 
 ## Introduction
 
-The goal of this project is to have a simple version of a OpenGL (4.0, with shaders) 3D  engine. It is written in C and uses GLFW (https://www.glfw.org/) to handle windows and events/inputs. Everything else is coded manually and I learned most of it from the amazing https://learnopengl.com.
+The goal of this project is to have a simple version of an OpenGL (4.0, with shaders) 3D  engine. It is written in C and uses GLFW (https://www.glfw.org/) to handle windows and events/inputs. Everything else is coded manually and I learned most of it from the amazing https://learnopengl.com.
 
 It must be able to parse/load basic wavefronts (.obj) files, draw the object in perspective, rotating on its center and with a texture or a different color for each face. The loading of objects, images and shaders, must be done by hand (no other external library allowed).
 
