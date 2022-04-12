@@ -30,7 +30,7 @@ Working on Linux, cygwin/mingw64 and WSL (needs an X server like Xming)
 make
 ```
 
-OpenGL 4.0 is required, hence it is not going to work on Virtual Box's Linux machines, since it can handle OpenGL 3.3 at most.
+OpenGL 4.0 is required (hence it is not going to work on Virtual Box's Linux machines, since they can handle OpenGL 3.3 at most).
 
 GLFW is also required.
 
