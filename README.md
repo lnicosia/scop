@@ -1,4 +1,4 @@
-# scop
+# scop [![lnicosia's 42 scop Score](https://badge42.vercel.app/api/v2/clatxjb5h00200gl7einwlrff/project/2217856)](https://github.com/JaeSeoKim/badge42)
 Simple 3D engine.
 
 Project from 42 (https://42.fr/en)
